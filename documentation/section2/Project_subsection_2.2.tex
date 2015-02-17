@@ -1,0 +1,53 @@
+\usepackage{graphicx}
+\usepackage[export]{adjustbox}
+
+%opening
+
+
+\begin{document}
+
+
+\subsection{Áttekintés}
+
+\subsubsection{Általános áttekintés}
+\begin{figure}[ht!]
+	\centering
+	\includegraphics[width=180mm, center]{dia1.jpg}
+	\caption{Architekturális kép \label{overflow}}
+\end{figure}
+
+A szoftverünk legfontosabb komponense a játékmotor. Itt zajlanak le a számítások, ez futtatja a logikát, ami érzékeli, hogy egy robot elhagyta a pályát, esetleg beleugrott egy ragacsba, vagy egy olajfoltba. A játékmotor feladata az is, hogy észrevegye, amikor vége van a játéknak, azaz lejárt az idõ, vagy csak egy robot maradt a pályán. \\
+
+A grafikus felület a felhasználó számára megjeleníti a játékot, valamint ezen keresztül tudja befolyásolni a játékmotorban történõ eseményeket. \\
+
+Az elõre elkészített pályát egy külsõ fájlból érjük el, ezt tartja nyilván a Pálya modul. A játékmotor természetesen hozzáfér ehhez, hiszen neki kell eldöntenie a robotok kezdõpozícióját, valamint az elõre legenerált ragacsok és olajfoltok elhelyezkedését. \\
+
+\subsubsection{Funkciók}
+
+A szoftverünk ugráló robotok versenyzését szimuláló játék. Elõször álló helyzetbõl indulnak, mindegyik egy elõre generált pozícióból. Mindegyik robot sebessége ugyanakkora (nevezzük egységnyi méretûnek), ami azonban tetszõleges irányú sebességvektorral változtatható. A robotok mozgása kvantált, ugrásokra bontható. Minden egyes ilyen ugrás hossza a sebességgel egyenesen arányos. \\
+
+A játékot különlegessé tevõ funkciók a pályán lévõ, a robotok sebességét befolyásoló foltokhoz kapcsolódnak:
+
+\begin{itemize}
+	\item Az egyik ilyen az olajfolt, amelynek hatására a robot sebessége nem módosítható, azaz a következõ ugrás sebességvektora meg fog egyezni az elõzõ ugráséval, ami a pályaelhagyáshoz vezethet, ami a robot számára a játék végét jelenti.
+	\item A másik lehetséges folt a ragacs. Ez minden esetben megfelezi a robot sebességét, tehát lassító hatással bír. Az idõ lejártához közeledve nyilvánvaló, hogy a ragacsba való belépés akár az elsõ hely elvesztésével is járhat, ezért célszerû elkerülni.
+\end{itemize}
+
+Külön érdekes az, hogy a robot a felhasználó utasítására képes az ugrása elõtt maga mögött hagyni egy tetszõleges foltot. Ezen funkció hatékony használata jelentõsen hozzásegítheti az adott robotot a gyõzelemhez. \\
+
+Az a robot nyer, aki a játékidõ lejárása pillanatában a legtöbb távolságot tette meg.
+ 
+
+\subsubsection{Felhasználók}
+
+A szoftver egy felhasználóra van tervezve, aki számára a játék könnyedén elsajátítható, amennyiben ismeri a szótárban megnevezett definíciókat.
+
+\subsubsection{Korlátozások}
+
+Korlátozásként megfogalmazható az, hogy a forrásprogramnak a laboratóriumban rendszeresített JDK alatt lefordíthatónak és futtathatónak kell lennie, nem adható hozzá külsõ package.
+
+\subsubsection{Feltételezések, kapcsolatok}
+
+Szoftver labor 4 feladatkiírás: \textit{https://www.iit.bme.hu/$\sim$szoftlab4/feladat.shtml}
+
+\end{document}
