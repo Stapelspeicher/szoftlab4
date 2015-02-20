@@ -1,77 +1,95 @@
 \subsection{Funkcionális követelmények}
 
-\comment{Az alábbi táblázat kitöltésével készítendő. Dolgozzon ki követelmény azonosító rendszert! Az ellenőrzés módja szokásosan bemutatás és/vagy kiértékelés. Prioritás lehet alapvető, fontos, opcionális. Az alapvető követelmények nem teljesítése végzetes. Forrás alatt a követelményt előíró anyagot, szervezetet kell érteni. Esetünkben forrás lehet maga a csapat is, mikor ő talál ki követelményt. Use-case-ek alatt az adott követelményt megvalósító használati esete(ke)t kell megadni.}
 
 % Azonosító, Leírás, Ellenőrzés, Prioritás, Forrás, Use-case, Komment
 \begin{longtable}{| l | l | l | l | l | l | l |}
 \hline
 \textbf{Azonosító}   & \textbf{Leírás} & \textbf{Ellenőrzés} & \textbf{Prioritás} & \textbf{Forrás} & \textbf{Use-case} & \textbf{Komment} \tabularnewline
 \hline\hline
-1.01 & Absztrakt pálya & bemutatás & fontos & megrendelő & dunno & komment \tabularnewline
+1.01 & Absztrakt pálya & bemutatás & fontos & megrendelő & Main use-case & komment \tabularnewline
 \hline
-1.02 & Kezelő felület & bemutatás & fontos & megrendelő & dunno & komment \tabularnewline
+1.02 & Robot irányító felület & bemutatás & fontos & megrendelő & Main use-case & komment \tabularnewline
 \hline
-1.03 & Egy robot mozog a pályán & bemutatás & fontos & megrendelő & dunno & komment \tabularnewline
+1.03 & Egy robot mozog a pályán & bemutatás & fontos & megrendelő &  & komment \tabularnewline
 \hline
-1.04 & Távolság számítása & bemutatás & alapvető & megrendelő & dunno & komment \tabularnewline
+1.04 & Távolság számítása & bemutatás & alapvető & megrendelő & Eredmény use-case & komment \tabularnewline
 \hline
-1.05 & A robot leesik a pályáról & bemutatás & alapvető & megrendelő & dunno & komment \tabularnewline
+1.05 & A robot leesik a pályáról & bemutatás & alapvető & megrendelő &  & komment \tabularnewline
 \hline
-1.06 & Játék vége & bemutatás & fontos & megrendelő & dunno & Megadott idő/kör után vagy ha a robot leesik a pályáról \tabularnewline
+1.06 & Játék vége & bemutatás & fontos & megrendelő & Eredmény use-case & Megadott idő/kör után vagy ha a robot leesik a pályáról \tabularnewline
 \hline
-1.07 & Eredmény kiírása, új játék & bemutatás & fontos & megrendelő & dunno & komment \tabularnewline
+1.07 & Eredmény kiírása, új játék & bemutatás & fontos & megrendelő & Eredmény use-case & komment \tabularnewline
 \hline
-1.08 & A robot foltba megy& bemutatás & alapvető & megrendelő & dunno & komment \tabularnewline
+1.08 & A robot foltba megy& bemutatás & alapvető & megrendelő &  & komment \tabularnewline
 \hline
-1.09 & A robot felszedi a foltokat & bemutatás & opcionális & csapat & dunno & komment \tabularnewline
+1.09 & Robot foltkészlete & bemutatás & opcionális & csapat & Main use-case & komment \tabularnewline
 \hline
-1.10 & A robot elhelyezi a foltokat & bemutatás & alapvető & megrendelő & dunno & komment \tabularnewline
+1.10 & A robot felszedi a foltokat & bemutatás & opcionális & csapat &  & komment \tabularnewline
 \hline
-1.11 & Több robot a pályán & bemutatás & fontos & megrendelő & dunno & komment \tabularnewline
+1.11 & A robot elhelyezi a foltokat & bemutatás & alapvető & megrendelő &  & komment \tabularnewline
 \hline
-1.12 & A robotok egymás után jönnek & bemutatás & alapvető & megrendelő & dunno & komment \tabularnewline
+1.12 & Több robot a pályán & bemutatás & fontos & megrendelő &  & komment \tabularnewline
 \hline
-1.13 & Menürendszer & bemutatás & opcionális & megrendelő & dunno & komment \tabularnewline
+1.13 & A robotok egymás után jönnek & bemutatás & alapvető & megrendelő &  & komment \tabularnewline
+\hline
+1.14 & Menürendszer & bemutatás & opcionális & megrendelő & Menu use-case & komment \tabularnewline
 \hline
 \end{longtable}
 
 \subsection{Erőforrásokkal kapcsolatos követelmények}
 
-\comment{A szoftver fejlesztésével és használatával kapcsolatos számítógépes, hardveres, alapszoftveres és egyéb architekturális és logisztikai követelmények}
-
 % Azonosító, Leírás, Ellenőrzés, Prioritás, Forrás, Komment
 \begin{longtable}{| l | l | l | l | l | l |}
 \hline
 \textbf{Azonosító}   & \textbf{Leírás} & \textbf{Ellenőrzés} & \textbf{Prioritás} & \textbf{Forrás} & \textbf{Komment} \tabularnewline
 \hline\hline
-... & ... & ... & ... & ... & ... \tabularnewline
+2.01 & Git & nincs & alapvető & csapat & Verziókezelés \tabularnewline
+\hline
+2.02 & GitHub & nincs & alapvető & csapat & Git tárhely \tabularnewline
+\hline
+2.03 & SourceTree & nincs & alapvető & csapat & Git GUI \tabularnewline
+\hline
+2.04 & Tex Studio & nincs & alapvető & csapat & Latex szerkesztő \tabularnewline
+\hline
+2.05 & JRE6 & nincs & fontos & megrendelő &  \tabularnewline
+\hline
+2.06 & Eclipse & nincs & alapvető & csapat & Java IDE  \tabularnewline
+\hline
+2.07 & Facebook & nincs & alapvető & csapat & Kapcsolattartás \tabularnewline
 \hline
 \end{longtable}
 
 
 \subsection{Átadással kapcsolatos követelmények}
-\comment{A szoftver átadásával, telepítésével, üzembe helyezésével kapcsolatos követelmények}
 
-% Azonosító, Leírás, Ellenőrzés, Prioritás, Forrás, Komment
+
 \begin{longtable}{| l | l | l | l | l | l |}
 \hline
 \textbf{Azonosító}   & \textbf{Leírás} & \textbf{Ellenőrzés} & \textbf{Prioritás} & \textbf{Forrás} & \textbf{Komment} \tabularnewline
 \hline\hline
-... & ... & ... & ... & ... & ... \tabularnewline
+3.01 & Szkeleton átadás & bemutatás & fontos & megrendelő & márc. 23. \tabularnewline
+\hline
+3.02 & Proto átadás & bemutatás & fontos & megrendelő & márc. 23. \tabularnewline
+\hline
+3.03 & Grafikus átadás & bemutatás & fontos & megrendelő & márc. 23. \tabularnewline
+\hline
+3.04 & A programnak működnie kell a HSZK gépein & bemutatás & fontos & megrendelő & márc. 23. \tabularnewline
 \hline
 \end{longtable}
 
 \subsection{Egyéb nem funkcionális követelmények}
-\comment{A biztonsággal, hordozhatósággal, megbízhatósággal, tesztelhetőséggel, a felhasználóval kapcsolatos követelmények}
+
 
 % Azonosító, Leírás, Ellenőrzés, Prioritás, Forrás, Komment
 \begin{longtable}{| l | l | l | l | l | l |}
 \hline
 \textbf{Azonosító}   & \textbf{Leírás} & \textbf{Ellenőrzés} & \textbf{Prioritás} & \textbf{Forrás} & \textbf{Komment} \tabularnewline
 \hline\hline
-... & ... & ... & ... & ... & ... \tabularnewline
+4.01 & Jól nézzen ki a játék & nincs & opcionális & csapat & \tabularnewline
 \hline
 \end{longtable}
+
+
 
 
 \section{Lényeges use-case-ek}
