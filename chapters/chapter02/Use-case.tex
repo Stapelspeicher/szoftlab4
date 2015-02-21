@@ -1,0 +1,40 @@
+%\comment{A 2.3.1-ben felsorolt követelmények közül az alapvető és fontos követelményekhez tartozó használati esetek megadása az alábbi táblázatos formában.}
+\subsection{Use-case leírások}
+
+%\comment{Minden use-case-hez külön}
+
+% Játékindítás
+\usecase{Játékindítás}{Pályagenerálás, robotok elhelyezése, egyebek beállítása a játékkezdéshez}{User, Játékmotor}{A felhasználó kérésere a játékmotor új játékot indít, újra betölti/legenerálja a pályát, elhelyezi rajta a kezdeti ragacs-, és olajfoltokat és a robotokat. Egyebén tényezők is beállításra kerülnek a játékkezdéshez (idő nullázása, robotok kezdő sebességvektorának beállítása, stb.). A robot irányítására való felhasználói felület megjelenik.}
+
+% Robotváltás
+\usecase{Robotváltás}{A User aktív robotot vált}{User}{Miután a robotok léptek, a felhasználó kiválaszthatja, hogy melyik robot viselkedését szeretné megváltoztatni. A lépés után a robotváltás többször is végrehajtható, hogy mindegyik robot viselkedésének szabályozását lehetővé tegye.}
+
+% Sebességvektor módosítása
+\usecase{Sebességvektor módosítása}{A User módosíthatja az éppen kiválasztott robot sebességvektorát}{User, Robot}{A User kiválaszt a felhasználói felületen egy irányt, és egy ilyen irányú irányú, egységnyi hosszú vektor fog hozzáadódni az aktív robot sebességvektorához a kör végén. A sebesség nem módosítható, ha az aktív robot olajfolton áll.}
+
+% Ragacs hátrahagyása
+\usecase{Ragacs hátrahagyása}{A User utasíthatja az aktív robotot, hogy a következő lépés előtt hagyjon hátra ragacsfoltot.}{User, Robot}{A felhasználó felület megfelelő részével a User megadhatja, hogy az aktív robot hagyjon-e hátra ragacsfoltot továbblépés előtt. Amennyiben a hátrahagyást választja a User, a következő körben a robot elhelyez ragacsfoltot a jelenlegi pozícióján, majd csak ezután lép tovább.}
+
+% Olaj hátrahagyása
+\usecase{Olaj hátrahagyása}{A User utasíthatja az aktív robotot, hogy a következő lépés előtt hagyjon hátra olajfoltot.}{User, Robot}{A felhasználó felület megfelelő részével a User megadhatja, hogy az aktív robot hagyjon-e hátra olajfoltot továbblépés előtt.  Amennyiben a hátrahagyást választja a User, a következő körben a robot elhelyez olajfoltot a jelenlegi pozícióján, majd csak ezután lép tovább.}
+
+% Kör lezárása
+\usecase{Kör lezárása}{A User lezárja a kört, innentől az adott körre vonatkozóan nem végezhet módosításokat}{User, Játékmotor}{A User a felhasználói felület megfelelő részével rögzíti a körre vonatkozó beállításokat, azaz lezárja a kört. Ennek hatására a Játékmotor a sebességüknek megfelelő irányba lépteti a robotokat a foltok figyelembe vételével.}
+
+% Lépés
+\usecase{Lépés}{A robot a sebességének megfelelő irányba lép}{Robot, Játékmotor}{A kör lezárása után a Játékmotor utasítja a robotokat a mozgásra. Ennek hatására minden robot továbblép a sebességvektor irányának megfelelő irányba, a sebességvektor nagyságával arányos távolságot. Ha előtte a robot ragacsfolton állt, akkor sebességvektora a lépés előtt megfeleződik.}
+
+% Leugrás a pályáról
+\usecase{Leugrás a pályáról}{A robot leugrik a pályáról és kiesik a játékból}{Robot, Játékmotor}{Ez a use-case a "Lépés" use-case egy kiterjesztése, akkor fordulhat elő, ha a lépés utáni pozíció a pályán kívülre mutat. Ekkor a robotnak nincs hova lépnie, tehát leugrik a pályáról, és ezáltal kiesik a játékból.}
+
+% Játék vége
+\usecase{Játék vége}{A játék véget ér, ez a két következőnek részletezett esetben fordulhat elő.}{Játékmotor}{Véget ér a játék, a legtöbb távolságot megtevő, vagy az egyedüliként pályán maradó robot nyer. Az eredményről visszajelzést kap a User}
+
+% Játék vége - egy robot maradt
+\usecase{Játék vége - egy robot maradt}{Ez a use-case csak a "Játék vége" use-case-zel együtt fordulhat elő. Ilyenkor a játék véget ér, mivel már csak egy robot maradt a pályán.}{Játékmotor}{Egy lépés következtében a robotok egy kivételével mind kiesnek a pályáról, ez az egy nyert. A User visszajelzést kap az eredményről és a játék véget ér.}
+
+% Játék vége - efogytak a körök
+\usecase{Játék vége - elfogytak a körök}{Ez a use-case csak a "Játék vége" use-case-zel együtt fordulhat elő. Ilyenkor a körök elfogynak (azaz a játékidő letelik), és ezáltal ér véget a játék.}{Játékmotor}{Letelik a játékidő, azaz elfogynak a játékra szánt körök, aminek következtében a játék véget ér. Az a robot nyer, amelyik a játék során a legtöbb távolságot tette meg. A User visszajelzést kap az eredményről.}
+
+% Játék leállítása
+\usecase{Játék leállítása}{A User leállítja az adott játékmenetet}{User, Játékmotor}{A User a felhasználói felület megfelelő részével leállítja az adott játékmenetet, mert már nem szeretné folytatni. A leállításról visszajelzést kap, viszont győztes robot nincs.}
