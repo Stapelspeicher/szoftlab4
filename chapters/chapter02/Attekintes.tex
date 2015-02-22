@@ -20,11 +20,11 @@ Az előre elkészített pályát egy külső fájlból érjük el, ezt tartja ny
 %Ennek kell 4000 karakternek lennie, ennek a követelménynek megfelel. Ennek az az ára, hogy tűnhet neekd is úgy, mint ha 1-2 dolog ismtlődne benne. No ezt azzal védeném, hogy van például egy rovid kis bevezető (1. bekezdés), ott van néhány dolog említve nagyjábókl a játékról, s utána ezeket kifejtem kicsit bővebben, ezért tűnhet úgy az ismétlés. A mennyiséget nem igen kéne csökkenteni, ahol nagyon rossznak érzed, azt kérlek bommierenben próbáljuk meg megvitatni, s igyekszem megvédeni. Fogalmazási kuszaságok vannak benne bőven, azt javítsátok bátran, ha valami nagyon feltűnően rossz, azt szintén említsétek, hogy tanuljak belőle. - sgabor
 \subsection{Funkciók}
 
-A szoftver egy úgynevezett Phoebe versenyszimulátor, amelyben robotok versenyezhetnek egymással. Először álló helyzetből indulnak, mindegyik egy előre generált pozícióból. A játék körökre osztott. Minden kör egy iterációnak felel meg, így minden játékos egy körben egy dolgot tehet meg: ragacsot helyezhet el, olajfoltot hagyhat maga után, vagy továbbugorhat a cél felé. A robotok egy előre elkészített versenypályán mozognak. A pályáról leugró robotok elakadnak és kiesnek a játékból.\\
+A szoftver egy úgynevezett Phoebe versenyszimulátor, amelyben robotok versenyezhetnek egymással. Először álló helyzetből indulnak, mindegyik egy előre generált pozícióból. A játék körökre osztott. Minden kör egy iterációnak felel meg, így minden játékos egy körben maximum két dolgot tehet meg: ragacsot helyezhet el, vagy olajfoltot hagyhat maga után (a kettő közül természetesen csak az egyiket), valamint változtathatja a sebességét. A robotok egy előre elkészített versenypályán mozognak. A pályáról leugró robotok elakadnak és kiesnek a játékból.\\
 
 A robotok sebessége egységnyi méretű, tetszőleges irányú sebességvektorral tetszőlegesen módosítható. Egy ugrással a sebességgel egyenesen arányos távolságra tudnak eljutni.\\
 
-Az elején betöltődik a pálya, ami sokszögekből fog állni, majd véletlenszerűen generálódik rá néhány olaj -és ragacsfolt, valamint a játékosokhoz tartozó robotok. A játék csak többjátékos módban játszható és minden körben szépen sorban mindenki beállíthatja, hogy merre kívánja módosítani a robotjának a sebességét, és hogy kíván-e hátrahagyni valamilyen foltot. Ezután a megadott beállítások végrehajtódnak, s ennek megfelelően ugrik egyszerre az összes robot. Ha két robot ugyanarra a mezőre ugrik, akkor mindkettőt eldobja a játék egy véletlenszerű üres szomszédos cellába, ha pedig ez nem lehetséges (mert a pálya széle, vagy az őket körülvevő robotok akadályozzák ebben), tehát ha nincs két szabad cella az adott cella körül, akkor mindkét robot megsemmisül és ezáltal kiesik a játékból.\\
+Az elején betöltődik a pálya, ami szabályos sokszögekből fog állni, majd véletlenszerűen generálódik rá néhány olaj -és ragacsfolt, valamint a játékosokhoz tartozó robotok. A játék csak többjátékos módban játszható és minden körben szépen sorban mindenki beállíthatja, hogy merre kívánja módosítani a robotjának a sebességét, és hogy kíván-e hátrahagyni valamilyen foltot. Ezután a megadott beállítások végrehajtódnak, s ennek megfelelően ugrik egyszerre az összes robot. Ha két robot ugyanarra a mezőre ugrik, akkor mindkettőt eldobja a játék egy véletlenszerű üres szomszédos cellába, ha pedig ez nem lehetséges (mert a pálya széle, vagy az őket körülvevő robotok akadályozzák ebben), tehát ha nincs két szabad cella az adott cella körül, akkor mindkét robot megsemmisül és ezáltal kiesik a játékból.\\
 
 Ha a robot olyan cellába ugrik, ahol már nem tart a pálya, akkor leesik és szintén kiesik a játékból. Ha már csak egy robot marad a pályán, akkor játék véget ér és az egyetlen fennmaradó robot irányítója nyert.\\
 
@@ -46,7 +46,7 @@ A játékot a következőképpen lehet megnyerni: az ellenfelek a fent leírt ok
 
 \subsection{Felhasználók}
 
-A szoftver egy felhasználóra van tervezve, aki számára a játék könnyedén elsajátítható, amennyiben ismeri a szótárban megnevezett definíciókat.
+A szoftver több felhasználóra van tervezve, akik számára a játék könnyedén elsajátítható, amennyiben ismerik a szótárban megnevezett definíciókat. Egyjátékos módra nincs lehetőség.
 
 \subsection{Korlátozások}
 
