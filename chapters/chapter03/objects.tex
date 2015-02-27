@@ -1,0 +1,20 @@
+
+\subsection{Robot}
+
+A robot objektum felelős azért, hogy tárolja a robot saját pozícióját és sebességét. Ez az objektum képes a pályán olajfoltokat illetve ragacsfoltokat elhelyezni, valamint minden robot tisztában van azzal hogy ezekből mekkora készlet áll még rendelkezésére. Ezen kívül a robotok egyenként ismerik a legfontosabb tulajdonságukat: hogy mekkora távolságot tettek meg már a játék során.
+
+\subsection{Coord}
+
+A Coord objektum Descartes-koordinátákat tartalmaz és visszaadja azokat. Ezen koordináták alapján valósul meg a játék több belső mechanizmusa.
+
+\subsection{Cell}
+
+A cellák tudják magukról, hogy azok most éppen olajfoltosak, ragacsfoltosak, vagy üresek-e, - azaz egyik folt sem található meg rajtuk. A cellák összesége eredményezi a versenyzésre kijelölt pályát. A cellák szabályos sokszög alakúak, minden robot rendelkezik egy kezdőpozícióval, ami egy cellát jelent.
+
+\subsection{Map}
+
+A Map osztály a cellák összeségéből tevődik össze, ezen az objektumon versenyeznek a robotok valójában. A pálya bármilyen alakot felvehet majd. A Map tisztában van azzal, hogy a pályán hol van lyukas cella, s hol nincs. A Map tudja megadni az adott koordinátájú cella szomszédos, üresen álló celláit is. Erre akkor van szükség, ha két robot egyszerre szeretne ugyanarra a cellára ugrani.
+
+\subsection{Game}
+
+A Game objektum köti össze a Robot és Map objektumok működését, . Képes beállítani a játék elején a kezdőértékeket. A játékhoz hozzá tud adni robotokat illetve el tudja távolítani azokat, illetve a léptetést is ez az objektum végzi, ami a játék körökre osztott mivoltát adja. Amennyiben ütközés van a pályán, észleli és lekezeli azokat. 
