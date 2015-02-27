@@ -24,17 +24,5 @@
 % Leugrás a pályáról
 \usecase{Leugrás a pályáról}{A robot leugrik a pályáról és kiesik a játékból}{Robot, Játékmotor}{Ez a use-case a "Lépés" use-case egy kiterjesztése, akkor fordulhat elő, ha a lépés utáni pozíció a pályán kívülre mutat. Ekkor a robotnak nincs hova lépnie, tehát leugrik a pályáról, és ezáltal kiesik a játékból.}
 
-% Robotok szétdobása
-\usecase{Robotok "szétdobása"}{Ha egy lépés következtében két robot ugyanabba a mezőbe érkezik, akkor a Játékmotor mindkettőt elhelyezi egy szomszédos mezőbe, speciális esetben mindketten kiesnek.}{Játékmotor}{Ha a Lépés következtében két - vagy több - robot ugyanabba a mezőbe érkezne, akkor ahelyett, hogy mindketten oda kerülnének, a Játékmotor megpróbálja elhelyezni őket az adott mező szomszédos mezőibe. Ha nincs elég szomszédos szabad mező ahhoz, hogy mindegyikbe legfeljebb egy robot kerüljön, akkor az összes érintett robot számára véget ér a játék és kiesnek.}
-
-% Játék vége
-\usecase{Játék vége}{A játék véget ér, ez a két következőnek részletezett esetben fordulhat elő.}{Játékmotor}{Véget ér a játék, a legtöbb távolságot megtevő, vagy az egyedüliként pályán maradó robot nyer. Az eredményről visszajelzést kapnak a Játékosok.}
-
-% Játék vége - egy robot maradt
-\usecase{Játék vége - egy robot maradt}{Ez a use-case csak a "Játék vége" use-case-zel együtt fordulhat elő. Ilyenkor a játék véget ér, mivel már csak egy robot maradt a pályán.}{Játékmotor}{Egy lépés következtében a robotok egy kivételével mind kiesnek a pályáról, ez az egy nyert. A Játékosok visszajelzést kapnak az eredményről és a játék véget ér.}
-
-% Játék vége - efogytak a körök
-\usecase{Játék vége - elfogytak a körök}{Ez a use-case csak a "Játék vége" use-case-zel együtt fordulhat elő. Ilyenkor a körök elfogynak (azaz a játékidő letelik), és ezáltal ér véget a játék.}{Játékmotor}{Letelik a játékidő, azaz elfogynak a játékra szánt körök, aminek következtében a játék véget ér. Az a robot nyer, amelyik a játék során a legtöbb távolságot tette meg. A Játékosok visszajelzést kapnak az eredményről.}
-
 % Játék leállítása
 \usecase{Játék leállítása}{Az éppen aktív Játékos leállítja az adott játékmenetet}{Aktív Játékos, Játékmotor}{Az éppen aktív Játékos a felhasználói felület megfelelő részével leállítja az adott játékmenetet, mert már nem szeretné folytatni. A leállításról visszajelzést kap, viszont győztes robot nincs.}
