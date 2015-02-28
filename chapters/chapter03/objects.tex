@@ -9,12 +9,12 @@ A Coord objektum Descartes-koordinátákat tartalmaz és visszaadja azokat. Ezen
 
 \subsection{Cell}
 
-A cellák tudják magukról, hogy azok most éppen olajfoltosak, ragacsfoltosak, vagy üresek-e, - azaz egyik folt sem található meg rajtuk. A cellák összesége eredményezi a versenyzésre kijelölt pályát. A cellák szabályos sokszög alakúak, minden robot rendelkezik egy kezdőpozícióval, ami egy cellát jelent.
+A cellák tárolnak egy cellBehaviour interfészű objektumot ami megadja, hogy azok most éppen olajfoltosak, ragacsfoltosak, vagy üresek-e, - azaz egyik folt sem található meg rajtuk. A cellák összessége eredményezi a versenyzésre kijelölt pályát. A cellák szabályos sokszög alakúak, minden robot rendelkezik egy kezdőpozícióval, ami egy cellát jelent. A cellák ismerik középpontjuk koordinátáit.
 
 \subsection{Map}
 
-A Map osztály a cellák összeségéből tevődik össze, ezen az objektumon versenyeznek a robotok valójában. A pálya bármilyen alakot felvehet majd. A Map tisztában van azzal, hogy a pályán hol van lyukas cella, s hol nincs. A Map tudja megadni az adott koordinátájú cella szomszédos, üresen álló celláit is. Erre akkor van szükség, ha két robot egyszerre szeretne ugyanarra a cellára ugrani.
+A Map osztály a cellák összességéből tevődik össze, ezen az objektumon versenyeznek a robotok valójában. A pálya bármilyen alakot felvehet majd. A Map tisztában van azzal, hogy a pályán hol van cella, s hol nincs. (Azaz, hogy melyik koordinátára ugorva marad életben a robot és melyik koordinátára ugorva hal meg.) A Map tudja megadni az adott koordinátájú cella szomszédos, üresen álló celláit is. Erre akkor van szükség, ha két robot egyszerre szeretne ugyanarra a cellára ugrani.
 
 \subsection{Game}
 
-A Game objektum köti össze a Robot és Map objektumok működését, . Képes beállítani a játék elején a kezdőértékeket. A játékhoz hozzá tud adni robotokat illetve el tudja távolítani azokat, illetve a léptetést is ez az objektum végzi, ami a játék körökre osztott mivoltát adja. Amennyiben ütközés van a pályán, észleli és lekezeli azokat. 
+A Game objektum köti össze a Robot és a Map objektumok működését és biztosítja majd a kapcsolatot a vezérlés felé. Képes beállítani a játék elején a kezdőértékeket. A játékhoz hozzá tud adni robotokat, el tudja távolítani azokat, illetve a léptetést is ez az objektum végzi, ami a játék körökre osztott mivoltát adja. Amennyiben ütközés van a pályán, észleli és lekezeli azokat. 
