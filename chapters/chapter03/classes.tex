@@ -6,7 +6,7 @@ Az osztály felelőssége a játék celláinak a reprezentációja. Ebben az osz
 
 \item Ősosztályok\\
 \comment{Mely osztályokból származik (öröklési hierarchia)}\newline
-Cell $\rightarrow$ Object
+Object $\rightarrow$ Cell
 \item Attribútumok\\
 \comment{Milyen attribútumai vannak}
 	\begin{itemize}
@@ -27,7 +27,7 @@ Cell $\rightarrow$ Object
 	\item Felelősség\\
 	Az osztály felelőssége a Játékban található fő objektumok karban tartása és a játék léptetése, ehhez megfelelően rendelkezik az összes robottal, illetve a játék térképével. Ebből az osztályból minden játékhoz pontosan egy objektum tartozik.
 	\item Ősosztályok\\
-	Game $\rightarrow$ Object
+	Object $\rightarrow$ Game
 	\item Attribútumok\\
 	\begin{itemize}
 		\item robots: Egy Map, ami a játékban található robotokat tárolja a nevükkel együtt.
@@ -44,6 +44,36 @@ Cell $\rightarrow$ Object
 		\item void step(): Ez a függvény lépteti a játékot, itt mozognak a robotok, és itt kezdeményezzük az ütközések feloldását.
 		\item Map<String, RobotController> getRobotControllers(): ez a függvény Adja vissza a Robotok irányító interfacet, a lényege az, hogy a játékban lévő robotokból csak annyi látszódjon kifele, amennyi minimálisan szükséges.
 		\item void terminate(): Ez a függvény fejezi be a játékot, ha a játékos kézzel állította le a játékot, akkor nem hirdet győztest.
+	\end{itemize}
+\end{itemize}
+
+
+\subsection{GameSettings}
+\begin{itemize}
+	\item Felelősség\\
+	Az osztály felelőssége az, hogy azokat az információkat amik egy új játék elkezdéséhez szükségesek egységbe zárja, és így adja át a Game osztály konstruktorának, ami elvégzi az inicializálást.
+	\item Ősosztályok\\
+		Object $\rightarrow$ GameSettings
+	\item Attribútumok\\
+	\begin{itemize}
+		\item mapFile: A pályát tartalmazó File-ra mutat.
+		\item initialSticky: tárolja, hogy a robotok mennyi ragaccsal kezdjenek.
+		\item initialOily: tárolja hogy a robotok hány olajfolttal kezdjenek.
+		\item rounds: tárolja, hogy a játék hány körből álljon.
+		\item robotNames: ebben a listában adjuk át a robotok neveit, és ez implikálja azt is, hogy hány robotot akarunk létrehozni a játékban.
+	\end{itemize}
+	\item Metódusok\\
+	\begin{itemize}
+		\item void setMapFile(File): a mapFile attribútumot beállító metódus.
+		\item File getMapFile(): A mapFile értékét visszaadó metódus.
+		\item void setInitialSticky(int): az initialSticky attribútumot beállító metódus.
+		\item int getInitialSticky(): Az initialSticky értékét visszaadó metódus.
+		\item void setInitialOily(int): Az initialOily attribútumot beállító metódus.
+		\item int getinitialOily(): Az initialOily értékét visszaadó metódus.
+		\item void setRounds(int): A rounds attribútumot beállító metódus.
+		\item int getRounds(): A rounds értékét visszaadó metódus.
+		\item void setRobotNames(int): A robotNames attribútumot beállító metódus.
+		\item List<String> getRobotNames(): A robotNames értékét visszaadó metódus.
 	\end{itemize}
 \end{itemize}
 
