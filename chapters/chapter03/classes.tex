@@ -1,24 +1,49 @@
 
-\subsection{Osztály1}
+\subsection{Cell}
 \begin{itemize}
 \item Felelősség\\
-\comment{Mi az osztály felelőssége. Kb 1 bekezdés.}
+Az osztály felelőssége a játék celláinak a reprezentációja. Ebben az osztályban tároljuk az adott cella koordinátáit a megfelelő koordináta rendszerben, illetve ez az osztály tartalmazza a Cella viselkedését is, ami megszabja hogy hogyan hat a robotra, amelyik rálép.
+
 \item Ősosztályok\\
-\comment{Mely osztályokból származik (öröklési hierarchia)\newline
-Legősebb osztály $\rightarrow$ Ősosztály2 $\rightarrow$ Ősosztály3...}
-\item Interfészek\\
-\comment{Mely interfészeket valósítja meg.}
+\comment{Mely osztályokból származik (öröklési hierarchia)}\newline
+Cell $\rightarrow$ Object
 \item Attribútumok\\
 \comment{Milyen attribútumai vannak}
 	\begin{itemize}
-		\item attribútum1: attribútum jellemzése: mire való
-		\item attribútum2: attribútum jellemzése: mire való
+		\item center: A cella közepének a koordinátáját tárolja
+		\item behaviour: A cella viselkedését tárolja
 	\end{itemize}
 \item Metódusok\\
 \comment{Milyen publikus metódusokkal rendelkezik. Metódusonként egy-három mondat arról, hogy a metódus mit csinál.}
 	\begin{itemize}
-		\item int foo(Osztály3 o1, Osztály4 o2): metódus leírása
-		\item int bar(Osztály5 o1): metódus leírása
+		\item void setCenter(Coord c): Beállítja a cella közepének koordinátáit. Amiket ahhoz fogunk használni, hogy megmondjuk hogy a robot éppen melyik cellában van.
+		\item Coord getCenter(): Vissza lehet kérni, hogy hol van a cella közepe.
+		q
+	\end{itemize}
+\end{itemize}
+
+\subsection{Game}
+\begin{itemize}
+	\item Felelősség\\
+	Az osztály felelőssége a Játékban található fő objektumok karban tartása és a játék léptetése, ehhez megfelelően rendelkezik az összes robottal, illetve a játék térképével. Ebből az osztályból minden játékhoz pontosan egy objektum tartozik.
+	\item Ősosztályok\\
+	Game $\rightarrow$ Object
+	\item Attribútumok\\
+	\begin{itemize}
+		\item robots: Egy Map, ami a játékban található robotokat tárolja a nevükkel együtt.
+		\item map: Az aktuális játék pályáját tartalmazó attribútum. Ezen a pályán lépkednek a robotok.
+		\item rounds: Ebben az attribútumban köröket tartja nyilván.
+	\end{itemize}
+	\item Metódusok\\
+	\begin{itemize}
+		\item Robot[] checkCollission(Robot): Megnézi hogy az aktuális robottal ütközik-e másik robot. Ha igen, akkor visszaadja azoknak a Robotnoknak a Listáját, akik ütköznek.
+		\item void resolveCollision(Robot[]): Kap egy listát olyan robotokról amik ütköznek, és eldönti, hogy mi legyen velük. Ha van elég szabad cella, akkor szétdobálja őket, ha nincs akkor pedig mind meghalnak.
+		\item void kill(Robot): Eltávolítja a játékból a megkapott Robotot.
+		\item Coord[] collectRobotPositions(): Visszaadja a játékban lévő összes Robot pozicióját.
+		\item Game(Gamesettings): Az osztály konstruktora, ez a függvény állítja be a kezdeti értékeket, és generálja le a Robotokat a paraméterként kapott GameSettings objektum alapján.
+		\item void step(): Ez a függvény lépteti a játékot, itt mozognak a robotok, és itt kezdeményezzük az ütközések feloldását.
+		\item Map<String, RobotController> getRobotControllers(): ez a függvény Adja vissza a Robotok irányító interfacet, a lényege az, hogy a játékban lévő robotokból csak annyi látszódjon kifele, amennyi minimálisan szükséges.
+		\item void terminate(): Ez a függvény fejezi be a játékot, ha a játékos kézzel állította le a játékot, akkor nem hirdet győztest.
 	\end{itemize}
 \end{itemize}
 
