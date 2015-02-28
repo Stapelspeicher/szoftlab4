@@ -77,6 +77,59 @@ Object $\rightarrow$ Cell
 	\end{itemize}
 \end{itemize}
 
+
+\subsection{Robot}
+\begin{itemize}
+	\item Felelősség\\
+	A játékos által mozgatható robotok osztálya, ez az osztály tartalmazza a robotok összes logikáját, illetve tulajdonságát. Az osztály felelőssége az, hogy nyilvántartsa az egyes játékosokhoz tartozó robotokat.
+	\item Ősosztályok\\
+	Object $\rightarrow$ Robot
+	\item Interfészek\\
+	RobotController
+	\item Attribútumok\\
+	\begin{itemize}
+		\item distance: a robot által eddig megtett távolság.
+		\item oilyNum: a robot rendelkezésére álló olajfoltok száma.
+		\item stickyNum: a robot rendelkezésére álló ragacsok száma.
+		\item velocity: a robot sebessége koordinátaként tárolva.
+		\item position: a robot helyzete a pályán.
+		\item map: a játék térképe, a foltok letételéhez szükséges.
+	\end{itemize}
+	\item Metódusok\\
+	\begin{itemize}
+		\item Robot(int, int) A robot konstruktora, ami beállítja azt, hogy a robot mennyi ragaccsal illetve olajfolttal rendelkezzen.
+		\item void addDistance(double): hozzáadja az aktuális ugrással megtett utat az összesen megtett úthoz.
+		\item double getDistance(): visszaadja a megtett út hosszát.
+		\item int getOilyNum(): visszaadja hogy még hány olajfoltja van a robotnak.
+		\item int getStickyNum(): visszaadja hogy még hány ragacsfoltja van a robotnak.
+		\item void addVelocity(Coord): a megkapott koordinátát hozzáadja a sebességhez
+		\item void setPosition(Coord): beállítja a robot pozícióját a megkapott koordinátára.
+		\item Coord getPosition(): visszaadja a robot aktuális pozícióját
+		\item void placeSticky(): letesz egy ragacsfoltot a robot aktuális poziciójában
+		\item void placeOily(): letesz egy olajfoltot a robot aktuális pozíciójában.
+		\item void setOily(): beállítja hogy a robot legyen olajos
+		\item void jump(): a robot pozíciójához hozzáadja az aktuális sebességét
+		\item void setMap(GameMap): beállítja a Robotoknak a pályát amelyen a játék zajlani fog, ez a dependencia a csapdák lerakása miatt fontos.
+	\end{itemize}
+\end{itemize}
+
+\comment{ezt a stubot lehet másolni, hogy ne kelljen mindig kiszedni a kommenteket, stb}
+\subsection{Osztály2}
+\begin{itemize}
+	\item Felelősség\\
+	\item Ősosztályok\\
+	Legősebb osztály $\rightarrow$ Ősosztály2 $\rightarrow$ Ősosztály3
+	\item Interfészek\\
+	\item Attribútumok\\
+	\begin{itemize}
+		\item
+	\end{itemize}
+	\item Metódusok\\
+	\begin{itemize}
+		\item
+	\end{itemize}
+\end{itemize}
+
 \subsection{Osztály2}
 \begin{itemize}
 \item Felelősség\\
