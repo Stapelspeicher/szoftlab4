@@ -2,153 +2,214 @@
 \subsection{Cell}
 \begin{itemize}
 \item Felelősség\\
-Az osztály felelőssége a játék celláinak a reprezentációja. Ebben az osztályban tároljuk az adott cella koordinátáit a megfelelő koordináta rendszerben, illetve ez az osztály tartalmazza a Cella viselkedését is, ami megszabja hogy hogyan hat a robotra, amelyik rálép.
+Az osztály felelőssége a játék celláinak a reprezentációja. Ebben az osztályban tároljuk az adott cella középpontjának koordinátáit a megfelelő koordinátarendszerben, illetve ez az osztály tárolja a cella viselkedését is, ami megszabja, hogy hogyan hat a robotra, amelyik rálép.
 
-\item Ősosztályok\\
-\comment{Mely osztályokból származik (öröklési hierarchia)}\newline
-Object $\rightarrow$ Cell
-\item Attribútumok\\
-\comment{Milyen attribútumai vannak}
+\item Attribútumok
 	\begin{itemize}
-		\item center: A cella közepének a koordinátáját tárolja
+		\item center: A cella középpontjának a koordinátáit tárolja
 		\item behaviour: A cella viselkedését tárolja
 	\end{itemize}
-\item Metódusok\\
-\comment{Milyen publikus metódusokkal rendelkezik. Metódusonként egy-három mondat arról, hogy a metódus mit csinál.}
+\item Metódusok
 	\begin{itemize}
-		\item void setCenter(Coord c): Beállítja a cella közepének koordinátáit. Amiket ahhoz fogunk használni, hogy megmondjuk hogy a robot éppen melyik cellában van.
-		\item Coord getCenter(): Vissza lehet kérni, hogy hol van a cella közepe.
-		q
+		\item Cell(Coord center): Konstruktor, beállítja a cella középpontjának koordinátáit. A koordinátákat ahhoz fogunk használni, hogy meghatározzuk, hogy egy adott robot éppen melyik cellában van.
+		\item Coord getCenter(): Visszaadja a cella középpontjának koordinátáit.
+		\item void setBehaviour(CellBehaviour behaviour): Beállítja egy CellBehaviour interfészű objektumon keresztül, hogy mi történjen egy robottal, ha az adott cellára lép. (semmi, olaj hatása, ragacs hatása)
+		\item CellBehaviour getBehaviour(): Visszaadja a cellára jellemző viselkedést tartalmazó objektumot, ami tartalmazza, hogy mi történik egy robottal ha az adott cellára lép.
 	\end{itemize}
 \end{itemize}
+
+\subsection{CellBehaviour}
+\begin{itemize}
+	\item Felelősség\\
+	Egy interfész, aminek használatával leírható egy cella viselkedése, azaz hogy mi történjen egy robottal ha az adott viselkedéssel ellátott cellára lép.
+	\item Metódusok
+	\begin{itemize}
+		\item void stepOn(Robot): Ebben a metódusban lép interakcióba a viselkedés a paraméterként kapott robottal, azaz alkalmazza a viselkedést a robotra.
+	\end{itemize}
+\end{itemize}
+
+\subsection{CellBehaviourProvider}
+\begin{itemize}
+	\item Felelősség\\
+	Egy segédosztály, a mindegyik viselkedésből tárol egyet-egyet és elkérhető tőle ezen objektumok referenciája. Ez az optimalizációt szolgálja, mivel a viselkedést leíró objektumok állapot nélküliek és így elég belőlük egyet-egyet tárolni.
+	\item Attribútumok
+	\begin{itemize}
+		\item plain: Statikus attribútum, egy olyan cella viselkedését tárolja, amin nincs se ragacs, se olajfolt.
+		\item oily: Statikus attribútum, egy olyan cella viselkedését tárolja, amin olajfolt van.
+		\item sticky: Statikus attribútum, egy olyan cella viselkedését tárolja, amin ragacs van.
+	\end{itemize}
+	\item Metódusok
+	\begin{itemize}
+		\item PlainCellBehaviour getPlain(): Egy, a plain attribútumra mutató referenciát ad vissza.
+		\item OilyCellBehaviour getOily(): Egy, az oily attribútumra mutató referenciát ad vissza.
+		\item StickyCellBehaviour getSticky(): Egy, a sticky attribútumra mutató referenciát ad vissza.		
+	\end{itemize}
+\end{itemize}
+
+\subsection{Coord}
+\begin{itemize}
+	\item Felelősség\\
+	Ez az osztály pontok Descartes-koordinátáit tárolja.
+	\item Attribútumok
+	\begin{itemize}
+		\item x: A pont X koordinátája.
+		\item y: A pont Y koordinátája.
+	\end{itemize}
+	\item Metódusok
+	\begin{itemize}
+		\item Coord(double x, double y): Konstruktor, paraméterként a pont X és Y koordinátáit kapja meg és állítja be a megfelelő attribútumnak.
+		\item double getX(): A tárolt pont X koordinátáját adja vissza.
+		\item double getY(): A tárolt pont Y koordinátáját adja vissza.
+	\end{itemize}
+\end{itemize}
+
 
 \subsection{Game}
 \begin{itemize}
 	\item Felelősség\\
-	Az osztály felelőssége a Játékban található fő objektumok karban tartása és a játék léptetése, ehhez megfelelően rendelkezik az összes robottal, illetve a játék térképével. Ebből az osztályból minden játékhoz pontosan egy objektum tartozik.
-	\item Ősosztályok\\
-	Object $\rightarrow$ Game
-	\item Attribútumok\\
+	Az osztály felelőssége a játék logikájához tartozó fő objektumok karbantartása és a játék léptetése. Ennek megfelelően rendelkezik az összes robottal, illetve a játék térképével. Ebből az osztályból minden játékhoz pontosan egy objektum tartozik.
+	\item Attribútumok
 	\begin{itemize}
-		\item robots: Egy Map, ami a játékban található robotokat tárolja a nevükkel együtt.
+		\item robots: Egy Map, ami a játékban található robotokat tárolja a nevükkel (játékosok neveivel) azonosítva őket.
 		\item map: Az aktuális játék pályáját tartalmazó attribútum. Ezen a pályán lépkednek a robotok.
-		\item rounds: Ebben az attribútumban köröket tartja nyilván.
+		\item rounds: Ebben az attribútumban a hátralevő körök számát tartja nyilván.
 	\end{itemize}
-	\item Metódusok\\
+	\item Metódusok
 	\begin{itemize}
-		\item Robot[] checkCollission(Robot): Megnézi hogy az aktuális robottal ütközik-e másik robot. Ha igen, akkor visszaadja azoknak a Robotnoknak a Listáját, akik ütköznek.
-		\item void resolveCollision(Robot[]): Kap egy listát olyan robotokról amik ütköznek, és eldönti, hogy mi legyen velük. Ha van elég szabad cella, akkor szétdobálja őket, ha nincs akkor pedig mind meghalnak.
-		\item void kill(Robot): Eltávolítja a játékból a megkapott Robotot.
-		\item Coord[] collectRobotPositions(): Visszaadja a játékban lévő összes Robot pozicióját.
-		\item Game(Gamesettings): Az osztály konstruktora, ez a függvény állítja be a kezdeti értékeket, és generálja le a Robotokat a paraméterként kapott GameSettings objektum alapján.
+		\item Game(GameSettings s): Az osztály konstruktora, ez a függvény állítja be a kezdeti értékeket, és generálja le a robotokat a paraméterként kapott GameSettings objektum alapján. Ezen kívül meghívja a Map konstruktorát.
 		\item void step(): Ez a függvény lépteti a játékot, itt mozognak a robotok, és itt kezdeményezzük az ütközések feloldását.
-		\item Map<String, RobotController> getRobotControllers(): ez a függvény Adja vissza a Robotok irányító interfacet, a lényege az, hogy a játékban lévő robotokból csak annyi látszódjon kifele, amennyi minimálisan szükséges.
-		\item void terminate(): Ez a függvény fejezi be a játékot, ha a játékos kézzel állította le a játékot, akkor nem hirdet győztest.
+		\item Map<String, RobotController> getRobotControllers(): ez a függvény adja vissza a robotok irányító interfészét. A lényege az, hogy a játékban lévő robotokból csak annyi látszódjon kifele, amennyi minimálisan szükséges.
+		\item void terminate(): Ez a függvény fejezi be a játékot, ha a játékos kézzel állította le azt. Ilyenkor nem hirdet győztest.
 	\end{itemize}
 \end{itemize}
 
+\subsection{GameMap}
+\begin{itemize}
+	\item Felelősség\\
+	A játék pályáját tárolja, és az interakciót biztosítja a pálya és a robotok, valamint a pálya és a Game osztály között. Ezen kívül a Descartes-koordináták cellaindexszé alakítását is ez az osztály végzi el.
+	\item Attribútumok
+	\begin{itemize}
+		\item cells: Egy mátrix, ami a pálya celláit tárolja (és indexeli) Cell objektumok formájában.
+	\end{itemize}
+	\item Metódusok
+	\begin{itemize}
+		\item GameMap(File f): Az osztály konstruktora, betölti a pályát a paraméterként kapott fájlból a cells mátrixba.
+		\item List<Coord> getFreeNeighbouring(List<Coord> robots, Coord dest): A metódus feladata visszaadni a dest paraméterként kapott pontnak megfelelő cella szomszédságában levő szabad cellákat. Szabad cella alatt azokat a cellákat értjük, amiken nincs se folt, se robot. A robots paraméter a robotok pozíciójának ismeretéhez szükséges.
+		\item void addBehaviour(Coord c, CellBehaviour b): A c paraméternek megfelelő cellát ellátja a b paraméterként megkapott viselkedéssel. Azaz ezzel a metódussal megadható, hogy mi történjen egy robottal, ha a c paraméter által meghatározott cellára lép.
+		\item bool isOnMap(Coord): Visszaadja, hogy a paraméterként megkapott koordináták által meghatározott pont a pályán van-e.
+		\item void interactWith(Robot r): Interakcióba lép a paraméterként megkapott robottal, azaz a cella viselkedését (olaj vagy ragacs hatása) alkalmazza a robotra, valamint korrigálja a robot pozícióját, hogy mindig egy cella középpontjában álljon.
+		\item Coord getRandomFreeCoord(): A robotok kezdeti elhelyezéséhez visszaadja egy olyan cella koordinátáit, amiben nincsen ragacs vagy olajfolt.
+	\end{itemize}
+\end{itemize}
 
 \subsection{GameSettings}
 \begin{itemize}
 	\item Felelősség\\
-	Az osztály felelőssége az, hogy azokat az információkat amik egy új játék elkezdéséhez szükségesek egységbe zárja, és így adja át a Game osztály konstruktorának, ami elvégzi az inicializálást.
-	\item Ősosztályok\\
-		Object $\rightarrow$ GameSettings
-	\item Attribútumok\\
+	Az osztály felelőssége az, hogy azokat az információkat amik egy új játék elkezdéséhez szükségesek egységbe zárja, és így átadható legyen át a Game osztály konstruktorának, ami elvégzi az inicializálást.
+	\item Attribútumok
 	\begin{itemize}
 		\item mapFile: A pályát tartalmazó File-ra mutat.
-		\item initialSticky: tárolja, hogy a robotok mennyi ragaccsal kezdjenek.
-		\item initialOily: tárolja hogy a robotok hány olajfolttal kezdjenek.
-		\item rounds: tárolja, hogy a játék hány körből álljon.
-		\item robotNames: ebben a listában adjuk át a robotok neveit, és ez implikálja azt is, hogy hány robotot akarunk létrehozni a játékban.
+		\item initialSticky: Tárolja, hogy a robotok mennyi ragaccsal kezdjék a játékot.
+		\item initialOily: Tárolja hogy a robotok hány olajfolttal kezdjék a játékot.
+		\item rounds: Tárolja, hogy a játék hány körből álljon.
+		\item robotNames: Ebben a listában adjuk át a robotok neveit, és ez implikálja azt is, hogy hány robotot akarunk létrehozni a játékban.
 	\end{itemize}
-	\item Metódusok\\
+	\item Metódusok
 	\begin{itemize}
 		\item void setMapFile(File): a mapFile attribútumot beállító metódus.
-		\item File getMapFile(): A mapFile értékét visszaadó metódus.
-		\item void setInitialSticky(int): az initialSticky attribútumot beállító metódus.
-		\item int getInitialSticky(): Az initialSticky értékét visszaadó metódus.
+		\item File getMapFile(): A mapFile attribútum értékét visszaadó metódus.
+		\item void setInitialSticky(int): Az initialSticky attribútumot beállító metódus.
+		\item int getInitialSticky(): Az initialSticky attribútum értékét visszaadó metódus.
 		\item void setInitialOily(int): Az initialOily attribútumot beállító metódus.
-		\item int getinitialOily(): Az initialOily értékét visszaadó metódus.
+		\item int getinitialOily(): Az initialOily attribútum értékét visszaadó metódus.
 		\item void setRounds(int): A rounds attribútumot beállító metódus.
-		\item int getRounds(): A rounds értékét visszaadó metódus.
+		\item int getRounds(): A rounds attribútum értékét visszaadó metódus.
 		\item void setRobotNames(int): A robotNames attribútumot beállító metódus.
-		\item List<String> getRobotNames(): A robotNames értékét visszaadó metódus.
+		\item List<String> getRobotNames(): A robotNames attribútum értékét visszaadó metódus.
 	\end{itemize}
 \end{itemize}
 
+\subsection{OilyCellBehaviour}
+\begin{itemize}
+	\item Felelősség\\
+	Egy olyan cella viselkedését írja le, amin olajfolt van.
+	\item Interfészek\\
+	CellBehaviour
+	\item Metódusok
+	\begin{itemize}
+		\item void stepOn(Robot): A paraméterként kapott robottal lép interakcióba, jelen esetben mivel egy olajos van szó, megtiltja számára, hogy a sebessége módosuljon az adott körben.
+	\end{itemize}
+\end{itemize}
+
+\subsection{PlainCellBehaviour}
+\begin{itemize}
+	\item Felelősség\\
+	Egy olyan cella viselkedését írja le, amin nincs se ragacs, se olajfolt.
+	\item Interfészek\\
+	CellBehaviour
+	\item Metódusok
+	\begin{itemize}
+		\item void stepOn(Robot): A paraméterként kapott robottal lép interakcióba, jelen esetben mivel egy ragacs és olajfolt nélküli celláról van szó, nem tesz vele semmit.
+	\end{itemize}
+\end{itemize}
 
 \subsection{Robot}
 \begin{itemize}
 	\item Felelősség\\
-	A játékos által mozgatható robotok osztálya, ez az osztály tartalmazza a robotok összes logikáját, illetve tulajdonságát. Az osztály felelőssége az, hogy nyilvántartsa az egyes játékosokhoz tartozó robotokat.
-	\item Ősosztályok\\
-	Object $\rightarrow$ Robot
+	A játékos által mozgatható robotok osztálya, ez az osztály tartalmazza a robotok összes logikáját, illetve tulajdonságát. Az osztály felelőssége az, hogy nyilvántartsa egy adott játékosokhoz tartozó robotok tulajdonságait.
 	\item Interfészek\\
 	RobotController
-	\item Attribútumok\\
+	\item Attribútumok
 	\begin{itemize}
-		\item distance: a robot által eddig megtett távolság.
-		\item oilyNum: a robot rendelkezésére álló olajfoltok száma.
-		\item stickyNum: a robot rendelkezésére álló ragacsok száma.
-		\item velocity: a robot sebessége koordinátaként tárolva.
-		\item position: a robot helyzete a pályán.
-		\item map: a játék térképe, a foltok letételéhez szükséges.
+		\item distance: A robot által eddig megtett távolság.
+		\item oilyNum: A robot rendelkezésére álló olajfoltok száma.
+		\item stickyNum: A robot rendelkezésére álló ragacsok száma.
+		\item velocity: A robot sebessége koordinátákként tárolva.
+		\item position: A robot helyzete a pályán koordinátákként tárolva.
+		\item map: A játék térképe, a foltok letételéhez szükséges. (Statikus attribútum)
 	\end{itemize}
-	\item Metódusok\\
+	\item Metódusok
 	\begin{itemize}
-		\item Robot(int, int) A robot konstruktora, ami beállítja azt, hogy a robot mennyi ragaccsal illetve olajfolttal rendelkezzen.
-		\item void addDistance(double): hozzáadja az aktuális ugrással megtett utat az összesen megtett úthoz.
-		\item double getDistance(): visszaadja a megtett út hosszát.
-		\item int getOilyNum(): visszaadja hogy még hány olajfoltja van a robotnak.
-		\item int getStickyNum(): visszaadja hogy még hány ragacsfoltja van a robotnak.
-		\item void addVelocity(Coord): a megkapott koordinátát hozzáadja a sebességhez
-		\item void setPosition(Coord): beállítja a robot pozícióját a megkapott koordinátára.
-		\item Coord getPosition(): visszaadja a robot aktuális pozícióját
-		\item void placeSticky(): letesz egy ragacsfoltot a robot aktuális poziciójában
-		\item void placeOily(): letesz egy olajfoltot a robot aktuális pozíciójában.
-		\item void setOily(): beállítja hogy a robot legyen olajos
-		\item void jump(): a robot pozíciójához hozzáadja az aktuális sebességét
-		\item void setMap(GameMap): beállítja a Robotoknak a pályát amelyen a játék zajlani fog, ez a dependencia a csapdák lerakása miatt fontos.
+		\item Robot(int oily, int sticky) A robot konstruktora, ami beállítja azt, hogy a robot mennyi ragaccsal illetve olajfolttal rendelkezzen.
+		\item double getDistance(): Visszaadja a robot által eddig megtett út hosszát.
+		\item int getOilyNum(): Visszaadja hogy még hány olajfoltja van a robotnak.
+		\item int getStickyNum(): Visszaadja hogy még hány ragacsa van a robotnak.
+		\item void addVelocity(Coord): A megkapott koordinátákat hozzáadja a sebességhez
+		\item Coord getVelocity() : A robot sebességvektorának koordinátáit adja vissza.
+		\item void setPosition(Coord): Beállítja a robot pozícióját a megkapott koordinátákra.
+		\item Coord getPosition(): Visszaadja a robot aktuális pozícióját
+		\item void placeSticky(): Letesz egy ragacsot a robot aktuális pozicióján.
+		\item void placeOily(): Letesz egy olajfoltot a robot aktuális pozícióján.
+		\item void setOily(): Beállítja, hogy a robot legyen olajos, azaz ne változhasson a sebességvektora az adott körben.
+		\item void jump(): A robot pozíciójához hozzáadja az aktuális sebességét, azaz lépteti a robotot.
+		\item void setMap(GameMap): Beállítja a Robot osztálynak a pályát amelyen a játék zajlani fog, ez a csapdák lerakása miatt szükséges. (Statikus metódus)
 	\end{itemize}
 \end{itemize}
 
-\comment{ezt a stubot lehet másolni, hogy ne kelljen mindig kiszedni a kommenteket, stb}
-\subsection{Osztály2}
+\subsection{RobotController}
 \begin{itemize}
 	\item Felelősség\\
-	\item Ősosztályok\\
-	Legősebb osztály $\rightarrow$ Ősosztály2 $\rightarrow$ Ősosztály3
-	\item Interfészek\\
-	\item Attribútumok\\
+	A Robot osztálynak biztosít egy interfészt csak annyi metódust láttatva a Robot osztály valós interfészéből kifele, amennyi valóban szükséges.
+	\item Metódusok
 	\begin{itemize}
-		\item
-	\end{itemize}
-	\item Metódusok\\
-	\begin{itemize}
-		\item
+		\item double getDistance(): Visszaadja a robot által eddig megtett út hosszát.
+		\item int getOilyNum(): Visszaadja hogy még hány olajfoltja van a robotnak.
+		\item int getStickyNum(): Visszaadja hogy még hány ragacsa van a robotnak.
+		\item void addVelocity(Coord): A megkapott koordinátákat hozzáadja a sebességhez
+		\item Coord getVelocity() : A robot sebességvektorának koordinátáit adja vissza.
+		\item void placeSticky(): Letesz egy ragacsot a robot aktuális pozicióján.
+		\item void placeOily(): Letesz egy olajfoltot a robot aktuális pozícióján.
 	\end{itemize}
 \end{itemize}
 
-\subsection{Osztály2}
+\subsection{StickyCellBehaviour}
 \begin{itemize}
-\item Felelősség\\
-\comment{Mi az osztály felelőssége. Kb 1 bekezdés.}
-\item Ősosztályok\\
-\comment{Mely osztályokból származik (öröklési hierarchia)\newline
-Legősebb osztály $\rightarrow$ Ősosztály2 $\rightarrow$ Ősosztály3...}
-\item Interfészek\\
-\comment{Mely interfészeket valósítja meg.}
-\item Attribútumok\\
-\comment{Milyen attribútumai vannak}
+	\item Felelősség\\
+	Egy olyan cella viselkedését írja le, amin ragacs van.
+	\item Interfészek\\
+	CellBehaviour
+	\item Metódusok
 	\begin{itemize}
-		\item attribútum1: attribútum jellemzése: mire való
-		\item attribútum2: attribútum jellemzése: mire való
-	\end{itemize}
-\item Metódusok\\
-\comment{Milyen publikus metódusokkal rendelkezik. Metódusonként egy-három mondat arról, hogy a metódus mit csinál.}
-	\begin{itemize}
-		\item int foo(Osztály3 o1, Osztály4 o2): metódus leírása
-		\item int bar(Osztály5 o1): metódus leírása
+		\item void stepOn(Robot): A paraméterként kapott robottal lép interakcióba, jelen esetben mivel egy ragacsos celláról van szó, megfelezi a sebességét.
 	\end{itemize}
 \end{itemize}
