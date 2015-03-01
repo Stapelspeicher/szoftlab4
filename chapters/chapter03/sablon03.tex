@@ -8,13 +8,7 @@
 \section{Objektum katalógus}
 \input{./chapters/chapter03/objects.tex}
 
-\begin{figure}[h]
-\begin{center}
-%\includegraphics[width=17cm]{chapters/chapter03/example.pdf}
-\caption{x}
-\label{fig:example1}
-\end{center}
-\end{figure}
+
 
 
 \section{Osztályok leírása}
@@ -25,24 +19,42 @@
 \section{Statikus struktúra diagramok}
 \comment{Az előző alfejezet osztályainak kapcsolatait és publikus metódusait bemutató osztálydiagram(ok). Tipikus hibalehetőségek: csillag-topológia, szigetek.}
 
-\begin{figure}[h]
-\begin{center}
-%\includegraphics[width=17cm]{chapters/chapter03/example.pdf}
-\caption{x}
-\label{fig:example1}
-\end{center}
-\end{figure}
+\clearpage
 
 \section{Szekvencia diagramok}
 \comment{Inicializálásra, use-case-ekre, belső működésre. Konzisztens kell legyen az előző alfejezettel. Minden metódus, ami ott szerepel, fel kell tűnjön valamelyik szekvenciában. Minden metódusnak, ami szekvenciában szerepel, szereplnie kell a valamelyik osztálydiagramon.}
 
-\begin{figure}[h]
+\begin{figure}[!htbp]
 \begin{center}
-%\includegraphics[width=17cm]{chapters/chapter03/example.pdf}
-\caption{x}
-\label{fig:example2}
+	\includegraphics[width=\textwidth, center]{./chapters/chapter03/startgame.png}
+	\caption{Játékindítás}
 \end{center}
 \end{figure}
+
+\begin{figure}[!htbp]
+\begin{center}
+	\includegraphics[width=90mm, center]{./chapters/chapter03/velocity.png}
+	\caption{Sebességvektor beállítása}
+\end{center}
+\end{figure}
+
+\clearpage
+
+\begin{figure}[!htbp]
+	\begin{center}
+		\includegraphics[width=\textwidth, center]{./chapters/chapter03/sticky.png}
+		\caption{Ragacs elhelyezése}
+	\end{center}
+\end{figure}
+
+\begin{figure}[!htbp]
+	\begin{center}
+		\includegraphics[width=\textwidth, center]{./chapters/chapter03/oily.png}
+		\caption{Olaj elhelyezése}
+	\end{center}
+\end{figure}
+
+
 
 \section{State-chartok}
 \comment{Csak azokhoz az osztályokhoz, ahol van értelme. Egyetlen állapotból álló state-chartok ne szerepeljenek. A játék működését bemutató state-chart-ot készíteni tilos.}
