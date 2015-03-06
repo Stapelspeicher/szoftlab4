@@ -1,20 +1,20 @@
 
 \subsection{Robot}
 
-A robot objektum felelős azért, hogy tárolja a robot saját pozícióját és sebességét. Ez az objektum képes a pályán olajfoltokat illetve ragacsfoltokat elhelyezni, valamint minden robot tisztában van azzal hogy ezekből mekkora készlet áll még rendelkezésére. Ezen kívül a robotok egyenként ismerik a legfontosabb tulajdonságukat: hogy mekkora távolságot tettek meg már a játék során.
+A robotok azok az eszközök, amelyek a játék során versenyeznek egymással. Minden robotra egy felhasználó jut, aki irányíthatja azt. A robotok tudnak elhelyezni a pályán a olajfoltokat és ragacsfoltokat is, ezzel az ellenfelet hátráltatva. A robotok ugrással tudnak a cellákon keresztül a pályán haladni. Minden robotnak van sebessége és természetesen egy aktuális pozíciója is. A robotok tudják magukról, hogy mekkora távolságot tettek már meg a játék során, valamit azt is, hogy még hány olaj- illetve ragacsfolttal rendelkeznek. A robotok egymással ütközhetnek, aminek bekövetkeztekor erről szintén értesülhetnek.
 
-\subsection{Coord}
+\subsection{Cella}
 
-A Coord objektum Descartes-koordinátákat tartalmaz és visszaadja azokat. Ezen koordináták alapján valósul meg a játék több belső mechanizmusa.
+A cellák tudják magukról, hogy olajfoltosak-e, ragacsfoltosak-e, vagy éppen üresek-e, - azaz egyik folt sem található meg rajtuk. A cellák összessége eredményezi a versenyzésre kijelölt pályát. A cella felelőssége az, hogy ha rálép egy mozgó objektum, akkor annak el tudja végezni a megfelelő utasításait, ilyen például a sebesség megfelezése, folt elhelyezése önmagán, vagy a robotok megsemmisítése.
 
-\subsection{Cell}
+\subsection{Pálya}
 
-A cellák tárolnak egy cellBehaviour interfészű objektumot ami megadja, hogy azok most éppen olajfoltosak, ragacsfoltosak, vagy üresek-e, - azaz egyik folt sem található meg rajtuk. A cellák összessége eredményezi a versenyzésre kijelölt pályát. A cellák szabályos sokszög alakúak, minden robot rendelkezik egy kezdőpozícióval, ami egy cellát jelent. A cellák ismerik középpontjuk koordinátáit.
+A pálya a cellák összességéből tevődik össze, amiben üres cellák is lesznek, azaz lyukak. Ezen a pályán versenyeznek a robotok valójában. A pálya tisztában van azzal, hogy hol van cella, s hol nincs. (Azaz, hogy melyik koordinátára ugorva marad életben a robot és melyik koordinátára ugorva hal meg.) A pálya tudja megadni az adott koordinátájú cella szomszédos, üresen álló celláit is. Erre akkor van szükség, ha két robot egyszerre szeretne ugyanarra a cellára ugrani. A pálya további felelőssége még, hogy a robotokat egymással összeütköztesse, ha esetleg azonos cellára lépnének. 
 
-\subsection{Map}
+\subsection{Olajfolt}
 
-A Map osztály a cellák összességéből tevődik össze, ezen az objektumon versenyeznek a robotok valójában. A pálya bármilyen alakot felvehet majd. A Map tisztában van azzal, hogy a pályán hol van cella, s hol nincs. (Azaz, hogy melyik koordinátára ugorva marad életben a robot és melyik koordinátára ugorva hal meg.) A Map tudja megadni az adott koordinátájú cella szomszédos, üresen álló celláit is. Erre akkor van szükség, ha két robot egyszerre szeretne ugyanarra a cellára ugrani.
+A olajfoltok cellákon helyezkedhetnek el, illetve robotok tudják őket elhelyezni továbblépésük előtt, s ezek módosító hatással vannak az ezt követően belelépő robotokra: a robot sebessége nem lesz módosítható, a következő ugrás sebességvektora így ugyanakkora lesz, mint az előzőé.
 
-\subsection{Game}
+\subsection{Ragacsfolt}
 
-A Game objektum köti össze a Robot és a Map objektumok működését és biztosítja majd a kapcsolatot a vezérlés felé. Képes beállítani a játék elején a kezdőértékeket. A játékhoz hozzá tud adni robotokat, el tudja távolítani azokat, illetve a léptetést is ez az objektum végzi, ami a játék körökre osztott mivoltát adja. Amennyiben ütközés van a pályán, észleli és lekezeli azokat. 
+A ragacsfoltok szintén a cellákon helyezkedhetnek el, illetve a robotok tudják őket elhelyezni a továbblépésük előtt, s ezek módosító hatással vannak az ezt követően belelépő robotokra: megfelezik a robotok sebességének a nagyságát, tehát lassító hatással bírnak.
