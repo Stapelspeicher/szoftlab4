@@ -1,0 +1,20 @@
+
+\subsection{Robot}
+
+A robotok azok az eszközök, amelyek a játék során versenyeznek egymással. Minden robotra egy felhasználó jut, aki irányíthatja azt. A robotok tudnak elhelyezni a pályán a olajfoltokat és ragacsfoltokat is, ezzel az ellenfelet hátráltatva. A robotok ugrással tudnak a cellákon keresztül a pályán haladni. Minden robotnak van sebessége és természetesen egy aktuális pozíciója is. A robotok tudják magukról, hogy mekkora távolságot tettek már meg a játék során, valamit azt is, hogy még hány olaj- illetve ragacsfolttal rendelkeznek. A robotok egymással ütközhetnek, aminek bekövetkeztekor erről szintén értesülhetnek.
+
+\subsection{Cella}
+
+A cellák tudják magukról, hogy olajfoltosak-e, ragacsfoltosak-e, vagy éppen üresek-e, - azaz egyik folt sem található meg rajtuk. A cellák összessége eredményezi a versenyzésre kijelölt pályát. A cella felelőssége az, hogy ha rálép egy mozgó objektum, akkor annak el tudja végezni a megfelelő utasításait, ilyen például a sebesség megfelezése, folt elhelyezése önmagán, vagy a robotok megsemmisítése.
+
+\subsection{Pálya}
+
+A pálya a cellák összességéből tevődik össze, amiben üres cellák is lesznek, azaz lyukak. Ezen a pályán versenyeznek a robotok valójában. A pálya tisztában van azzal, hogy hol van cella, s hol nincs. (Azaz, hogy melyik koordinátára ugorva marad életben a robot és melyik koordinátára ugorva hal meg.) A pálya tudja megadni az adott koordinátájú cella szomszédos, üresen álló celláit is. Erre akkor van szükség, ha két robot egyszerre szeretne ugyanarra a cellára ugrani. A pálya további felelőssége még, hogy a robotokat egymással összeütköztesse, ha esetleg azonos cellára lépnének. 
+
+\subsection{Olajfolt}
+
+A olajfoltok cellákon helyezkedhetnek el, illetve robotok tudják őket elhelyezni továbblépésük előtt, s ezek módosító hatással vannak az ezt követően belelépő robotokra: a robot sebessége nem lesz módosítható, a következő ugrás sebességvektora így ugyanakkora lesz, mint az előzőé.
+
+\subsection{Ragacsfolt}
+
+A ragacsfoltok szintén a cellákon helyezkedhetnek el, illetve a robotok tudják őket elhelyezni a továbblépésük előtt, s ezek módosító hatással vannak az ezt követően belelépő robotokra: megfelezik a robotok sebességének a nagyságát, tehát lassító hatással bírnak.
