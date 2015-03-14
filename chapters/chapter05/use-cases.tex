@@ -1,6 +1,6 @@
 
 
-\usecase{Játék indítása}{Az egyik játékos elindítja a versenyt.}{Felhasználó}{A program menüjéből a felhasználó ki tudja választani a Start game funkciót.}
+\usecase{Játék indítása}{Az egyik játékos elindítja a versenyt.}{Felhasználó}{A program menüjéből a felhasználó kiválasztja a Start game funkciót.}
 
 \usecase{Kilépés a játékból}{A felhasználók ki tudnak lépni a játékból.}{Felhasználó}{A játékosok a verseny közben ki tudnak lépni a játékból.}
 
@@ -10,9 +10,13 @@
 
 \usecase{Ragacsfolt elhelyezése}{A robot egy ragacsfoltot hagy maga után.}{Játékos, Robot}{A játékos utasítására a robot elhelyez egy ragacsfoltot azon a cellán, amelyiken épp áll.}
 
-\usecase{Kör vége}{Léptetés egy körrel.}{Játékos}{Ha minden játékos megtette a lépéseit, és kiadta a kívánt utasításokat a robotoknak, akkor a kör befejeződik, s egy új kezdődik.}
+\usecase{Következő kör}{Léptetés egy körrel.}{Játékos}{Ha minden játékos megtette a lépéseit, és kiadta a kívánt utasításokat a robotoknak, akkor a kör befejeződik, s egy új kezdődik.}
 
-\usecase{Megsemmisülés}{Egy robot megsemmisülése.}{Robot}{Ha két robot ütközik, s nincs megfelelő cella számukra, akkor a két robot meghal és kiesik a játékból.}
+\usecase{Játék elvesztése}{Egy robot megsemmisülése.}{Robot, Játékos}{Ha két robot ütközik, s nincs megfelelő cella számukra, akkor a két robot meghal és kiesik a játékból.}
+
+\usecase{Játék megnyerése}{Egy robot megnyeri a játékot.}{Robot, Játékos}{Ha egy robot marad már csak a pályán, akkor az a robot nyer. Ha elfogy a körök száma, akkor a legnagyobb távolságot megtett robot nyer.}
+
+\usecase{Lépés}{A robot megteszi a lépését.}{Robot, Játékos}{A robot tovább halad a pályán a megadott sebességvektorral.}
 
 \usecase{Olajfoltra lépés}{A robot rálép egy olajfoltra.}{Robot}{Egy robot egy olajfoltos cellára kénytelen lépni, ezáltal a következő körben a sebessége nem módosítható.}
 
