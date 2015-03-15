@@ -1,20 +1,16 @@
 
 
-\usecase{Játék indítása}{Az egyik játékos elindítja a versenyt.}{Felhasználó}{A program menüjéből a felhasználó kiválasztja a Start game funkciót.}
+\usecase{Játék indítása}{Az egyik játékos elindítja a versenyt.}{Játékos}{A program menüjéből a felhasználó kiválasztja a Start game funkciót.}
 
-\usecase{Kilépés a játékból}{A felhasználók ki tudnak lépni a játékból.}{Felhasználó}{Ha a játék közben egy játékos úgy dönt, hogy ki szeretne lépni, akkor ezt tudja jelezni és megsemmisül a hozzá tartozó robot.}
+\usecase{Kilépés a játékból}{A felhasználók ki tudnak lépni a játékból.}{Játékos}{Ha a játék közben egy játékos úgy dönt, hogy ki szeretne lépni, akkor ezt tudja jelezni és megsemmisül a hozzá tartozó robot.}
 
-\usecase{Sebesség módosítása}{A robot sebesség vektora módosul.}{Játékos, Robot}{Egy játékos megváltoztatja saját robotjának a sebességét, tetszőleges irányú egységvektorral.}
+\usecase{Sebesség módosítása}{A robot sebesség vektora módosul.}{Játékos}{Egy játékos megváltoztatja saját robotjának a sebességét, tetszőleges irányú egységvektorral.}
 
 \usecase{Olajfolt elhelyezése}{A robot egy olajfoltot hagy maga után.}{Játékos, Robot}{A játékos utasítására a robot elhelyez egy olajfoltot azon a cellán, amelyiken épp áll.}
 
 \usecase{Ragacsfolt elhelyezése}{A robot egy ragacsfoltot hagy maga után.}{Játékos, Robot}{A játékos utasítására a robot elhelyez egy ragacsfoltot azon a cellán, amelyiken épp áll.}
 
 \usecase{Következő kör}{Léptetés egy körrel.}{Játékos}{Ha minden játékos kiadta a kívánt utasításokat a robotoknak, akkor a kör befejeződik, s egy új kezdődik.}
-
-\usecase{Kiesés a játékból}{Egy robot megsemmisülése.}{Robot}{Ha két robot ütközik, s nincs megfelelő cella számukra, akkor a két robot meghal és kiesik a játékból. Ha egy robot leugrik a kijelölt pályáról, akkor az szintén kiesik a játékból.}
-
-\usecase{Játék megnyerése}{Egy robot megnyeri a játékot.}{Robot}{Ha egy robot marad már csak a pályán, akkor az a robot nyer. Ha elfogy a körök száma, akkor a legnagyobb távolságot megtett, életben maradt robot nyer.}
 
 \usecase{Lépés}{A robot megteszi a lépését.}{Robot}{A robot tovább halad a pályán a megadott sebességvektorral.}
 
