@@ -6,28 +6,74 @@
 \thispagestyle{fancy}
 
 \section{Fordítási és futtatási útmutató}
-\comment{A feltöltött program fordításával és futtatásával kapcsolatos útmutatás. Ennek tartalmaznia kell leltárszerűen az egyes fájlok pontos nevét, méretét byte-ban, keletkezési idejét, valamint azt, hogy a fájlban mi került megvalósításra.}
 
 \subsection{Fájllista}
 
 \begin{fajllista}
 
 \fajl
-{Main.java} % Kezdet
+{Test.java} % Kezdet
 {250 byte} % Idptartam
-{2009.10.10~18:05~} % Résztvevők
-{...} % Leírás
+{2015.03.22~23:00~} % Résztvevők
+{A tesztesetekhez tartozó kódot tartalmazza} % Leírás
 
 \fajl
-{...}
-{...}
-{...}
-{...}
+{ActiveObject.java} % Kezdet
+{250 byte} % Idptartam
+{2015.03.22~23:00~} % Résztvevők
+{A játék mozgó résztvevőinek a közös interface} % Leírás
+
+\fajl
+{Cell.java} % Kezdet
+{250 byte} % Idptartam
+{2015.03.22~23:00~} % Résztvevők
+{Az cellákat reprezentáló osztály} % Leírás
+
+\fajl
+{GameMap.java} % Kezdet
+{250 byte} % Idptartam
+{2015.03.22~23:00~} % Résztvevők
+{A játékteret reprezentáló osztály} % Leírás
+
+\fajl
+{Logger.java} % Kezdet
+{250 byte} % Idptartam
+{2015.03.22~23:00~} % Résztvevők
+{A függvényhívások konzolra Loggolásához használt osztály} % Leírás
+
+\fajl
+{Oily.java} % Kezdet
+{250 byte} % Idptartam
+{2015.03.22~23:00~} % Résztvevők
+{Az olajfoltot reprezentáló osztály} % Leírás
+
+\fajl
+{Position.java} % Kezdet
+{250 byte} % Idptartam
+{2015.03.22~23:00~} % Résztvevők
+{A játéktér koordinátáit reprezentáló osztály} % Leírás
+
+\fajl
+{Robot.java} % Kezdet
+{250 byte} % Idptartam
+{2015.03.22~23:00~} % Résztvevők
+{A Robotokat megvalósító osztály} % Leírás
+
+\fajl
+{Sticky.java} % Kezdet
+{250 byte} % Idptartam
+{2015.03.22~23:00~} % Résztvevők
+{A Ragacs csapdát megvalósító osztály} % Leírás
+
+\fajl
+{Trap.java} % Kezdet
+{250 byte} % Idptartam
+{2015.03.22~23:00~} % Résztvevők
+{A csapdák közös interface} % Leírás
 
 \end{fajllista}
 
 \subsection{Fordítás}
-\comment{A fenti listában szereplő forrásfájlokból milyen műveletekkel lehet a bináris, futtatható kódot előállítani. Az előállításhoz csak a 2. Követelmények c. dokumentumban leírt környezetet szabad előírni.}
 
 \lstset{escapeinside=`', xleftmargin=10pt, frame=single, basicstyle=\ttfamily\footnotesize, language=sh}
 \begin{lstlisting}
@@ -35,25 +81,26 @@ javac -d bin *.java
 \end{lstlisting}
 
 \subsection{Futtatás}
-\comment{A futtatható kód elindításával kapcsolatos teendők leírása. Az indításhoz csak a 2. Követelmények c. dokumentumban leírt környezetet szabad előírni.}
 
 \lstset{escapeinside=`', xleftmargin=10pt, frame=single, basicstyle=\ttfamily\footnotesize, language=sh}
 \begin{lstlisting}
 cd bin
-java Main.java
+java hu.stapelspeicher.main.Test
 \end{lstlisting}
 
 \section{Értékelés}
-\comment{A projekt kezdete óta az értékelésig eltelt időben tagokra bontva, százalékban.}
+
 
 \begin{ertekeles}
-\tag{Horváth} % Tag neve
-{23.5}        % Munka szazalekban
-\tag{Német}
-{24.5}
-\tag{Tóth}
+\tag{Kemény} % Tag neve
+{25}        % Munka szazalekban
+\tag{Gema}
 {25}
-\tag{Oláh}
-{27}
+\tag{Pilinszki}
+{25}
+\tag{Somogyi}
+{25}
+\tag{Juszt}
+{25}
 \end{ertekeles}
 
