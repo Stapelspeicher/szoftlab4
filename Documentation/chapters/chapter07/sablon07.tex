@@ -45,7 +45,28 @@ Alábbi táblázat minden use-case-hez külön-külön.}
 \end{center}
 \end{figure}
 
-\usecase{...}{...}{...}{...}
+\usecase{New Game}{Lértehoz egy pályát}{Tesztelő}{Létrehoz egy pályát a megadott méretekkel.}
+\usecase{Place Cell}{Elhelyez egy cellát a pályán}{Tesztelő}{Létrehoz egy cellát és a megadott pozícióra helyezi, ha ez a pályán kívül esik #valami hiba#}
+\usecase{Place Robot}{Elhelyez egy robotot a pályán}{Tesztelő}{Létrehoz egy robotot és a megadott pozícióra helyezi, ha ez a pályán kívül esik #valami hiba#. Ha a cellán már van valamilyen robot, akkor megtörténik az ütközés. Ebben az esetben a már cellán lévő foltok nem fejtik ki hatásukat.}
+\usecase{Place Little Robot}{Elhelyez egy kisrobotot a pályán}{Tesztelő}{Létrehoz egy kisrobotot és a megadott pozícióra helyezi, ha ez a pályán kívül esik #valami hiba#. Ha a cellán már van valamilyen robot, akkor megtörténik az ütközés. Ebben az esetben a már cellán lévő foltok nem fejtik ki hatásukat.}
+\usecase{Place Oily}{Elhelyez egy olajfoltot a pályán}{Tesztelő}{Létrehoz egy olajfoltot és a megadott pozícióra helyezi, ha ott már található folt, kicseréli azt. A cellán lévő robotokra a folt még nem fejti ki hatását.}
+\usecase{Place Sticky}{Elhelyez egy ragacsfoltot a pályán}{Tesztelő}{Létrehoz egy ragacsfoltot és a megadott pozícióra helyezi, ha ott már található folt, kicseréli azt. A cellán lévő robotokra a folt még nem fejti ki hatását.}
+
+
+\usecase{List Robots}{Kilistázza a pályán lévő robotokat}{Tesztelő}{A konzolon megjeleníti a pályán lévő robotok helyzetét, sebességét, a megtett távolságot és foltkészletüket.}
+\usecase{List Little Robots}{Kilistázza a pályán lévő kisrobotokat}{Tesztelő}{A konzolon megjeleníti a pályán lévő kisrobotok helyzetét, sebességét, és a legközelebbi foltot ami fele tartanak.}
+\usecase{List Traps}{Kilistázza a pályán lévő foltokat}{Tesztelő}{A konzolon megjeleníti a pályán lévő foltok helyzetét, típusát, és hogy mennyire kopottak vagy felszáradtak.}
+\usecase{Rank List}{Kilistázza a pályán lévő robotokat rangsorát}{Tesztelő}{A konzolon megjeleníti a pályán lévő robotok által megtett utak alapján csökkenő sorrendben a robotok sorrendjét.}
+
+\usecase{Step Robot}{Robot léptetése}{Tesztelő}{Egy megadott robot léptetése. Ha foltba lép az kifejti rá hatását, a robot pedig koptatja a ragacsfoltot. Ha másik robotra lép akkor ütköznek és egyikük kiesikHa lelép a pályáról kiesik a játékból.}
+\usecase{Step Little Robot}{Kisrobot léptetése}{Tesztelő}{Egy megadott kisrobot léptetése. Ha a kisrobot elért egy foltot, addig nem lép tovább amíg fel nem takarította. Ha robotra vagy kisrobotra lép irányt vált.}
+
+
+
+\usecase{Load Game}{Betölti a kiválasztott játékot}{Tesztelő}{A konzolon megadott játékot tölti be, ha létezik olyan. Ha nem akkor egy új játékot hoz létre.}
+\usecase{Round}{Egy kör lejátszása}{Tesztelő}{Minden robot és kisrobot lép egyet, közben lezajlanak az ütközések és a foltok kifejtik hatásukat a robotokra, egyes foltok felszáradnak. A robotok ranglistája frissül a lépések alapján.}
+
+
 
 \section{Tesztelési terv}
 \comment{A tesztelési tervben definiálni kell, hogy a be- és kimeneti fájlok egybevetésével miként végezhető el a program tesztelése. Meg kell adni teszt forgatókönyveket. Az egyes teszteket elég informálisan, szabad szövegként leírni. Teszt-esetenként egy-öt mondatban. Minden teszthez meg kell adni, hogy mi a célja, a proto mely funkcionalitását, osztályait stb. teszteli. Az alábbi táblázat minden teszt-esethez külön-külön elkészítendő.}
