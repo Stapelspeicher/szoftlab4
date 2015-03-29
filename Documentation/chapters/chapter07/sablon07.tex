@@ -1,37 +1,176 @@
 % Szglab4
 % ===========================================================================
 %
+
+
 \chapter{Prototípus koncepciója}
+
+A módosult diagrammok:
+
+\begin{figure}[h]
+	\begin{center}
+		\includegraphics[width=11cm]{chapters/chapter01/kisrobot_hozzaadasa.png}
+		\caption{Kisrobot hozzáadása}
+		\label{fig:SzkeletonUseCase}
+	\end{center}
+\end{figure}
+
+
+\begin{figure}[h]
+	\begin{center}
+		\includegraphics[width=11cm]{chapters/chapter01/robot_ragacsba_lep.png}
+		\caption{Robot ragacsba lép}
+		\label{fig:SzkeletonUseCase}
+	\end{center}
+\end{figure}
+
+\clearpage
+
+
+\begin{figure}[h]
+	\begin{center}
+		\includegraphics[width=15cm]{chapters/chapter01/kisrobot_lep.png}
+		\caption{Kisrobot lép}
+		\label{fig:SzkeletonUseCase}
+	\end{center}
+\end{figure}
+
+\clearpage
+
+\begin{figure}[h]
+	\begin{center}
+		\includegraphics[width=110mm]{chapters/chapter01/kisrobot_utkozik_kisrobotnak.png}
+		\caption{Kisrobot ütközik kisrobotnak}
+		\label{fig:SzkeletonUseCase}
+	\end{center}
+\end{figure}
+
+\begin{figure}[h]
+	\begin{center}
+		\includegraphics[width=110mm]{chapters/chapter01/robot_utkozik_kisrobotnak.png}
+		\caption{Robot ütközik kisrobotnak}
+		\label{fig:SzkeletonUseCase}
+	\end{center}
+\end{figure}
+\clearpage
+
+\begin{figure}[h]
+	\begin{center}
+		\includegraphics[width=17cm]{chapters/chapter01/kisrobot_utkozik_robotnak.png}
+		\caption{Kisrobot ütközik robotnak}
+		\label{fig:SzkeletonUseCase}
+	\end{center}
+\end{figure}
+\clearpage
+
+\begin{figure}[h]
+	\begin{center}
+		\includegraphics[width=17cm]{chapters/chapter01/kovetkezo_kor.png}
+		\caption{Következő kör}
+		\label{fig:SzkeletonUseCase}
+	\end{center}
+\end{figure}
+\clearpage
+
+
+\begin{figure}[h]
+	\begin{center}
+		\includegraphics[width=17cm]{chapters/chapter01/robot_utkozik_robotnak.png}
+		\caption{Robot ütközik robotnak}
+		\label{fig:SzkeletonUseCase}
+	\end{center}
+\end{figure}
+\clearpage
+\begin{figure}[h]
+	\begin{center}
+		\includegraphics[width=17cm]{chapters/chapter01/startcleaningifneeded.png}
+		\caption{Start cleaning if needed}
+		\label{fig:SzkeletonUseCase}
+	\end{center}
+\end{figure}
+\clearpage
 
 \thispagestyle{fancy}
 
 \section{Prototípus interface-definíciója}
-\comment{Definiálni kell a teszteket leíró nyelvet. Külön figyelmet kell fordítani arra, hogy ha a rendszer véletlen elemeket is tartalmaz, akkor a véletlenszerűség ki-bekapcsolható legyen, és a program determinisztikusan is tesztelhető legyen.}
 
 \subsection{Az interfész általános leírása}
-\comment{A protó (karakteres) input és output felületeit úgy kell kialakítani, hogy az input fájlból is vehető legyen illetőleg az output fájlba menthető legyen, vagyis kommunikációra csak a szabványos be- és kimenet használható.}
+
+A program a végrehajtandó utasításokat parancsok formájában várja. Lehetőség van a parancsokat egy
+szövegfájlban előre megírni. A program elindításakor argumentumok formájában kell megadni, hogy a
+végrehajtandó parancsok melyik fájlban vannak tárolva (második argumentum), illetve hogy az állapotjelentés
+mentése mely fájlba történjen (harmadik argumentum).
+A programnak kötelező átadni még egy parancssori Argumentumot méghozzá azt hogy debug módban fut-e a program, vagy sima teszt üzemmódban. Az argumentum értékei DEBUG\_ON ÉS DEBUG\_OFF lehetnek. Debug üzemmódban az eredmény fileok hasznos event logokat tartalmaznak, amíg sima üzemmódban csak azokat az információkat, amiket parancsokkal kértünk le a teszteset kódjában.
+Az Például, ha a programot a java Program DEBUG\_OFF test1.txt
+eredmeny.txt formájában indítjuk, akkor ebben az esetben bemenetként a „test1.txt”, kimeneti fájlként az
+„eredmeny.txt” szolgál. A pályát ugyanazzal a parancsnyelvvel kell definiálni mint amivel a teszteseteket irányítjuk, ezért a bemeneti fileoknak nincsen speciális nyelvtana. Viszont megkötés, hogy soronként csak egyetlen parancs szerepelhet.
 
 \subsection{Bemeneti nyelv}
-\comment{Definiálni kell a teszteket leíró nyelvet. Külön figyelmet kell fordítani arra, hogy ha a rendszer véletlen elemeket is tartalmaz, akkor a véletlenszerűség ki-bekapcsolható legyen, és a program determinisztikusan is futtatható legyen. A szálkezelést is tesztelhető, irányítható módon kell megoldani.}
 
 \begin{itemize}
-\item Parancs1
+\item MAP X Y
 	\begin{itemize}
-	\item Leírás:
-	\item Opciók:
+	\item Leírás Létrehoz egy X és Y nagyságú üres pályát
+	\item Opciók: -
 	\end{itemize}
-\item Parancs2
+	
+\item ADD [ROBOT | LITTLEROBOT] ID [X Y]
 	\begin{itemize}
-	\item Leírás:
-	\item Opciók:
+	\item Leírás: A pálya x y koordinátájú pontjára letesz egy robotot vagy kis robotot, amit utána a parancsokka az ID paraméterén keresztül lehet irányítani.
+	 
+	\item Opciók: Ha x és y nincs megadva, akkor véletlenszerűen teszi le a robotot.
 	\end{itemize}
+
+\item STEP ID [X | -X | Y | -Y | I]
+\begin{itemize}
+	\item Leírás: Növeli az ID mögött lévő robot sebességét eggyel a megadott irányba, és lépteti a robotot.
+	\item Opciók:-
+\end{itemize}
+
+
+\item PLACE ID [STICKY | OILY]
+\begin{itemize}
+	\item Leírás: A robot lerak egy olaj vagy ragacsfoltot, feltéve ha van neki elég.
+	\item Opciók: -
+\end{itemize}
+
+\item ENDTURN
+\begin{itemize}
+	\item Leírás: a kör véget ér
+	\item Opciók: -
+\end{itemize}
+
+
+\item ENDGAME
+\begin{itemize}
+	\item Leírás: kilép a játékból
+	\item Opciók:
+\end{itemize}
+
+\item CELLOUT X Y
+\begin{itemize}
+	\item Leírás: Az [X,Y] koordinátájú cella adatait kiírja az eredmény fileba
+	\item Opciók: -
+\end{itemize}
+
+\item ROBOTOUT ID
+\begin{itemize}
+	\item Leírás: Az id mögötti robot adatait kiírja az eredmény fileba.
+	\item Opciók: -
+\end{itemize}
 
 \end{itemize}
 
-\comment{Ha szükséges, meg kell adni a konfigurációs (pl. pályaképet megadó) fájlok nyelvtanát is.}
-
 \subsection{Kimeneti nyelv}
-\comment{Egyértelműen definiálni kell, hogy az egyes bemeneti parancsok végrehajtása után előálló állapot milyen formában jelenik meg a szabványos kimeneten.}
+A kimeneten szóköz karakterrel elválasztott formátumban fognak megjelenni az adatok, három alapvető fajta van
+
+Robot ID velocity=<x és y "\_" elválasztva> StickyNum=<int> OilyNum=<int> currCell=<a jelenlegi cella, ha null akkor halott a robot, amúgy a cella koordinátáit tartalmazza alulvonással elválasztva>
+
+Cell X\_Y Trap=<trap típuse és az elhasználtsága "\_"-al elválasztva> actors=<Actor ID-k "\_"-al elválasztva>
+
+LittleRobot ID state=[dazed | normal |cleaning] dazedCounter=<int> cleaningCounter=<int> CurrCell=<cella, mint a robotnál>
+
+Event <Általános debug szöveg, ami emberi értelmezésre van>
 
 \section{Összes részletes use-case}
 \comment{A use-case-eknek a részletezettsége feleljen meg a kezelői felületnek, azaz a felület elemeire kell hivatkozniuk.
@@ -69,10 +208,17 @@ Alábbi táblázat minden use-case-hez külön-külön.}
 
 
 \section{Tesztelési terv}
-\comment{A tesztelési tervben definiálni kell, hogy a be- és kimeneti fájlok egybevetésével miként végezhető el a program tesztelése. Meg kell adni teszt forgatókönyveket. Az egyes teszteket elég informálisan, szabad szövegként leírni. Teszt-esetenként egy-öt mondatban. Minden teszthez meg kell adni, hogy mi a célja, a proto mely funkcionalitását, osztályait stb. teszteli. Az alábbi táblázat minden teszt-esethez külön-külön elkészítendő.}
 
-\teszteset{...}{...}{...}
+
+\input{./chapters/chapter07/test_plans.tex}
+
+
 
 \section{Tesztelést támogató segéd- és fordítóprogramok specifikálása}
-\comment{Specifikálni kell a tesztelést támogató segédprogramokat.}
+A tesztelés emberi erővel hosszadalmas, és repetitív, a program működése viszont determinisztikus, így minden
+feltétel adott ahhoz, hogy a teszt kiértékelését gép végezze el. A segédprogram teszt bemeneteket tárol, hozzájuk rendelve
+a várt kimenettel. A segédprogram lefuttatja a megadott tesztet (vagy többet), és összeveti a kimenetüket
+az elvárt kimenettel (az összehasonlítás szöveges alapon történik, leginkább a UNIX-ban található diff parancshoz
+lehet hasonlítani). Amennyiben a kimenet nem egyezik meg az elvárt kimenettel, úgy a teszt nem sikerült
+(fail), ellenkezo esetben a teszt sikeres (pass). Hiba esetén a program kijelzi, hogy hol, és milyen eltérést talált
 

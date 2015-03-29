@@ -1,0 +1,68 @@
+
+%TODO: ha a tartalma elfogadva, akkor átfogalmazni, hogy copypaste legyen
+A program a standard inputra várja a parancsokat és a standard outputra teszi a kimenetét. Teszteléshez az inputot fájlból veszi és az outputot is fájlba irányítja. A tesztelő nyelvben kialakított parancsformátumok úgy lettek kialakítva, hogy teljes mértékben elősegítsék a tesztelés folyamatát. Ez alatt értendő, hogy nem csak a program egésze tesztelhető, hanem külön a részegységei is. A tesztelési forgatókönyveket a standard inputon lehet megadni szöveges formában. A helyes működést a kimenet alapján lehet eldönteni és az esetleges hibák eredetét felderíteni.
+
+\subsection{Előforduló hibák kezelése}
+A bemeneten kétféle hiba jelenhet meg:
+
+\begin{itemize}
+	
+\item Szintaktikai hiba: A program futása egy hibaüzenettel leáll egy a program futása közben bekövetkezett hiba miatt.
+
+\item Fájlbetöltési hiba: fájlkezelési probléma lép fel, végzetes hiba. A program hibaüzenettel leáll.
+
+\end{itemize}
+
+\subsection{Tesztelés menete}
+A tesztelési forgatókönyvek a játék különböző funkcióit hivatottak tesztelni, hogy megfelelően működnek-e. Ezeket sikeresen lefuttatva a kimenetet összehasonlítva a bemenet alapján elvárt kimenettel megállapítható a helyes működés. Ha a teszteket többször lefuttatjuk, akkor megbizonyosodhatunk arról, hogy a program az adott bemenetre mindig az elvárt kimenetet eredményezi.\\
+Az átfogó tesztelés végén érdemes kipróbálni a teszteket más hardvereken is, ugyan a Java programozási nyelv platformfüggetlen, de a modulok különbözősége mindig magában hordozza a hibalehetőségeket, amelyeket érdemes láthatóvá tenni majd javítani azokat. 
+
+\teszteset{Robot hozzáadása}{Játékindítása után a robotok hozzáadódnak a pályához.}{Teszteli, hogy a robotoknak van-e kezdőpozíciójuk.}
+
+\teszteset{Robot ragacskészlete}{A robotok a játék elején rendelkeznek bizonyos mennyiségű ragacskészlettel.}{Teszteli, hogy a robotoknak megfelelő mennyiségű ragacskészlete van-e a játék elején.}
+
+\teszteset{Robot olajkészlete}{A robotok a játék elején rendelkeznek bizonyos mennyiségű olajkészlettel.}{Teszteli, hogy a robotoknak megfelelő mennyiségű olajkészlete van-e a játék elején.}
+
+\teszteset{Robot megsemmisülése}{Egy robot leugrik a pályáról, megsemmisül.}{Teszteli, hogy ha egy robot leugrik a pályáról, akkor valóban megsemmisül-e.}
+
+\teszteset{Sebességvektor módosítása (user)}{A felhasználó módosítja a robot sebességét}{Teszteli, hogy a robot sebessége valóban változott-e, és a megfelelő mértékben.}
+
+\teszteset{Sebességvektor módosítása (ragacs)}{A ragacs felezi a sebességet.}{Teszteli, hogy a robot sebessége valóban változott-e, és valóban a felére csökkent-e.}
+
+\teszteset{Sebességvektor módosítása (olajfolt)}{Az olajfolt nem módosítja a sebességet.}{Teszteli, hogy egy robot sebessége az olajfoltra lépés után valóban nem változtatható.}
+
+\teszteset{Ragacs lerakása}{A robot ragacsfoltot helyez el a cellán ugrás előtt.}{Teszteli, hogy a robot valóban elhelyezi-e a ragacsfoltot, az elugrás előtt.}
+
+\teszteset{Olajfolt lerakása}{A robot olajfoltot helyez el a cellán ugrás előtt.}{Teszteli, hogy a robot valóban elhelyezi-e az olajfoltot, az elugrás előtt.}
+
+\teszteset{Ragacs eltűnése}{A ragacs eltűnik, miután négy robot ráugrott.}{Teszteli, hogy a ragacsfolt valóban eltűnik-e, ha pontosan négy robot ugrott már rá.}
+
+\teszteset{Olajfolt eltűnése}{Az olajfolt bizonyos idő után felszárad.}{Teszteli, az olajfolt egy bizonyos idő letelte után valóban felszáradt-e.}
+
+\teszteset{Kisrobotok pályára kerülése}{A pályára időnként kisrobotok ugrálnak be a foltokat feltakarítani.}{Teszteli, a robotok valóban beugrottak-e a pályára.}
+
+\teszteset{Kisrobotok takarítása}{A kisrobotok feltakarítják a foltokat.}{Teszteli, hogy a foltok valóban eltűntek-e a pályáról, ha a kisrobot feltakarította azt.}
+
+\teszteset{Kisrobotok indulása}{A kisrobotok a takarítás után a legközelebbi folthoz indulnak.}{Teszteli, hogy a legközelebbi folt fel veszi-e a kisrobot az irányt.}
+
+\teszteset{Kisrobot megsemmisülése}{Ha a robot ütközik kisrobottal, akkor a kisrobot elpusztul.}{Teszteli, hogy a kisrobot megsemmisül-e.}
+
+\teszteset{Versenyző robot versenyben maradása}{Ha a robot ütközik kisrobottal, akkor a kisrobot elpusztul, de a versenyző robot nem.}{Teszteli, hogy csak a kisrobot semmisül-e meg.}
+
+\teszteset{Kisrobot helyén olajfolt}{Ha a robot ütközik kisrobottal, akkor a kisrobot helyén olajfolt keletkezik.}{Teszteli, hogy a kisrobot elpusztulása után keletkezett-e olajfolt.}
+
+\teszteset{Kisrobot ütközik kisrobottal}{Ha a kisrobot másik kisrobottal ütközik, akkor irányt vált.}{Teszteli, hogy az ütköző kisrobot irányt vált-e.}
+
+\teszteset{Robot ütközik robottal (megsemmisülés)}{Ha két robot összeütközik, akkor a lassabb megsemmisül}{Teszteli, hogy a lassabb robot megsemmisült-e.}
+
+\teszteset{Robot ütközik robottal (sebességmódosítás)}{Ha két robot összeütközik, akkor a gyorsabb a két robot átlagsebességével folytatja a versenyt.}{Teszteli, hogy a gyorsabb robot sebessége megfelelően módosult-e.}
+
+\teszteset{Robot ütközik kisrobottal}{A nagy robot összeütközik a kisrobottal, akkor a kicsi elpusztul}{Teszteli, hogy a kicsi valóban elpusztult-e.}
+
+
+
+
+
+
+
+
