@@ -5,10 +5,10 @@ Az osztály nyilvántartja a pályát (a cellákat), valamint tárolja a körök
 
 \item Attribútumok
 	\begin{itemize}
-		\item - cells: Cell[][]: Egy, a pályán lévő cella.
-		\item - rounds: int: Körök száma.
-		\item - xlength: int: Cella vízszintes pozíciója.
-		\item - ylength: int: Cella függőleges pozíciója.
+		\item - cells: Cell[][]: A pálya celláit tároló mátrix.
+		\item - rounds: int: A hátralevő körök száma.
+		\item - xlength: int: A pálya X irányú kiterjedése.
+		\item - ylength: int: A pálya Y irányú kiterjedése.
 	\end{itemize}
 \item Metódusok
 	\begin{itemize}
@@ -24,15 +24,15 @@ Az osztály nyilvántartja a pályát (a cellákat), valamint tárolja a körök
 \subsection{Cell}
 \begin{itemize}
 	\item Felelősség\newline
-	A pályát felépítő elemek megvalósítása a felelőssége.
+	A pályát felépítő elemek megvalósítása, és a rálépő objektumokkal való interakció a felelőssége.
 
 	\item Attribútumok
 		
 	\begin{itemize}
-		\item - actors: List<ActiveObject>: A pályán előforduló mozgó objektumok.
-		\item - trap: Trap: A pályán lévő csapdák.
-		\item - pos: Position: A Position osztály egy példánya.
-		\item - map: GameMap: A GameMap osztály egy példánya.
+		\item - actors: List<ActiveObject>: A cellán álló mozgó objektumokat tároló lista.
+		\item - trap: Trap: A cellára elhelyezett csapda (ha van).
+		\item - pos: Position: A cella pozíciója a pályán.
+		\item - map: GameMap: A GameMap (pálya) osztály azon objektuma, amelyben a cella taálható.
 	\end{itemize}
 	\item Metódusok
 
@@ -54,13 +54,13 @@ Az osztály nyilvántartja a pályát (a cellákat), valamint tárolja a körök
 \subsection{Robot}
 \begin{itemize}
 	\item Felelősség\newline
-	A Robot osztály felelőssége egy robot reprezentációja, és a robot tevékenységeinek biztosítása kifele.
+	A Robot osztály felelőssége egy robot reprezentációja, és a robot tevékenységeinek biztosítása kifele, azaz interakció a felhasználóval, a csapdákkal, és ütközés esetén a többi mozgó objektummal.
 	
 	\item Interfészek\newline
 	ActiveObject
 	\item Attribútumok
 	\begin{itemize}
-		\item - velocity: Position: A robot sebessége.
+		\item - velocity: Position: A robot vektoriális sebessége.
 		\item - currCell: Cell: A cella, amin a robot aktuálisan áll.
 		\item - oily: boolean: Megadja, hogy a robot olajfolton áll-e.
 		\item - stickyNum: int: A robot rendelkezésére álló ragacsfoltok száma.
@@ -70,7 +70,7 @@ Az osztály nyilvántartja a pályát (a cellákat), valamint tárolja a körök
 	\end{itemize}
 	\item Metódusok\newline
 	\begin{itemize}
-		\item Robot(int stickyNum, int oilyNum): A Robot osztály kétparaméteres konstruktora, paraméterként megadható, hogy a robot hány ragacs- és olajfolttal induljon a verseny elején.
+		\item + Robot(int stickyNum, int oilyNum): A Robot osztály kétparaméteres konstruktora, paraméterként megadható, hogy a robot hány ragacs- és olajfolttal induljon a verseny elején.
 		\item + placeSticky(): void: Ha a robotnak van ragacsa, akkor azt elhelyezi azon a cellán, amelyikről épp elugrani készül.
 		\item + placeOily(): void: Ha a robotnak van olajfoltja, akkor azt elhelyezi azon a cellán, amelyikről épp elugrani készül.
 		\item + addVelocity(Position p): void: Ha a robot nem olajfolton áll, akkor megváltozik a sebessége a paraméterként átadott irányban és nagyságban.
@@ -90,12 +90,12 @@ Az osztály nyilvántartja a pályát (a cellákat), valamint tárolja a körök
 \subsection{Oily}
 \begin{itemize}
 	\item Felelősség\newline
-	Olajfolt osztály.
+	Olajfolt osztály, felelőssége a rálépő robottal való interakció (sebességmódosítás megtiltása).
 	\item Interfészek\newline
 	Trap  - Csapda interface, amelyik összefogja az egyes akadályozó elemeket és biztosítja az egységes kezelésüket.
 	\item Metódusok
 	\begin{itemize}
-		\item stepOn(ActiveObject ao): void: Biztosítja az olajfolt specifikus viselkedését: megfelezi a sebességet.
+		\item + stepOn(ActiveObject ao): void: Biztosítja az olajfolt specifikus viselkedését: a rálépő robot sebessége nem módosítható.
 	\end{itemize}
 \end{itemize}
 
@@ -104,21 +104,21 @@ Az osztály nyilvántartja a pályát (a cellákat), valamint tárolja a körök
 \begin{itemize}
 	\item Felelősség
 	
-	Ragacs osztály.
+	Ragacs osztály, felelőssége a rálépő robottal való interakció (a sebesség felezése).
 	\item Interfészek
 	
 	Trap - Csapda interface, amelyik összefogja az egyes akadályozó elemeket és biztosítja az egységes kezelésüket.
 
 	\item Metódusok
 	\begin{itemize}
-		\item stepOn(ActiveObject ao): void: Biztosítja az ragacsfolt specifikus viselkedését: a sebesség nem módosítható.
+		\item + stepOn(ActiveObject ao): void: Biztosítja a ragacsfolt specifikus viselkedését: megfelezi a rálépő robot sebességet.
 	\end{itemize}
 \end{itemize}
 
 \subsection{Position}
 \begin{itemize}
 	\item Felelősség
-	A játék koordinátáit reprezentáló osztály, amely ezekkel műveletek végez.
+	Koordinátapárokat reprezentáló osztály, amely ezekkel műveletek végez. (immutable)
 	\item Attribútumok
 	\begin{itemize}
 		\item -x: int: X koordináta.
@@ -130,7 +130,7 @@ Az osztály nyilvántartja a pályát (a cellákat), valamint tárolja a körök
 		\item + getX(): int: megadja az x koordinátát.
 		\item + getY(): int: megadja az y koordinátát.
 		\item + divide(Position p): Position: A koordináták osztását végző metódus, az osztó paraméterként adható meg.
-		\item + add(Position p): Position: A paraméterként átadott értékkel növelhetőek a koordináták.
+		\item + add(Position p): Position: A paraméterként átadott értékkel növeli a koordinátákat.
 		\item + getDistance(Position p): double: A paraméterként átadott ponthoz mért távolság nagyságát adja meg.
 	\end{itemize}
 \end{itemize}
@@ -149,7 +149,7 @@ Az osztály nyilvántartja a pályát (a cellákat), valamint tárolja a körök
 	\begin{itemize}
 		\item \underline{- addSpaces(): void}
 		\item \underline{+ enterFunction(String s, Object o): void}
-		\item \underline{- exitFunction(): void}
+		\item \underline{+ exitFunction(): void}
 	\end{itemize}
 \end{itemize}
 
