@@ -1,0 +1,186 @@
+\subsection{GameMap}
+\begin{itemize}
+\item Felelősség\newline
+Az osztály nyilvántartja a pályát (a cellákat), valamint tárolja a körök számát.
+
+\item Attribútumok
+	\begin{itemize}
+		\item - cells: Cell[][]: Egy, a pályán lévő cella.
+		\item - rounds: int: Körök száma.
+		\item - xlength: int: Cella vízszintes pozíciója.
+		\item - ylength: int: Cella függőleges pozíciója.
+	\end{itemize}
+\item Metódusok
+	\begin{itemize}
+		\item + GameMap(Integer x, Integer y):  A GameMap két paraméteres konstruktora, beállítja a körök számát egy előre definiált értékre.
+		\item + setRounds(int rounds): void: Beállít egy bizonyos mennyiségű körszámot a játék elején.
+		\item + getCell(Position p): Cell: Visszadja a pálya egy adott celláját, vagy nullt, ha az adott helyen nincsen cella.
+		\item + addCell(Position p): void: Cella hozzáadása a pályához a paraméterként átadott pozícióra.
+		\item + getFreeNeighbouringCell(Position p): Cell: Az adott pozíció körül visszad egy üres cellát, vagy null-t, ha nincs ilyen.
+		\item + decrementRounds(): boolean: Körök számának csökkentése. Ha még nem fogytak el a körök, akkor visszatér true-val, különben false. 
+	\end{itemize}
+\end{itemize}
+
+\subsection{Cell}
+\begin{itemize}
+	\item Felelősség\newline
+	A pályát felépítő elemek megvalósítása a felelőssége.
+
+	\item Attribútumok
+		
+	\begin{itemize}
+		\item - actors: List<ActiveObject>: A pályán előforduló mozgó objektumok.
+		\item - trap: Trap: A pályán lévő csapdák.
+		\item - pos: Position: A Position osztály egy példánya.
+		\item - map: GameMap: A GameMap osztály egy példánya.
+	\end{itemize}
+	\item Metódusok
+
+	\begin{itemize}
+		\item + setPosition(Position pos): void: A cella pozícióját állítja be.
+		\item + setMap(GameMap gm): void: A cellához tatozó GameMap-et állítja be, a játék GameMap paraméter alapján.
+		\item + add(ActiveObject ao): void: A cellán egy újabb mozgó objektumot helyez el, ha cellán folt található, akkor az kifejti hatását, valamint a mozgó elemeket ütközteti egymással. Paraméterként a cellához hozzáadni kívánt objektumot adjuk meg.
+		\item + add(Trap t): void: A cellán egy új foltot helyez el, olyan fajtát, amilyet paraméterként átadunk.
+		\item + getCellFromHere(Position p): Cell: A cellától megadott vektor távolságra lévő cellát adja meg, amit a GameMap-től kér el. 
+		\item + remove(ActiveObject ao): void: A celláról eltávolítja a paraméterként átadott mozgó objektumot.
+		\item + isEmpty(): boolean: Teszteli, hogy a cellán vannak-e mozgó objektumok. Ha a cella üres, akkor visszatér true-val. 
+		\item + getDistanceFromCell(Cell c): double: Két cella közötti távolságot adja meg, úgy, hogy a két koordinátát egymásból kivonja, majd a különbségeket összegzi. Ha az eredmény negatív lenne, akkor egy -1-szeres szorzással ennek könnyen az abszolút értékét vehetjük.
+		\item + getFreeNeighbouringCell(): Cell: Egy szabad szomszédos cellát ad vissza, amit a GameMap.től kér el. Ha ilyen nem létezik, akkor null-al tér vissza.
+		
+	\end{itemize}
+\end{itemize}
+
+
+\subsection{Robot}
+\begin{itemize}
+	\item Felelősség\newline
+	A Robot osztály felelőssége egy robot reprezentációja, és a robot tevékenységeinek biztosítása kifele.
+	
+	\item Interfészek\newline
+	ActiveObject
+	\item Attribútumok
+	\begin{itemize}
+		\item - velocity: Position: A robot sebessége.
+		\item - currCell: Cell: A cella, amin a robot aktuálisan áll.
+		\item - oily: boolean: Megadja, hogy a robot olajfolton áll-e.
+		\item - stickyNum: int: A robot rendelkezésére álló ragacsfoltok száma.
+		\item - oilNum: int: A robot rendelkezésére álló olajfoltok száma.
+		\item - distance: int: A robot által megtett távolság.
+		
+	\end{itemize}
+	\item Metódusok\newline
+	\begin{itemize}
+		\item Robot(int stickyNum, int oilyNum): A Robot osztály kétparaméteres konstruktora, paraméterként megadható, hogy a robot hány ragacs- és olajfolttal induljon a verseny elején.
+		\item + placeSticky(): void: Ha a robotnak van ragacsa, akkor azt elhelyezi azon a cellán, amelyikről épp elugrani készül.
+		\item + placeOily(): void: Ha a robotnak van olajfoltja, akkor azt elhelyezi azon a cellán, amelyikről épp elugrani készül.
+		\item + addVelocity(Position p): void: Ha a robot nem olajfolton áll, akkor megváltozik a sebessége a paraméterként átadott irányban és nagyságban.
+		\item + stepOn(ActiveObject ao): void: Kezeli esetet, amikor két mozgó objektum ütközik egymással.
+		\item + oilyEffect(): void: A robot, amelyik egy olajfoltos cellára léphet, az az adott körben nem változtathatja a sebességét. 
+		\item + stickyEffect(): void: Hatására a a robot sebessége feleződik. 
+		\item + collideWithRobot(Robot other): void: Kezeli az esetet, amikor egy robot egy másik mozgó objektummal ütközik. Ha nincsen szabad szomszédos cella, akkor mind a két robot megsemmisül. 
+		\item + die(): void: Az objektum megsemmisül: egy robot leesik a pályáról, vagy olyan módon ütköznek egymással, hogy mind a két robot megsemmisül. 
+		\item + setCell(Cell c): void: Beállítja a mozgó objektum celláját, azaz, hogy éppen melyik cellán tartózkodik.
+		\item + step(): void: A lépést ténylegesen lebonyolítja. Ha a robot lelép a pályáról, akkor megsemmisül. Különben a megtett távolsága növekszik és megváltozik az aktuális cellája, amin éppen áll.
+		\item + getCell(): Cell: Megadja, hogy éppen melyik cellán áll a mozgó objektum.
+		\item + getDistance(): int: A robot aktuális sebességéről tájékoztat. 
+		
+	\end{itemize}
+\end{itemize}
+
+\subsection{Oily}
+\begin{itemize}
+	\item Felelősség\newline
+	Olajfolt osztály.
+	\item Interfészek\newline
+	Trap  - Csapda interface, amelyik összefogja az egyes akadályozó elemeket és biztosítja az egységes kezelésüket.
+	\item Metódusok
+	\begin{itemize}
+		\item stepOn(ActiveObject ao): void: Biztosítja az olajfolt specifikus viselkedését: megfelezi a sebességet.
+	\end{itemize}
+\end{itemize}
+
+
+\subsection{Sticky}
+\begin{itemize}
+	\item Felelősség
+	
+	Ragacs osztály.
+	\item Interfészek
+	
+	Trap - Csapda interface, amelyik összefogja az egyes akadályozó elemeket és biztosítja az egységes kezelésüket.
+
+	\item Metódusok
+	\begin{itemize}
+		\item stepOn(ActiveObject ao): void: Biztosítja az ragacsfolt specifikus viselkedését: a sebesség nem módosítható.
+	\end{itemize}
+\end{itemize}
+
+\subsection{Position}
+\begin{itemize}
+	\item Felelősség
+	A játék koordinátáit reprezentáló osztály, amely ezekkel műveletek végez.
+	\item Attribútumok
+	\begin{itemize}
+		\item -x: int: X koordináta.
+		\item -y: int: Y koordináta.
+	\end{itemize}
+	\item Metódusok
+	\begin{itemize}
+		\item + Position(int x, int y): a Position osztály konstruktora.
+		\item + getX(): int: megadja az x koordinátát.
+		\item + getY(): int: megadja az y koordinátát.
+		\item + divide(Position p): Position: A koordináták osztását végző metódus, az osztó paraméterként adható meg.
+		\item + add(Position p): Position: A paraméterként átadott értékkel növelhetőek a koordináták.
+		\item + getDistance(Position p): double: A paraméterként átadott ponthoz mért távolság nagyságát adja meg.
+	\end{itemize}
+\end{itemize}
+
+\subsection{Logger}
+\begin{itemize}
+	\item Felelősség\newline
+
+	\item Attribútumok\newline
+	
+	\begin{itemize}
+		\item \underline{- depth: int}
+		\item \underline{+ objectNames: Map<String, String>}
+	\end{itemize}
+	\item Metódusok
+	\begin{itemize}
+		\item \underline{- addSpaces(): void}
+		\item \underline{+ enterFunction(String s, Object o): void}
+		\item \underline{- exitFunction(): void}
+	\end{itemize}
+\end{itemize}
+
+\subsection{Test}
+\begin{itemize}
+	\item Felelősség
+		A tesztelésért felelős osztály.
+	
+	\item Attribútumok
+	\begin{itemize}
+		\item \underline{- in: Scanner}
+	\end{itemize}
+	\item Metódusok
+	\begin{itemize}
+		\item \underline{+ main(String[] args): void:} Ebben a függvényben indul a program, kiírja a főmenüt, meghívja a teszteket, vagy a kért almenüt. A parancssori argumentumokat nem használja.
+		\item \underline{- collision(): void:} Két robot ütközését szimulálja. Megkérdezi a felhasználót, hogy legyen-e az ugráshoz üres szomszédos cella, majd eszerint felépíti a pályát.
+		\item \underline{- step(): void:} Kiírja a robotléptetés menüjét és meghívja a kívánt tesztelő függvényt.
+		\item \underline{- stepsOnEmptyCell(): void:} Azt az esetet szimulálja, amikor a robot leugrik a pályáról.
+		\item \underline{- stepsOnOilyCell(): void:} A robot egy olajfoltos cellára lép, ütközés nem történik.
+		\item \underline{- stepsOnStickyCell(): void:} A robot egy ragacsfoltos cellára lép, ütközés nem történik.
+		\item \underline{- stepsOnPlainCell() :void:} A robot egy folt nélküli cellára lép és ütközés nem történik.
+		\item\underline{ - nextRound(): void:} Teszteli a Következő kör use-caset, akkor is, ha van még hátra kör, és akkor is, ha már nincs, ezt a felhasználó válasza dönti el.
+		\item \underline{- placeSticky(): void:} A robot megpróbál letenni egy cellára egy ragacsfoltot. A felhasználó döntése alapján ekkor vagy rendelkezik ragaccsal, vagy nem.
+		\item \underline{- placeOily(): void:}: A robot megpróbál letenni egy cellára egy olajfoltot. A felhasználó döntése alapján ekkor vagy rendelkezik olajjal, vagy nem.
+		\item \underline{- changeRobotSpeed(): void:} Egy robot sebességet változtat.
+		\item \underline{- getIndex(int bound): void:} Beolvassa a felhasználó által beírt menüpontot, s megcizsgálja, hogy az valós-e. Paraméterként a legnagyobb választható menüpont sorszáma adható át.
+		\item \underline{- launchGame(): void:} A játékindítás menüpont almenüjének kiírása és a választott menüponthoz tartozó függvény hívása.
+		\item  \underline{- createRobot(): void:} Létrehoz egy robotot a a felhasználó által megadott ragacs- és olajkészlettel, és elhelyezi a pályára.
+		\item \underline{- createCell(): void:} Létrehoz egy cellát a felhasználó által megadott koordinátákra. 
+		\item \underline{- printIndex(): int:} A főmenüt kiíró függvény. Bekéri a menüpont sorszámát és visszaadja az őt hívó függvénynek.
+		
+	\end{itemize}
+\end{itemize}
+
