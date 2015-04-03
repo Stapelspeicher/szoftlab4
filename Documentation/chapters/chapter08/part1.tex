@@ -1,0 +1,188 @@
+
+\subsection{Robot hozzáadása}
+\begin{itemize}
+\item Leírás: \newline
+Egy robot hozzáadása a pályához megadott koordinákkal. Ha a parancsban nem specifikáljuk a koordinátákat, akkor azok véletlenszerűen lesznek megadva a robotnak.
+\item Ellenőrzött funkcionalitás, várható hibahelyek: \newline
+Azt ellenőrizzük, hogy a robot megfelelő azonosítót és kezdőpozíciót kap-e. Hibát jelenthet az, ha olyan ID-t akarunk használni, ami már létezik, valamint ha a megadott cella már foglalt, vagy pedig nem létezik (azaz pályán kívül van)
+\item Bemenet: \newline
+MAP 1 1 \newline
+ADDROBOT R1 5 5 0 0 \newline
+ROBOTOUT R1 \newline
+CELLOUT 0 0
+\item Elvárt kimenet: \newline
+ROBOT R1 VELOCITY=0\textunderscore0 STICKYNUM=5 OILYNUM=5 CURRCELL=0\textunderscore0 \newline
+CELL 0\textunderscore0 TRAP=NULL ACTORS=R1 \newline
+\end{itemize}
+
+\subsection{Ragacs lerakása üres cellára}
+\begin{itemize}
+	\item Leírás: \newline
+	A robot lerak egy ragacsot az aktuális cellájára.
+	\item Ellenőrzött funkcionalitás, várható hibahelyek: \newline
+	Ez a teszteset azt az esetet vizsgálja, amikor a robotnak van legalább egy lerakható ragacsfoltja a készletében. Hibát az jelenthet, ha valamiért nem sikerül a foltot hozzáadni az adott cellához.
+	\item Bemenet: \newline
+MAP 1 1 \newline
+ADDROBOT R1 5 5 0 0	 \newline
+ROBOTOUT R1 \newline
+CELLOUT 0 0 \newline 
+PLACE R1 STICKY \newline
+ROBOTOUT R1 \newline
+CELLOUT 0 0
+
+	\item Elvárt kimenet: \newline
+ROBOT R1 VELOCITY=0\textunderscore0 STICKYNUM=5 OILYNUM=5 CURRCELL=0\textunderscore0 \newline
+CELL 0\textunderscore0 TRAP=NULL ACTORS=R1 \newline
+ROBOT R1 VELOCITY=0\textunderscore0 STICKYNUM=4 OILYNUM=5 CURRCELL=0\textunderscore0 \newline
+CELL 0\textunderscore0 TRAP=STICKY\textunderscore4 ACTORS=R1 
+
+\end{itemize}
+
+\subsection{Ragacs lerakása, már van folt a cellán
+	}
+\begin{itemize}
+	\item Leírás: \newline
+A robot lerak egy ragacsot az aktuális cellájára.
+	\item Ellenőrzött funkcionalitás, várható hibahelyek: \newline
+Ez a teszteset azt az esetet vizsgálja, amikor a robotnak van legalább egy lerakható ragacsfoltja a készletében. Hibát az jelenthet, ha az adott cellán már van ragacsfolt vagy olajfolt, és valamilyen oknál fogva nem váltja le az új folt a régit.
+
+	\item Bemenet: \newline
+MAP 1 1 \newline
+ADDROBOT R1 5 5 0 0	 \newline
+ROBOTOUT R1 \newline
+ADDOILY 0 0 \newline
+CELLOUT 0 0 \newline
+PLACE R1 STICKY  \newline
+CELLOUT R1
+
+	\item Elvárt kimenet: \newline
+	ROBOT R1 VELOCITY=0\textunderscore0 STICKYNUM=5 OILYNUM=5 CURRCELL=0\textunderscore0 \newline
+	CELL 0\textunderscore0 TRAP=OILY\textunderscore3 ACTORS=R1 \newline
+	ROBOT R1 VELOCITY=0\textunderscore0 STICKYNUM=4 OILYNUM=5 CURRCELL=0\textunderscore0 \newline
+	CELL 0\textunderscore0 TRAP=STICKY\textunderscore4 ACTORS=R1	
+	
+\end{itemize}
+
+\subsection{Olajfolt lerakása üres cellára}
+\begin{itemize}
+	\item Leírás: \newline
+A robot lerak egy olajfoltot az aktuális cellájára.
+	\item Ellenőrzött funkcionalitás, várható hibahelyek: \newline
+Ez a teszteset azt az esetet vizsgálja, amikor a robotnak van legalább egy lerakható olajfoltja a készletében. Hibát az jelenthet, ha valamiért nem sikerül a foltot hozzáadni az adott cellához.
+	\item Bemenet: \newline
+MAP 1 1 \newline
+ADDROBOT R1 5 5 0 0	 \newline
+ROBOTOUT R1 \newline
+CELLOUT 0 0 \newline
+PLACE R1 OILY \newline
+ROBOTOUT R1 \newline
+CELLOUT 0 0
+	\item Elvárt kimenet: \newline
+ROBOT R1 VELOCITY=0\textunderscore0 STICKYNUM=5 OILYNUM=5 CURRCELL=0\textunderscore0 \newline
+CELL 0\textunderscore0 TRAP=NULL ACTORS=R1 \newline
+ROBOT R1 VELOCITY=0\textunderscore0 STICKYNUM=5 OILYNUM=4 CURRCELL=0\textunderscore0 \newline
+CELL 0\textunderscore0 TRAP=OILY\textunderscore3 ACTORS=R1
+
+\end{itemize}
+
+\subsection{Olaj lerakása, már van folt a cellán}
+\begin{itemize}
+	\item Leírás: \newline
+A robot lerak egy olajfoltot az aktuális cellájára.
+
+	\item Ellenőrzött funkcionalitás, várható hibahelyek: \newline
+	Ez a teszteset azt az esetet vizsgálja, amikor a robotnak van legalább egy lerakható olajfoltja a készletében. Hibát az jelenthet, ha valamiért nem sikerül a foltot hozzáadni az adott cellához.
+
+	\item Bemenet: \newline
+	MAP 1 1 \newline
+	ADDROBOT R1 5 5 0 0	 \newline
+	ROBOTOUT R1 \newline
+	CELLOUT 0 0 \newline
+	PLACE R1 OILY \newline
+	ROBOTOUT R1 \newline
+	CELLOUT 0 0
+	\item Elvárt kimenet: \newline
+ROBOT R1 VELOCITY=0\textunderscore0 STICKYNUM=5 OILYNUM=5 CURRCELL=0\textunderscore0 \newline
+CELL 0\textunderscore0 TRAP=NULL ACTORS=R1 \newline
+ROBOT R1 VELOCITY=0\textunderscore0 STICKYNUM=5 OILYNUM=4 CURRCELL=0\textunderscore0 \newline
+CELL 0\textunderscore0 TRAP=OILY\textunderscore3 ACTORS=R1 \newline
+ 
+\end{itemize}
+
+\subsection{Olaj lerakása, már van folt a cellán}
+\begin{itemize}
+	\item Leírás: \newline
+A robot lerak egy olajfoltot az aktuális cellájára.
+
+	\item Ellenőrzött funkcionalitás, várható hibahelyek: \newline
+Ez a teszteset azt az esetet vizsgálja, amikor a robotnak van legalább egy lerakható olajfoltja a készletében. Hibát az jelenthet, ha az adott cellán már van ragacsfolt vagy olajfolt, és valamilyen oknál fogva nem váltja le az új folt a régit.
+
+	\item Bemenet: \newline
+MAP 1 1 \newline
+ADDROBOT R1 5 5 0 0	 \newline
+ROBOTOUT R1 \newline
+ADDSTICKY 0 0 \newline
+CELLOUT 0 0 \newline
+PLACE R1 OILY \newline
+CELLOUT R1
+
+	\item Elvárt kimenet: \newline
+ROBOT R1 VELOCITY=0\textunderscore0 STICKYNUM=5 OILYNUM=5 CURRCELL=0\textunderscore0 \newline
+CELL 0\textunderscore0 TRAP=STICKY\textunderscore4 ACTORS=R1 \newline 
+ROBOT R1 VELOCITY=0\textunderscore0 STICKYNUM=5 OILYNUM=4 CURRCELL=0\textunderscore0 \newline
+CELL 0\textunderscore0 TRAP=OILY\textunderscore3 ACTORS=R1	
+
+\end{itemize}
+
+\subsection{Robot megsemmisülése}
+\begin{itemize}
+	\item Leírás: \newline
+A robot leugrik a pályáról, ezzel megsemmisül
+	\item Ellenőrzött funkcionalitás, várható hibahelyek: \newline
+Azt ellenőrizzük, hogy a pálya elhagyása valóban a robot megsemmisülését eredményezi-e. Problémát jelenthet, ha a robot nem regisztrálódik ki a celláról valamilyen oknál fogva.
+
+	\item Bemenet: \newline
+MAP 1 1 \newline
+ADDROBOT R1 0 0 0 0 \newline
+ROBOTOUT R1 \newline
+STEP R1 -X \newline
+ROBOTOUT R1 \newline
+CELLOUT 0 0
+
+	\item Elvárt kimenet: \newline
+ROBOT R1 VELOCITY=0\textunderscore0 STICKYNUM=5 OILYNUM=5 CURRCELL=0\textunderscore0 \newline
+ROBOT R1 VELOCITY=-1\textunderscore0 STICKYNUM=5 OILYNUM=4 CURRCELL=NULL \newline
+CELL 0\textunderscore0 TRAP=OILY\textunderscore3 ACTORS=NULL \newline
+
+\end{itemize}
+
+\subsection{Sebességvektor módosítása (user)}
+\begin{itemize}
+	\item Leírás: \newline
+ A user sebességet változtat és lép a robottal.
+
+	\item Ellenőrzött funkcionalitás, várható hibahelyek: \newline
+Ellenőrizzük, hogy helyesen működik-e a program azon funkciója, melyet használva a user módosíthatja a robot sebességvektorát. Az jelenthet potenciális hibát, ha a robot éppen olajfolton áll.
+
+	\item Bemenet: \newline
+MAP 2 1  \newline
+ADDROBOT R1 0 0 0 0 \newline
+CELLOUT 0 0 \newline
+ROBOTOUT R1 \newline 
+STEP R1 X \newline
+ROBOTOUT R1 \newline
+CELLOUT 0 0 \newline
+CELLOUT 1 0
+
+	
+	\item Elvárt kimenet: \newline
+ROBOT R1 VELOCITY=0\textunderscore0 STICKYNUM=0 OILYNUM=0 CURRCELL=0\textunderscore0 \newline
+CELL 0\textunderscore0 TRAP=NULL ACTORS=R1 \newline
+ROBOT R1 VELOCITY=1\textunderscore0 STICKYNUM=0 OILYNUM=0 CURRCELL=1\textunderscore0 \newline
+CELL 0\textunderscore0 TRAP=NULL ACTORS=NULL \newline
+CELL 1\textunderscore0 TRAP=NULL ACTORS=R1 \newline
+
+	
+\end{itemize}
+
+
