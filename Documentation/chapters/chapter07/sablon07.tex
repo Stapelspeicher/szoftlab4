@@ -116,9 +116,16 @@ eredmeny.txt formájában indítjuk, akkor ebben az esetben bemenetként a „te
 	
 \item ADD [ROBOT | LITTLEROBOT] ID [X Y]
 	\begin{itemize}
-	\item Leírás: A pálya x y koordinátájú pontjára letesz egy robotot vagy kis robotot, amit utána a parancsokka az ID paraméterén keresztül lehet irányítani.
+	\item Leírás: A pálya x y koordinátájú pontjára letesz egy robotot vagy kis robotot, amit utána a parancsokkal az ID paraméterén keresztül lehet irányítani.
 	 
 	\item Opciók: Ha x és y nincs megadva, akkor véletlenszerűen teszi le a robotot.
+	\end{itemize}
+	
+\item SETSPEED ID [X Y]
+	\begin{itemize}
+		\item Leírás: A ID azonosítójú robot sebességét beállítja az X, Y változókra.
+		
+		\item Opciók: -
 	\end{itemize}
 
 \item STEP ID [X | -X | Y | -Y | I]
@@ -131,6 +138,13 @@ eredmeny.txt formájában indítjuk, akkor ebben az esetben bemenetként a „te
 \item PLACE ID [STICKY | OILY]
 \begin{itemize}
 	\item Leírás: A robot lerak egy olaj vagy ragacsfoltot, feltéve ha van neki elég.
+	\item Opciók: -
+\end{itemize}
+
+\item PLACETRAP [STICKY | OILY] [X Y]
+\begin{itemize}
+	\item Leírás: A pálya x y koordinátájú pontjára letesz egy olaj vagy ragacs foltot.
+	
 	\item Opciók: -
 \end{itemize}
 
