@@ -1,9 +1,9 @@
 \subsection{Kisrobotok pályára kerülése}
 \begin{itemize}
 \item Leírás: \newline
-...
+A user elhelyezi a kisrobotokat.
 \item Ellenőrzött funkcionalitás, várható hibahelyek: \newline
-...
+Ellenőrizzük, hogy a kisrobotok a pálya megfelelő helyére kerültek és nem történt semmilyen váratlan ütközés. (not sure yet)
 \item Bemenet: \newline
 ... \newline
 \end{itemize}
@@ -11,31 +11,62 @@
 \subsection{Kisrobotok takarítása}
 \begin{itemize}
 	\item Leírás: \newline
-	...
+	A kisrobot elér egy foltot és feltakarítja azt. \newline
 	\item Ellenőrzött funkcionalitás, várható hibahelyek: \newline
-	...
+	Ellenőrizzük hogy a kisrobot megáll-e a folton, illetve hogy feltakarítja azt. \newline
 	\item Bemenet: \newline
-	... \newline
+	MAP 2 2 \newline
+	ADDLITTLEROBOT L1 0 0 \newline
+	ADDSTICKY 1 1 \newline
+	ENDTURN \newline
+	ENDTURN \newline
+	ROBOTOUT L1 \newline
+	ENDTURN \newline
+	ROBOTOUT L1 \newline
+	ENDTURN \newline
+	ROBOTOUT L1 \newline
+	CELLOUT 1 1 \newline
+	\item Elvárt kimenet: \newline
+	LITTLEROBOT L1 STATE=CLEANING DAZEDCOUNTER=0 CLEANINGCOUNTER=0 CURRCELL=1\textunderscore1
+	LITTLEROBOT L1 STATE=CLEANING DAZEDCOUNTER=0 CLEANINGCOUNTER=1 CURRCELL=1\textunderscore1
+	LITTLEROBOT L1 STATE=NORMAL DAZEDCOUNTER=0 CLEANINGCOUNTER=2 CURRCELL=1\textunderscore1
+	CELL 1\textunderscore1 TRAP=NULL ACTORS=L1
+
 \end{itemize}
 
 \subsection{Kisrobotok indulása}
 \begin{itemize}
 	\item Leírás: \newline
-	...
+	A kisrobot elindul a legközelebbi folt fele és feltakarítja azt.
 	\item Ellenőrzött funkcionalitás, várható hibahelyek: \newline
-	...
+	Ellenőrizzük, hogy a kisrobot a legközelebbi folt fele indul-e el. Ha két folt egyenlő távolságra van történhet valami.
 	\item Bemenet: \newline
-	... \newline
+	MAP 2 3 \newline
+	ADDLITTLEROBOT L1 0 0 \newline
+	ADDSTICKY 1 0 \newline
+	ADDOILY 0 2 \newline
+	ENDTURN \newline
+	CELLOUT 1 0 \newline
+	\item Elvárt kimenet: \newline
+	CELL 1\textunderscore0 TRAP=STICKY ACTORS=L1 \newline
 \end{itemize}
 
 \subsection{Kisrobotok megsemmisülése}
 \begin{itemize}
 	\item Leírás: \newline
-	...
+	Egy robot rálép a kisrobotra, aminek hatására az megsemmisül és egy olajfoltot hagy maga után.
 	\item Ellenőrzött funkcionalitás, várható hibahelyek: \newline
-	...
+	Ellenőrizzük hogy a kisrobot valóban megsemmisül és hogy olajfoltot hagy.
 	\item Bemenet: \newline
-	... \newline
+	MAP 2 1 \newline
+	ADDROBOT R1 0 0 0 0 \newline
+	ADDLITTLEROBOT L1 1 0 \newline
+	STEP R1 X \newline
+	CELLOUT 1 0 \newline
+	\item Elvárt kimenet: \newline
+	CELL 1\textunderscore0 TRAP=OILY ACTORS=R1 \newline
+	
+	
 \end{itemize}
 
 \subsection{Robot ütközik kisrobottal}
