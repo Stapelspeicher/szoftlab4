@@ -1,4 +1,4 @@
-
+	
 \subsection{Robot hozzáadása}
 \begin{itemize}
 \item Leírás: \newline
@@ -53,7 +53,8 @@ ROBOTOUT R1 \newline
 ADDOILY 0 0 \newline
 CELLOUT 0 0 \newline
 PLACE R1 STICKY  \newline
-CELLOUT R1
+ROBOTOUT R1 \newline
+CELLOUT 0 0
 
 	\item Elvárt kimenet: \newline
 	ROBOT R1 VELOCITY=0\textunderscore0 STICKYNUM=5 OILYNUM=5 CURRCELL=0\textunderscore0 \newline
@@ -85,29 +86,6 @@ CELL 0\textunderscore0 TRAP=OILY\textunderscore3 ACTORS=R1
 
 \end{itemize}
 
-\subsection{Olaj lerakása, már van folt a cellán}
-\begin{itemize}
-	\item Leírás: \newline
-A robot lerak egy olajfoltot az aktuális cellájára.
-
-	\item Ellenőrzött funkcionalitás, várható hibahelyek: \newline
-	Ez a teszteset azt az esetet vizsgálja, amikor a robotnak van legalább egy lerakható olajfoltja a készletében. Hibát az jelenthet, ha valamiért nem sikerül a foltot hozzáadni az adott cellához.
-
-	\item Bemenet: \newline
-	MAP 1 1 \newline
-	ADDROBOT R1 5 5 0 0	 \newline
-	ROBOTOUT R1 \newline
-	CELLOUT 0 0 \newline
-	PLACE R1 OILY \newline
-	ROBOTOUT R1 \newline
-	CELLOUT 0 0
-	\item Elvárt kimenet: \newline
-ROBOT R1 VELOCITY=0\textunderscore0 STICKYNUM=5 OILYNUM=5 CURRCELL=0\textunderscore0 \newline
-CELL 0\textunderscore0 TRAP=NULL ACTORS=R1 \newline
-ROBOT R1 VELOCITY=0\textunderscore0 STICKYNUM=5 OILYNUM=4 CURRCELL=0\textunderscore0 \newline
-CELL 0\textunderscore0 TRAP=OILY\textunderscore3 ACTORS=R1 \newline
- 
-\end{itemize}
 
 \subsection{Olaj lerakása, már van folt a cellán}
 \begin{itemize}
@@ -176,8 +154,8 @@ CELLOUT 1 0
 
 	
 	\item Elvárt kimenet: \newline
-ROBOT R1 VELOCITY=0\textunderscore0 STICKYNUM=0 OILYNUM=0 CURRCELL=0\textunderscore0 \newline
 CELL 0\textunderscore0 TRAP=NULL ACTORS=R1 \newline
+ROBOT R1 VELOCITY=0\textunderscore0 STICKYNUM=0 OILYNUM=0 CURRCELL=0\textunderscore0 \newline
 ROBOT R1 VELOCITY=1\textunderscore0 STICKYNUM=0 OILYNUM=0 CURRCELL=1\textunderscore0 \newline
 CELL 0\textunderscore0 TRAP=NULL ACTORS=NULL \newline
 CELL 1\textunderscore0 TRAP=NULL ACTORS=R1 \newline
