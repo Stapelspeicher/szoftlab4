@@ -163,4 +163,158 @@ CELL 1\textunderscore0 TRAP=NULL ACTORS=R1 \newline
 	
 \end{itemize}
 
+\subsection{Sebességvektor módosítása (ragacs)}
+\begin{itemize}
+	\item Leírás: \newline
+	A ragacsfolt megfelezi a robot aktuális sebességvektorát.
+	\item Ellenőrzött funkcionalitás, várható hibahelyek: \newline 
+	Azt a funkcionalitást ellenőrizzük, miszerint a ragacsfolt megfelezi a robot jelenlegi sebességvektorát. Problémát jelenthet az, ha páratlan az egyik koordináta. Meg kell vizsgálni, hogy ilyenkor jól kerekíti-e lefele a program.
+	
+	\item Bemenet: \newline
+		MAP 2 1 \newline
+		ADDROBOT R1 0 0 0 0 \newline
+		ADDSTICKY 1 0 \newline
+		STEP R1 X \newline
+		ROBOTOUT R1 \newline
+		
+	\item Elvárt kimenet: \newline
+	ROBOT R1 VELOCITY=0\textunderscore0 STICKYNUM=0 OILYNUM=0 CURRCELL=0\textunderscore0 \newline
+	
+\end{itemize}
 
+\subsection{Sebességvektor módosítása (olajfolt)}
+\begin{itemize}
+	\item Leírás: \newline
+	A robot olajfoltra lép, és ezért olajos lesz, tehát a sebességét a következő lépésnél nem lehet majd módosítani.
+	\item Ellenőrzött funkcionalitás, várható hibahelyek: \newline 
+	Ez a teszt azt ellenőrzni, hogy valóban megakadályozza-e a sebesség változtatását az, ha a robot éppen egy olajfolton tartózkodik. Várható hiba, hogy esetleg mégis sikerül a usernek ezt megváltoztatnia.
+	\item Bemenet: \newline
+		MAP 3 1 \newline
+		ADDROBOT 0 0 0 0 \newline
+		ADDOILY 1 0 \newline
+		ROBOT STEP X \newline
+		ROBOTOUT R1 \newline
+		ROBOT STEP X \newline
+		ROBOTOUT R1 \newline
+	\item Elvárt kimenet: \newline
+	
+		ROBOT R1 VELOCITY=1\textunderscore0 STICKYNUM=0 OILYNUM=0 CURRCELL=1\textunderscore0 \newline
+		ROBOT R1 VELOCITY=1\textunderscore0 STICKYNUM=0 OILYNUM=0 CURRCELL=2\textunderscore0 \newline
+		
+\end{itemize}
+
+\subsection{Ragacs lerakása(nincs elég ragacs)}
+\begin{itemize}
+	\item Leírás: \newline
+	 A robot megpróbál lerakni egy ragacsfoltot, azonban nincs a készletében egy se.
+	\item Ellenőrzött funkcionalitás, várható hibahelyek: \newline 
+	Azt az esetet teszteljük, amikor 0 ragacskészlettel rendelkező robot mégiscsak megpróbálkozik ragacsfolt elhelyezésével, ami nyilvánvalóan nem sikerülhet neki.
+	
+	\item Bemenet: \newline
+	MAP 2 2 \newline
+	ADDROBOT R1 0 0 0 0 \newline
+	ROBOTOUT R1 \newline
+	PLACE R1 STICKY \newline
+	CELLOUT 0 0 \newline
+ 	ROBOTOUT R1 \newline
+	
+	\item Elvárt kimenet: \newline
+	ROBOT R1 VELOCITY=0\textunderscore0 STICKYNUM=0 OILYNUM=0 CURRCELL=0\textunderscore0 \newline
+	CELL 0\textunderscore0 TRAP=NULL ACTORS=R1 \newline
+	ROBOT R1 VELOCITY=0\textunderscore0 STICKYNUM=0 OILYNUM=0 CURRCELL=0\textunderscore0 \newline
+\end{itemize}
+
+\subsection{Olaj lerakása (nincs elég olaj)}
+\begin{itemize}
+	\item Leírás: \newline
+	 A robot megpróbál lerakni egy olajfoltot, azonban nincs a készletében egy se.
+	\item Ellenőrzött funkcionalitás, várható hibahelyek: \newline 
+	Azt az esetet teszteljük, amikor 0 olajkészlettel rendelkező robot mégiscsak megpróbálkozik olajfolt elhelyezésével, ami nyilvánvalóan nem 
+	\item Bemenet: \newline
+	MAP 2 2 \newline
+	ADDROBOT R1 0 0 0 0 \newline
+	ROBOTOUT R1 \newline
+	PLACE R1 OILY \newline
+	CELLOUT 0 0 \newline
+	ROBOTOUT R1 \newline
+	\item Elvárt kimenet: \newline
+	ROBOT R1 VELOCITY=0\textunderscore0 STICKYNUM=0 OILYNUM=0 CURRCELL=0\textunderscore0 \newline
+	CELL 0\textunderscore0 TRAP=NULL ACTORS=R1 \newline
+	ROBOT R1 VELOCITY=0\textunderscore0 STICKYNUM=0 OILYNUM=0 CURRCELL=0\textunderscore0 \newline
+\end{itemize}
+
+\subsection{Ragacs eltűnése (elkopik)}
+\begin{itemize}
+	\item Leírás: \newline
+	A ragacsfolt mindig egyre jobban elkopik, amikor egy robot rálép. Amikor eléri a nullás szintet, akkor teljesen eltűnik.
+	\item Ellenőrzött funkcionalitás, várható hibahelyek: \newline 
+	Azt teszteljük, hogy a ragacsfolt valóban elkopik-e. Ezt úgy tehetjük meg, hogy robotokat léptetünk rá, minden léptetés után lekérdezve a cella állapotát.
+	\item Bemenet: \newline
+	MAP 2 2  \newline
+	ADDROBOT R1 1 0 0 0 \newline
+	ADDSTICKY 0 0 \newline
+	CELLOUT 0 0 \newline
+	STEP R1 -X \newline
+	CELLOUT 0 0 \newline
+	ADDROBOT R2 1 0 0 0 \newline
+	STEP R1 -X \newline
+	STEP R2 -X \newline
+	CELLOUT 0 0 \newline
+	ADDROBOT R3 1 0 0 0 \newline
+	STEP R2 -X \newline
+	STEP R3 -X \newline
+	CELLOUT 0 0 \newline
+	ADDROBOT R4 1 0 0 0 \newline
+	STEP R3 -X \newline
+	STEP R4 -X \newline
+	CELLOUT 0 0 \newline
+	\item Elvárt kimenet: \newline
+	CELL 0\textunderscore0 TRAP=STICKY\textunderscore4 ACTORS=NULL
+	\newline
+	CELL 0\textunderscore0 TRAP=STICKY\textunderscore3 ACTORS=R1
+	\newline
+	CELL 0\textunderscore0 TRAP=STICKY\textunderscore2 ACTORS=R2
+	\newline
+	CELL 0\textunderscore0 TRAP=STICKY\textunderscore1 ACTORS=R3
+	\newline
+	CELL 0\textunderscore0 TRAP=NULL ACTORS=R4
+	
+\end{itemize}
+
+\subsection{Olajfolt eltűnése (felszárad)}
+\begin{itemize}
+	\item Leírás: \newline
+	Az olajfolt körönként egyre jobban felszárad. Amikor eléri a nullás szintet, akkor teljesen eltűnik. 
+	\item Ellenőrzött funkcionalitás, várható hibahelyek: \newline 
+	 Azt teszteljük, hogy az olajfolt valóban felszárad-e. Ezt a körök léptetésével tehetjük meg, minden léptetés után lekérdezve a cella állapotát.
+	 Esetleges hibát jelenthet az, ha ezalatt az idő alatt egy másik robot rálép a cellára és elhelyez egy másik csapdát.
+	\item Bemenet: \newline
+	MAP 2 2 \newline
+	ADDROBOT R1 0 1 0 0 \newline
+	ROBOTOUT R1 \newline
+	PLACE R1 OILY \newline
+	ROBOTOUT R1 \newline
+	CELLOUT 0 0 \newline
+	ENDTURN \newline
+	CELLOUT 0 0 \newline
+	ENDTURN \newline
+	CELLOUT 0 0 \newline
+	ENDTURN \newline
+	CELLOUT 0 0 \newline
+	ENDTURN \newline
+	CELLOUT 0 0 \newline
+	\item Elvárt kimenet: \newline
+	ROBOT R1 VELOCITY=0\textunderscore0 STICKYNUM=0 OILYNUM=1 CURRCELL=0\textunderscore0
+	\newline
+	ROBOT R1 VELOCITY=0\textunderscore0 STICKYNUM=0 OILYNUM=0 
+	CURRCELL=0\textunderscore0
+	CELL 0\textunderscore0 TRAP=OILY\textunderscore4 ACTORS=R1
+	\newline
+	CELL 0\textunderscore0 TRAP=OILY\textunderscore3 ACTORS=R1
+	\newline
+	CELL 0\textunderscore0 TRAP=OILY\textunderscore2 ACTORS=R1
+	\newline
+	CELL 0\textunderscore0 TRAP=OILY\textunderscore1 ACTORS=R1
+	\newline
+	CELL 0\textunderscore0 TRAP=NULL ACTORS=R1
+\end{itemize}
