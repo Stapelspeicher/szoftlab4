@@ -23,21 +23,29 @@ CELL 1\textunderscore1 TRAP=NULL ACTORS=L2
 	Ellenőrizzük hogy a kisrobot megáll-e a folton, illetve hogy feltakarítja azt. \newline
 	\item Bemenet: \newline
 	MAP 2 2 \newline
-	ADDLITTLEROBOT L1 0 0 \newline
 	ADDSTICKY 1 1 \newline
-	ENDTURN \newline
-	ENDTURN \newline
-	ROBOTOUT L1 \newline
+	CELLOUT 1 1 \newline
+	ADDLITTLEROBOT L1 0 0 \newline
 	ENDTURN \newline
 	ROBOTOUT L1 \newline
 	ENDTURN \newline
 	ROBOTOUT L1 \newline
 	CELLOUT 1 1 \newline
+	ENDTURN \newline
+	ROBOTOUT L1 \newline
+	CELLOUT 1 1 \newline
+	ENDTURN \newline
+	ROBOTOUT L1 \newline
+	CELLOUT 1 1 \newline
 	\item Elvárt kimenet: \newline
-	LITTLEROBOT L1 STATE=CLEANING DAZEDCOUNTER=0 CLEANINGCOUNTER=0 CURRCELL=1\textunderscore1
-	LITTLEROBOT L1 STATE=CLEANING DAZEDCOUNTER=0 CLEANINGCOUNTER=1 CURRCELL=1\textunderscore1
-	LITTLEROBOT L1 STATE=NORMAL DAZEDCOUNTER=0 CLEANINGCOUNTER=2 CURRCELL=1\textunderscore1
-	CELL 1\textunderscore1 TRAP=NULL ACTORS=L1
+	CELL 1\textunderscore1 TRAP=STICKY\textunderscore4 ACTORS=NULL \newline
+	LITTLEROBOT L1 STATE=NORMAL DAZEDCOUNTER=0 CLEANINGCOUNTER=0 CURRCELL=0\textunderscore1 \newline
+	LITTLEROBOT L1 STATE=CLEANING DAZEDCOUNTER=0 CLEANINGCOUNTER=2 CURRCELL=1\textunderscore1 \newline
+	CELL 1\textunderscore1 TRAP=STICKY\textunderscore3 ACTORS=L1 \newline
+	LITTLEROBOT L1 STATE=CLEANING DAZEDCOUNTER=0 CLEANINGCOUNTER=1 CURRCELL=1\textunderscore1 \newline
+	CELL 1\textunderscore1 TRAP=STICKY\textunderscore3 ACTORS=L1 \newline
+	LITTLEROBOT L1 STATE=NORMAL DAZEDCOUNTER=0 CLEANINGCOUNTER=0 CURRCELL=1\textunderscore1 \newline
+	CELL 1\textunderscore1 TRAP=NULL ACTORS=L1 \newline
 
 \end{itemize}
 
@@ -55,7 +63,7 @@ CELL 1\textunderscore1 TRAP=NULL ACTORS=L2
 	ENDTURN \newline
 	CELLOUT 1 0 \newline
 	\item Elvárt kimenet: \newline
-	CELL 1\textunderscore0 TRAP=STICKY ACTORS=L1 \newline
+	CELL 1\textunderscore0 TRAP=STICKY\textunderscore3 ACTORS=L1 \newline
 \end{itemize}
 
 \subsection{Kisrobotok megsemmisülése}
@@ -70,8 +78,10 @@ CELL 1\textunderscore1 TRAP=NULL ACTORS=L2
 	ADDLITTLEROBOT L1 1 0 \newline
 	STEP R1 X \newline
 	CELLOUT 1 0 \newline
+	CELLOUT 0 0 \newline
 	\item Elvárt kimenet: \newline
-	CELL 1\textunderscore0 TRAP=OILY ACTORS=R1 \newline
+	CELL 1\textunderscore0 TRAP=OILY\textunderscore4 ACTORS=R1 \newline
+	CELL 0\textunderscore0 TRAP=NULL ACTORS=NULL \newline
 	
 	
 \end{itemize}
@@ -79,49 +89,127 @@ CELL 1\textunderscore1 TRAP=NULL ACTORS=L2
 \subsection{Robot ütközik kisrobottal}
 \begin{itemize}
 	\item Leírás: \newline
-	...
+	Egy robot áll egy helyben, és egy kisrobot a csapda felé igyekezve nekiütközik.
 	\item Ellenőrzött funkcionalitás, várható hibahelyek: \newline
-	...
+	A várandó esemény az, hogy a kisrobot bolyongani kezd, a robot pedig változatlanul a helyén marad. ezt a két tényt ellenőrizzük.
 	\item Bemenet: \newline
-	... \newline
+	MAP 2 1 \newline
+	ADDSTICKY 1 0 \newline
+	ADDROBOT R1 0 0 1 0 \newline
+	ADDLITTLEROBOT LR1 0 0 \newline
+	ROBOTOUT R1 \newline
+	ROBOTOUT LR1 \newline
+	ENDTURN \newline
+	ROBOTOUT R1 \newline
+	ROBOTOUT LR1 \newline
+
+	\item Elvárt kimenet: \newline
+	ROBOT R1 VELOCITY=0\textunderscore0 STICKYNUM=0 OILYNUM=0 CURRCELL=1\textunderscore0 \newline
+	LITTLEROBOT LR1 STATE=NORMAL DAZEDCOUNTER=0 CLEANINGCOUNTER=0 CURRCELL=0\textunderscore0 \newline
+	ROBOT R1 VELOCITY=0\textunderscore0 STICKYNUM=0 OILYNUM=0 CURRCELL=1\textunderscore0 \newline
+	LITTLEROBOT LR1 STATE=DAZED DAZEDCOUNTER=2 CLEANINGCOUNTER=0 CURRCELL=0\textunderscore0 \newline
 \end{itemize}
 
 \subsection{Kisrobot ütközik kisrobottal}
 \begin{itemize}
 	\item Leírás: \newline
-	...
+	Két kisrobot ugyanaz a csapda felé igyekszik, és eközben összeütköznek.
 	\item Ellenőrzött funkcionalitás, várható hibahelyek: \newline
-	...
+	Az elvárt viselkedés, hogy mindegyik a később érkező kisrobot új cellába kerüljön, és elkezdjen bolyongani.
+	
 	\item Bemenet: \newline
-	... \newline
+	MAP 2 3 \newline
+	ADDSTICKY 1 1 \newline
+	ADDLITTLEROBOT LR1 0 0 \newline
+	ADDLITTLEROBOT LR2 0 2 \newline
+	ENDTURN \newline
+	ROBOTOUT LR1 \newline
+	ROBOTOUT LR2 \newline
+	
+	\item Elvárt kimenet: \newline
+	LITTLEROBOT LR1 STATE=NORMAL DAZEDCOUNTER=0 CLEANINGCOUNTER=0 CURRCELL=0\textunderscore1 \newline
+	LITTLEROBOT LR2 STATE=DAZED DAZEDCOUNTER=2 CLEANINGCOUNTER=0 CURRCELL=0\textunderscore0 \newline
+
+
 \end{itemize}
 
 \subsection{Robot ütközik robottal}
 \begin{itemize}
 	\item Leírás: \newline
-	...
+	Egy robot áll egy cellán és egy másik robot nekimegy. 
 	\item Ellenőrzött funkcionalitás, várható hibahelyek: \newline
-	...
+	Az elvárt működés az, hogy a lassabb robot meghaljon, a gyorsabb pedig a sebességek átlagát kapja meg saját sebességnek.
 	\item Bemenet: \newline
-	... \newline
+	MAP 10 10 \newline
+	ADDROBOT R1 0 0 0 0 \newline
+	ADDROBOT R2 0 0 6 4 \newline
+	CELLOUT 6 4 \newline
+	STEP R1 X \newline
+	STEP R1 Y \newline
+	STEP R1 X \newline
+	ROBOTOUT R1 \newline
+	STEP R1 Y \newline
+	ROBOTOUT R1 \newline
+	ROBOTOUT R2 \newline
+	CELLOUT 6 4 \newline
+
+	\item Elvárt kimenet: \newline
+	CELL 6\textunderscore4 TRAP=NULL ACTORS=R2 \newline
+	ROBOT R1 VELOCITY=2\textunderscore1 STICKYNUM=0 OILYNUM=0 CURRCELL=4\textunderscore2 \newline
+	ROBOT R1 VELOCITY=1\textunderscore1 STICKYNUM=0 OILYNUM=0 CURRCELL=6\textunderscore4 \newline
+	ROBOT R2 VELOCITY=0\textunderscore0 STICKYNUM=0 OILYNUM=0 CURRCELL=6\textunderscore4 \newline
+	CELL 6\textunderscore4 TRAP=NULL ACTORS=R1 \newline
+
 \end{itemize}
 
 \subsection{kisrobot foltot takarit és egy másik kisrobot rá lép}
 \begin{itemize}
 	\item Leírás: \newline
-	...
+	Egy kisrobot egy folton áll és takarítja. Ekkor nekiütközik egy másik, a csapda felé tartó kisrobot.
 	\item Ellenőrzött funkcionalitás, várható hibahelyek: \newline
-	...
+	Az elvárt működés, hogy a takarító kisrobot sértetlen maradjon és folytassa a takarítást, a nekiütköző pedig bolyongani kezdjen.
+	
 	\item Bemenet: \newline
-	... \newline
+	MAP 2 2 \newline
+	ADDSTICKY 1 1 \newline
+	ADDLITTLEROBOT LR1 1 1 \newline
+	ROBOTOUT LR1 \newline
+	ADDLITTLEROBOT LR2 1 0 \newline
+	ENDTURN \newline
+	ROBOTOUT LR1 \newline
+	ROBOTOUT LR2 \newline
+	
+	\item Elvárt kimenet: \newline
+	LITTLEROBOT LR1 STATE=CLEANING DAZEDCOUNTER=0 CLEANINGCOUNTER=2 CURRCELL=1\textunderscore1 \newline
+	LITTLEROBOT LR1 STATE=CLEANING DAZEDCOUNTER=0 CLEANINGCOUNTER=1 CURRCELL=1\textunderscore1 \newline
+	LITTLEROBOT LR2 STATE=DAZED DAZEDCOUNTER=2 CLEANINGCOUNTER=0 CURRCELL=0\textunderscore1 \newline
+
+	
 \end{itemize}
 
 \subsection{Kisrobot takarit és egy robot ráugrik közben }
 \begin{itemize}
 	\item Leírás: \newline
-	...
+	Egy kisrobot egy foltot takarít, amikor egy arrafele haladó robot ráugrik.
 	\item Ellenőrzött funkcionalitás, várható hibahelyek: \newline
-	...
+	Az elvárt működés, hogy a kisrobot meghaljon, a robot átvegye a helyét, és a cellára kerüljön egy olajfolt.
 	\item Bemenet: \newline
-	... \newline
+	MAP 10 1 \newline
+	ADDSTICKY 1 0 \newline
+	ADDLITTLEROBOT LR1 1 0 \newline
+	ROBOTOUT LR1 \newline
+	CELLOUT 1 0 \newline
+	ADDROBOT R1 0 0 0 0 \newline
+	STEP R1 X \newline
+	ROBOTOUT LR1 \newline
+	ROBOTOUT R1 \newline
+	CELLOUT 1 0 \newline
+
+	\item Elvárt kimenet: \newline
+	LITTLEROBOT LR1 STATE=CLEANING DAZEDCOUNTER=0 CLEANINGCOUNTER=2 		CURRCELL=1\textunderscore0 \newline
+	CELL 1\textunderscore0 TRAP=STICKY\textunderscore3 ACTORS=LR1 \newline
+	LITTLEROBOT LR1 STATE=CLEANING DAZEDCOUNTER=0 CLEANINGCOUNTER=2 CURRCELL=1\textunderscore0 \newline
+	ROBOT R1 VELOCITY=0\textunderscore0 STICKYNUM=0 OILYNUM=0 CURRCELL=1\textunderscore0 \newline
+	CELL 1\textunderscore0 TRAP=OILY\textunderscore4 ACTORS=R1 \newline
+
 \end{itemize}

@@ -102,7 +102,8 @@ ROBOTOUT R1 \newline
 ADDSTICKY 0 0 \newline
 CELLOUT 0 0 \newline
 PLACE R1 OILY \newline
-CELLOUT R1
+ROBOTOUT R1 \newline
+CELLOUT 0 0
 
 	\item Elvárt kimenet: \newline
 ROBOT R1 VELOCITY=0\textunderscore0 STICKYNUM=5 OILYNUM=5 CURRCELL=0\textunderscore0 \newline
@@ -128,9 +129,9 @@ ROBOTOUT R1 \newline
 CELLOUT 0 0
 
 	\item Elvárt kimenet: \newline
-ROBOT R1 VELOCITY=0\textunderscore0 STICKYNUM=5 OILYNUM=5 CURRCELL=0\textunderscore0 \newline
-ROBOT R1 VELOCITY=-1\textunderscore0 STICKYNUM=5 OILYNUM=4 CURRCELL=NULL \newline
-CELL 0\textunderscore0 TRAP=OILY\textunderscore3 ACTORS=NULL \newline
+ROBOT R1 VELOCITY=0\textunderscore0 STICKYNUM=0 OILYNUM=0 CURRCELL=0\textunderscore0 \newline
+ROBOT R1 VELOCITY=-1\textunderscore0 STICKYNUM=0 OILYNUM=0 CURRCELL=0\textunderscore0 \newline
+CELL 0\textunderscore0 TRAP=NULL ACTORS=NULL \newline
 
 \end{itemize}
 
@@ -171,14 +172,19 @@ CELL 1\textunderscore0 TRAP=NULL ACTORS=R1 \newline
 	Azt a funkcionalitást ellenőrizzük, miszerint a ragacsfolt megfelezi a robot jelenlegi sebességvektorát. Problémát jelenthet az, ha páratlan az egyik koordináta. Meg kell vizsgálni, hogy ilyenkor jól kerekíti-e lefele a program.
 	
 	\item Bemenet: \newline
-		MAP 2 1 \newline
+		MAP 4 1 \newline
+		ADDSTICKY 3 0 \newline
 		ADDROBOT R1 0 0 0 0 \newline
-		ADDSTICKY 1 0 \newline
+		ROBOTOUT R1  \newline
+		STEP R1 X \newline
+		ROBOTOUT R1 \newline
 		STEP R1 X \newline
 		ROBOTOUT R1 \newline
 		
 	\item Elvárt kimenet: \newline
 	ROBOT R1 VELOCITY=0\textunderscore0 STICKYNUM=0 OILYNUM=0 CURRCELL=0\textunderscore0 \newline
+	ROBOT R1 VELOCITY=1\textunderscore0 STICKYNUM=0 OILYNUM=0 CURRCELL=1\textunderscore0 \newline
+	ROBOT R1 VELOCITY=1\textunderscore0 STICKYNUM=0 OILYNUM=0 CURRCELL=3\textunderscore0 \newline
 	
 \end{itemize}
 
@@ -189,12 +195,12 @@ CELL 1\textunderscore0 TRAP=NULL ACTORS=R1 \newline
 	\item Ellenőrzött funkcionalitás, várható hibahelyek: \newline 
 	Ez a teszt azt ellenőrzni, hogy valóban megakadályozza-e a sebesség változtatását az, ha a robot éppen egy olajfolton tartózkodik. Várható hiba, hogy esetleg mégis sikerül a usernek ezt megváltoztatnia.
 	\item Bemenet: \newline
-		MAP 3 1 \newline
-		ADDROBOT 0 0 0 0 \newline
+		MAP 4 1 \newline
 		ADDOILY 1 0 \newline
-		ROBOT STEP X \newline
+		ADDROBOT R1 0 0 0 0 \newline
+		STEP R1 X \newline
 		ROBOTOUT R1 \newline
-		ROBOT STEP X \newline
+		STEP R1 X \newline
 		ROBOTOUT R1 \newline
 	\item Elvárt kimenet: \newline
 	
@@ -250,24 +256,24 @@ CELL 1\textunderscore0 TRAP=NULL ACTORS=R1 \newline
 	\item Ellenőrzött funkcionalitás, várható hibahelyek: \newline 
 	Azt teszteljük, hogy a ragacsfolt valóban elkopik-e. Ezt úgy tehetjük meg, hogy robotokat léptetünk rá, minden léptetés után lekérdezve a cella állapotát.
 	\item Bemenet: \newline
-	MAP 2 2  \newline
-	ADDROBOT R1 1 0 0 0 \newline
-	ADDSTICKY 0 0 \newline
-	CELLOUT 0 0 \newline
-	STEP R1 -X \newline
-	CELLOUT 0 0 \newline
-	ADDROBOT R2 1 0 0 0 \newline
-	STEP R1 -X \newline
-	STEP R2 -X \newline
-	CELLOUT 0 0 \newline
-	ADDROBOT R3 1 0 0 0 \newline
-	STEP R2 -X \newline
-	STEP R3 -X \newline
-	CELLOUT 0 0 \newline
-	ADDROBOT R4 1 0 0 0 \newline
-	STEP R3 -X \newline
-	STEP R4 -X \newline
-	CELLOUT 0 0 \newline
+	MAP 2 2
+		ADDSTICKY 0 0 \newline
+		CELLOUT 0 0 \newline
+		ADDROBOT R1 0 0 1 0 \newline
+		STEP R1 -X \newline
+		CELLOUT 0 0 \newline
+		ADDROBOT R2 0 0 1 0 \newline
+		STEP R1 -X \newline
+		STEP R2 -X \newline
+		CELLOUT 0 0 \newline
+		ADDROBOT R3 0 0 1 0 \newline
+		STEP R2 -X \newline
+		STEP R3 -X \newline
+		CELLOUT 0 0 \newline
+		ADDROBOT R4 0 0 1 0 \newline
+		STEP R3 -X \newline
+		STEP R4 -X \newline
+		CELLOUT 0 0 \newline
 	\item Elvárt kimenet: \newline
 	CELL 0\textunderscore0 TRAP=STICKY\textunderscore4 ACTORS=NULL
 	\newline
@@ -308,6 +314,7 @@ CELL 1\textunderscore0 TRAP=NULL ACTORS=R1 \newline
 	\newline
 	ROBOT R1 VELOCITY=0\textunderscore0 STICKYNUM=0 OILYNUM=0 
 	CURRCELL=0\textunderscore0
+	\newline
 	CELL 0\textunderscore0 TRAP=OILY\textunderscore4 ACTORS=R1
 	\newline
 	CELL 0\textunderscore0 TRAP=OILY\textunderscore3 ACTORS=R1
