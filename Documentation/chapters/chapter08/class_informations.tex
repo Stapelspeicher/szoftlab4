@@ -46,6 +46,7 @@ Az osztály nyilvántartja a pályát (a cellákat), valamint tárolja a körök
 		\item + isEmpty(): boolean: Teszteli, hogy a cellán vannak-e mozgó objektumok. Ha a cella üres, akkor visszatér true-val. 
 		\item + getDistanceFromCell(Cell c): double: Két cella közötti távolságot adja meg, úgy, hogy a két koordinátát egymásból kivonja, majd a különbségeket összegzi. Ha az eredmény negatív lenne, akkor egy -1-szeres szorzással ennek könnyen az abszolút értékét vehetjük.
 		\item + getFreeNeighbouringCell(): Cell: Egy szabad szomszédos cellát ad vissza, amit a GameMap.től kér el. Ha ilyen nem létezik, akkor null-al tér vissza.
+		\item + removeTrap(): void: Csapda törlése.
 		
 	\end{itemize}
 \end{itemize}
@@ -83,6 +84,7 @@ Az osztály nyilvántartja a pályát (a cellákat), valamint tárolja a körök
 		\item + step(): void: A lépést ténylegesen lebonyolítja. Ha a robot lelép a pályáról, akkor megsemmisül. Különben a megtett távolsága növekszik és megváltozik az aktuális cellája, amin éppen áll.
 		\item + getCell(): Cell: Megadja, hogy éppen melyik cellán áll a mozgó objektum.
 		\item + getDistance(): int: A robot aktuális sebességéről tájékoztat. 
+		\item + collideWithLittleRobot(LittleRobot other): void: Kisrobottal ütköztet.
 		
 	\end{itemize}
 \end{itemize}
@@ -93,9 +95,15 @@ Az osztály nyilvántartja a pályát (a cellákat), valamint tárolja a körök
 	Olajfolt osztály, felelőssége a rálépő robottal való interakció (sebességmódosítás megtiltása).
 	\item Interfészek\newline
 	Trap  - Csapda interface, amelyik összefogja az egyes akadályozó elemeket és biztosítja az egységes kezelésüket.
+	\item Attribútumok
+	\begin{itemize}
+		\item - wetness: int: Méri az olajfolt tartósságat, azaz, hogy még hány körön képes kiváltani az olajfolt a hatását.
+	\end{itemize}
 	\item Metódusok
 	\begin{itemize}
 		\item + stepOn(ActiveObject ao): void: Biztosítja az olajfolt specifikus viselkedését: a rálépő robot sebessége nem módosítható.
+		\item + dry(): boolean: Az olajfolt tartósságát csökkenti, ha ez egyenlő nullával, akkor visszatér.
+		item + abrade(): boolean: Koptatja az olajfoltot.
 	\end{itemize}
 \end{itemize}
 
@@ -108,10 +116,17 @@ Az osztály nyilvántartja a pályát (a cellákat), valamint tárolja a körök
 	\item Interfészek
 	
 	Trap - Csapda interface, amelyik összefogja az egyes akadályozó elemeket és biztosítja az egységes kezelésüket.
+	
+	\item Attribútumok
+	\begin{itemize}
+		\item - abrasion: int: A ragacs tartóssága.
+	\end{itemize}
 
 	\item Metódusok
 	\begin{itemize}
 		\item + stepOn(ActiveObject ao): void: Biztosítja a ragacsfolt specifikus viselkedését: megfelezi a rálépő robot sebességet.
+		\item + dry(): boolean: Visszatér false-al, a ragacs nem szárad.
+		\item: + abrade(): boolean: Koptatja a ragacsot, ha tartóssága elérte a nullát, akkor visszatér.
 	\end{itemize}
 \end{itemize}
 
@@ -132,6 +147,7 @@ Az osztály nyilvántartja a pályát (a cellákat), valamint tárolja a körök
 		\item + divide(Position p): Position: A koordináták osztását végző metódus, az osztó paraméterként adható meg.
 		\item + add(Position p): Position: A paraméterként átadott értékkel növeli a koordinátákat.
 		\item + getDistance(Position p): double: A paraméterként átadott ponthoz mért távolság nagyságát adja meg.
+		\item + compareTo(Position other): int: Két Position objektumot hasonlít össze a vektor hossza alapján. Ha az aktuális objektum hossza nagyobb, mint a paraméterként kapott, akkor 1 a visszatérési érték, ha egyenlőek, akkor 0, különben -1.
 	\end{itemize}
 \end{itemize}
 
@@ -184,3 +200,31 @@ Az osztály nyilvántartja a pályát (a cellákat), valamint tárolja a körök
 	\end{itemize}
 \end{itemize}
 
+\subsection{LittleRobot}
+\begin{itemize}
+	\item Felelősség
+	A kisrobot osztály.
+	
+	\item Attribútumok
+	\begin{itemize}
+		\item - LittleRobotState: state: A kisrobot állapota.
+		\item - dazedCounter: int: Körök száma, ameddig a kisrobot kábult állapotban van.
+		\item - cleaningCounter: int: A körök száma, ameddig a takarítás tart.
+		\item - currCell: Cell: A kisrobot éppen aktuális cellája.
+	\end{itemize}
+	\item Metódusok
+	\begin{itemize}
+		\item - startCleaningIfNeeded(): void: A kisrobot elkezd takarítani, ha az szükséges. A kisrobot állapota CLEANING lesz.
+		\item + setState(LittleRobotState newState): void: A kisrobot állapotát állítja át.
+		\item + stepOn(ActiveObject ao): void: Az ütközést kezeli le.
+		\item + oilyEffect(): void: Kiváltódik az olajfolt hatása, a kisrobotra ez semmi.
+		\item + stickyEffect(): void: Kiváltódik a ragacsfolt hatása, ez a kisrobot esetén semmi.
+		\item + collideWithRobot(Robot other): void: Ütközés hatására a kisrobot kábult állapotba kerül, ha van szabad cella, akkor odakerül, különben megsemmmisül.
+		\item + die(): void: A kisrobot megsemmisül.
+		\item + setCell(Cell c): void: A kisrobot blép a pályára, a legközelebbi csapdához igyekszik mindig.
+		\item + step(): void: A kisrobot lép. Különböző állapotaiban (normál, cleaning, dazed) másképpen teszi ezt.
+		\item + getCell(): Cell: Visszadja azt a cellát, amelyiken a kisrobot éppen áll.
+		\item + collideWithLittleRobot(LittleRobot other): void: Kisrobot ütközik kisrobottal, ha van üres szomszédos cella, akkor odakerül és kábult állapotba lép, ha nincs ilyen, akkor megsemmisül.
+		
+	\end{itemize}
+\end{itemize}
