@@ -5,29 +5,102 @@
 
 \thispagestyle{fancy}
 
+\section{Módosítások a tervhez képest}
+
+A debug mód (azaz a DBG\_ON és DBG\_OFF, mint parancsori paraméterek) kikerültek a programból, mivel szükségtelennek bizonyultak. Helyette az első argumentum értéke lehet "single" vagy "multiple". Ezzel biztosítjuk, hogy lehessen a program egyszer indításával több tesztet is futtatni, és ne legyen szükség egy külön segédprogramra.\par
+Single módban az single kulcsszó utáni első paraméter értéke a specifikált nyelven megírt tesztesetet tartalmazó fájl, a második pedig az a fájl, aminek a teszt eredményét kell tartalmaznia.\par
+A multiple módon belül két külön módot különböztethetünk meg. Ebben a módban a multiple kulcsszó utáni első paraméter a specifikált nyelven megírt teszteseteket tartalmazó mappa, a második pedig az a mappa, amibe az eredményeknek kell kerülniük. Az teszteseket kiterjesztésének mindenképpen \textbf{.txt}-nek kell lennie. A kimeneti fájlok a multiple kulcsszó utáni második paraméterként megadott mappába fognak kerülni. Nevük ugyanaz lesz, mint a hozzájuk tartozó tesztesetnek, kiterjesztésük pedig \textbf{.result.txt} lesz.\par
+A multiple másik módjában a program generál egy HTML fájlt a tesztek eredményeiről, ami a kimeneti mappába kerül \textbf{results.html} néven. Ezt a módot úgy lehet aktiválni, hogy a multiple kulcsó utáni harmadik paraméterként megadunk egy mappát, amelyik mindegyik tesztesethez tartalmazza az elvárt kimenetet pontosan ugyanabban a formátumban, mint amit a program kimenetként kiad. (Tehát a teszteset fájljával megegyező név és \textbf{.result.txt} kiterjesztés)\par
+\par
+A leadott fájlok között a \textbf{test/testcases} mappában megtalálhatók a tesztesetek, a \textbf{test/expected} mappában pedig az elvárt kimenetek.
+
 \section{Fordítási és futtatási útmutató}
-\comment{A feltöltött program fordításával és futtatásával kapcsolatos útmutatás. Ennek tartalmaznia kell leltárszerűen az egyes fájlok pontos nevét, méretét byte-ban, keletkezési idejét, valamint azt, hogy a fájlban mi került megvalósításra.}
 
 \subsection{Fájllista}
 
 \begin{fajllista}
 
 \fajl
-{Main.java} % Kezdet
-{250 byte} % Idptartam
-{2009.10.10~18:05~} % Résztvevők
-{...} % Leírás
+{ActiveObject.java} % Kezdet
+{1588 byte} % Idptartam
+{2015.03.21~23:00~} % Résztvevők
+{A játék mozgó résztvevőinek a közös interface} % Leírás
 
 \fajl
-{...}
-{...}
-{...}
-{...}
+{Cell.java} % Kezdet
+{5025 byte} % Idptartam
+{2015.03.21~23:00~} % Résztvevők
+{Az cellákat reprezentáló osztály} % Leírás
+
+\fajl
+{GameMap.java} % Kezdet
+{3438 byte} % Idptartam
+{2015.03.21~23:00~} % Résztvevők
+{A játékteret reprezentáló osztály} % Leírás
+
+\fajl
+{LittleRobot.java}
+{3313 byte}
+{2015.04.10~20:07~}
+{A kisrobotokat megvalósító osztály}
+
+\fajl
+{LittleRobotState.java}
+{96 byte}
+{2015.04.10~20:07~}
+{A kisrobotok állapotait megvalósító enumeráció}
+
+\fajl
+{Logger.java} % Kezdet
+{1023 byte} % Idptartam
+{2015.03.21~23:00~} % Résztvevők
+{A függvényhívások konzolra Loggolásához használt osztály} % Leírás
+
+\fajl
+{Oily.java} % Kezdet
+{761 byte} % Idptartam
+{2015.03.21~23:00~} % Résztvevők
+{Az olajfoltot reprezentáló osztály} % Leírás
+
+\fajl
+{Position.java} % Kezdet
+{2661 byte} % Idptartam
+{2015.03.21~23:00~} % Résztvevők
+{A játéktér koordinátáit reprezentáló osztály} % Leírás
+
+\fajl
+{ProtoController.java}
+{9708 byte}
+{2015.04.10~20:07~}
+{A megírt teszteket végrehajtó és kiértékelő osztály. Ez a program belépési pontja.}
+
+\fajl
+{Robot.java} % Kezdet
+{4836 byte} % Idptartam
+{2015.03.21~23:00~} % Résztvevők
+{A Robotokat megvalósító osztály} % Leírás
+
+\fajl
+{Sticky.java} % Kezdet
+{809 byte} % Idptartam
+{2015.03.21~23:00~} % Résztvevők
+{A Ragacs csapdát megvalósító osztály} % Leírás
+
+\fajl
+{Test.java} % Kezdet
+{10544 byte} % Idptartam
+{2015.03.21~23:00~} % Résztvevők
+{A teszteket és a konzolos felhasználói felületet kezelő osztály. A szkeleton teszteléséhez használt.} % Leírás
+
+\fajl
+{Trap.java} % Kezdet
+{706 byte} % Idptartam
+{2015.03.21~23:00~} % Résztvevők
+{A csapdák közös interface} % Leírás
 
 \end{fajllista}
 
 \subsection{Fordítás}
-\comment{A fenti listában szereplő forrásfájlokból milyen műveletekkel lehet a bináris, futtatható kódot előállítani. Az előállításhoz csak a 2. Követelmények c. dokumentumban leírt környezetet szabad előírni.}
 
 \lstset{escapeinside=`', xleftmargin=10pt, frame=single, basicstyle=\ttfamily\footnotesize, language=sh}
 \begin{lstlisting}
@@ -35,25 +108,31 @@ javac -d bin *.java
 \end{lstlisting}
 
 \subsection{Futtatás}
-\comment{A futtatható kód elindításával kapcsolatos teendők leírása. Az indításhoz csak a 2. Követelmények c. dokumentumban leírt környezetet szabad előírni.}
 
+{Egy adott tesztesethez:
 \lstset{escapeinside=`', xleftmargin=10pt, frame=single, basicstyle=\ttfamily\footnotesize, language=sh}
 \begin{lstlisting}
 cd bin
-java Main.java
+java hu.stapelspeicher.main.ProtoController single `[tesztfájl] [kimeneti fájl]
+\end{lstlisting}
+
+Több tesztesethez (ellenőrzés nélkül):
+\lstset{escapeinside=`', xleftmargin=10pt, frame=single, basicstyle=\ttfamily\footnotesize, language=sh}
+\begin{lstlisting}
+cd bin
+java hu.stapelspeicher.main.ProtoController multiple `[tesztkönyvtár] [kimeneti könyvtár]
+\end{lstlisting}
+
+Több tesztesethez (ellenőrzéssel):
+\lstset{escapeinside=`', xleftmargin=10pt, frame=single, basicstyle=\ttfamily\footnotesize, language=sh}
+\begin{lstlisting}
+cd bin
+java hu.stapelspeicher.main.ProtoController multiple `[tesztkönyvtár] [kimeneti könyvtár] [elvárt eredmények könyvtára]
 \end{lstlisting}
 
 
 \section{Tesztek jegyzőkönyvei}
-
-\subsection{Teszteset1}
-\comment{Az alábbi táblázatot az utolsó, sikeres tesztfuttatáshoz kell kitölteni}
-
-\tesztok{...}{...}
-
-\comment{Az alábbi táblázatot a megismételt (hibás) tesztek esetén kell kitölteni minden ismétléshez egyszer. Ha szükséges, akkor a valós kimenet is mellékelhető mint a teszt eredménye.}
-
-\tesztfail{...}{...}{...}{...}{...}
+\input{./chapters/chapter10/jegyzokonyvek.tex}
 
 \section{Értékelés}
 \comment{A projekt kezdete óta az értékelésig eltelt időben tagokra bontva, százalékban.}

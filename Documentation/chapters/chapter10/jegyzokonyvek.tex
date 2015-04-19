@@ -1,0 +1,166 @@
+\subsection{Robot hozzáadása}
+\tesztok
+{Gema}
+{2015.05.19~15:10}
+
+\subsection{Ragacs lerakása üres cellára}
+\tesztok
+{Gema}
+{2015.05.19~15:10}
+
+\subsection{Ragacs lerakása, már van folt a cellán}
+\tesztok
+{Gema}
+{2015.05.19~15:10}
+
+\subsection{Olajfolt lerakása üres cellára}
+\tesztok
+{Gema}
+{2015.05.19~15:10}
+
+\subsection{Olaj lerakása, már van folt a cellán}
+\tesztok
+{Gema}
+{2015.05.19~15:10}
+
+\subsection{Robot megsemmisülése}
+\tesztok
+{Gema}
+{2015.05.19~15:10}
+
+\subsection{Sebességvektor módosítása (user)}
+\tesztok
+{Gema}
+{2015.05.19~15:10}
+
+\subsection{Sebességvektor módosítása (ragacs)}
+\tesztok
+{Gema}
+{2015.05.19~15:10}
+
+\subsection{Sebességvektor módosítása (olajfolt)}
+\tesztok
+{Gema}
+{2015.05.19~15:10}
+
+\subsection{Ragacs lerakása (nincs elég ragacs)}
+\tesztok
+{Gema}
+{2015.05.19~15:10}
+
+\subsection{Olaj lerakása (nincs elég olaj)}
+\tesztok
+{Gema}
+{2015.05.19~15:10}
+
+\subsection{Ragacs eltűnése (elkopik)}
+\tesztok
+{Gema}
+{2015.05.19~15:10}
+
+\subsection{Olajfolt eltűnése (felszárad)}
+\tesztok
+{Gema}
+{2015.05.19~15:10}
+
+\subsection{Olajfolt eltűnése (felszárad)}
+\tesztok
+{Gema}
+{2015.05.19~15:10}
+
+\subsection{Kisrobotok takarítása}
+\tesztok
+{Gema}
+{2015.05.19~15:10}
+
+\subsection{Kisrobotok indulása}
+\tesztok
+{Gema}
+{2015.05.19~15:10}
+
+\tesztfail
+{Gema}
+{2015.04.19.~13:32}
+{NullPointerException a LittleRobot.java 87. sorában}
+{A getNearestTrapRelativePostion() null-lal is visszatérhet, ami nem lett lekezelve a setCell() függvényben}
+{null visszatérés lekezelése}
+
+\tesztfail
+{Gema}
+{2015.04.19.~13:44}
+{NullPointerException a LittleRobot.java 117. sorában}
+{A getNearestTrapRelativePostion() null-lal is visszatérhet, ami nem lett lekezelve a step() függvényben}
+{null visszatérés lekezelése}
+
+\subsection{Kisrobot megsemmisül}
+\tesztok
+{Gema}
+{2015.05.19~15:10}
+
+\tesztfail
+{Gema}
+{2015.04.19.~15:47}
+{Elvárt kimenet:\newline
+CELL 1\_0 TRAP=OILY\_4 ACTORS=R1\newline
+CELL 0\_0 TRAP=NULL ACTORS=NULL\newline
+Valódi kimenet:\newline
+CELL 1\_0 TRAP=NULL ACTORS=R1\newline
+CELL 0\_0 TRAP=OILY\_4 ACTORS=NULL\newline
+Hiba: Rossz cellára került az olajfolt a kisrobot halálakor.
+}
+{A hiba oka az előző esethez hasonlóan az, hogy a Robot osztály step() metódusában newCell.add(this) és a currCell=newCell sorok rossz sorrendben szerepelnek.}
+{A két említett sor megcserélése.}
+
+\subsection{Robot ütközik kisrobottal}
+\tesztok
+{Gema}
+{2015.05.19~15:10}
+
+\subsection{Kisrobot ütközik kisrobottal}
+\tesztok
+{Gema}
+{2015.05.19~15:10}
+
+\tesztfail
+{Gema}
+{2015.04.19.~13:47}
+{NullPointerException a LittleRobot.java 123. sorában}
+{A Cell osztály getNearestTrapRelativePosition metódusa relatív helyett abszolút pozícióval tért vissza, így előfordulhatott, hogy a pozíció egy nem létező cellára mutatott.}
+{Abszolút pozíció javítása relatívra, valamint a Position osztályba egy subtract(Position p) metódus implementálása}
+
+\subsection{Robot ütközik robottal}
+\tesztok
+{Gema}
+{2015.05.19~15:10}
+
+\subsection{Kisrobotra takarítás közben kisrobot lép}
+\tesztok
+{Gema}
+{2015.04.19.~15:10}
+
+\tesztfail
+{Gema}
+{2015.04.19.~15:10}
+{Elvárt kimenet:\newline
+LITTLEROBOT LR1 STATE=CLEANING DAZEDCOUNTER=0 CLEANINGCOUNTER=2 CURRCELL=1\_1\newline
+LITTLEROBOT LR1 STATE=CLEANING DAZEDCOUNTER=0 CLEANINGCOUNTER=1 CURRCELL=1\_1\newline
+LITTLEROBOT LR2 STATE=DAZED DAZEDCOUNTER=2 CLEANINGCOUNTER=0 CURRCELL=0\_1\newline
+Valódi kimenet:\newline
+LITTLEROBOT LR1 STATE=CLEANING DAZEDCOUNTER=0 CLEANINGCOUNTER=2 CURRCELL=1\_1\newline
+LITTLEROBOT LR1 STATE=CLEANING DAZEDCOUNTER=0 CLEANINGCOUNTER=1 CURRCELL=1\_1\newline
+LITTLEROBOT LR2 STATE=CLEANING DAZEDCOUNTER=2 CLEANINGCOUNTER=2 CURRCELL=1\_1\newline
+Hiba: Nem frissült a kisrobot helyzete az utolsó sorban az ütközés után.}
+{A hiba oka, hogy a LittleRobot osztály step() metódusában a c.add(this) függvényhívás megelőzte a currCell=c értékadást. Ez azért jelentett problémát, mert az add() metódus hívja meg az ütköztető metódusokat, amik felhasználják a kisrobot jelenlegi helyzetét. Mivel az értékadás csak a függvényhívás után következett, ezért rossz pozíciót használt az ütköztető függvény.}
+{A két említett sor megcserélése. Megjegyzés: Ezzel helyessé váltak az egyébként még nem megvizsgált 'Kisrobot ütközik kisrobottal' és a 'Robot ütközik kisrobottal' tesztesetek is.}
+
+\subsection{Kisrobot takarít és egy robot ráugrik közben}
+\tesztok
+{Gema}
+{2015.04.19.~15:10}
+
+\tesztfail
+{Gema}
+{2015.04.19.~13:40}
+{NullPointerException a LittleRobot.java 41. sorában}
+{A getNearestTrapRelativePostion() null-lal is visszatérhet, ami nem lett lekezelve a startCleaningIfNeeded() függvényben}
+{null visszatérés lekezelése}
