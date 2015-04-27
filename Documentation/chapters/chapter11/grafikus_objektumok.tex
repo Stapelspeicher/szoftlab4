@@ -180,11 +180,12 @@
 \subsection{SelectorButton}
 \begin{itemize}
 	\item Felelősség\newline
+	A JButton-t egészíti ki, hogy választógombként lehessen használni.
 	\item Ősosztályok\newline
 		JButton $\rightarrow$ SelectorButton
 	\item Attribútumok\newline
 	\begin{itemize}
-		\item -id: int: 
+		\item -id: int: A gomb ID-ja.
 	\end{itemize}
 	\item Metódusok\newline
 	\begin{itemize}
@@ -193,8 +194,126 @@
 	\end{itemize}
 \end{itemize}
 
+\subsection{Cell}
+\begin{itemize}
+	\item Felelősség\newline
+	A pályát felépítő elemet megvalósító osztály, melynek felelőssége a rajta lévő objektumok interakcióinak lekezelése.
+	\item Attribútumok\newline
+	\begin{itemize}
+		\item -actors: List<ActiveObject>: A cellán lévő robotok.
+		\item -trap: Trap: A cellán lévő csapda
+		\item -pos: Position: A cella koordinátája
+		\item -map: GameMap: A játék mappa
+	\end{itemize}
+	\item Metódusok\newline
+	\begin{itemize}
+		\item +getAOsForTest():List<ActiveObject>: Kilistázza a robotokat
+		\item +getTrapForTest():Trap: Megadja milyen csapda van a cellán
+		\item +getPositionForTest():Position: Megadja a cella pozícióját
+		\item +setPosition(Position pos): Beállítja a cella pozícióját
+		\item +setMap(GemaMap m): Beállítja a pályát
+		\item +add(ActiveObject ao): Hozzáad egy robotot a cellához
+		\item +add(Trap t): Hozzáad egy csapdát a cellához
+		\item +getCellFromHere(Position p):Cell: Megadja a vektornyi távolságra lévő cellát
+		\item +remove(ActiveObject ao): Elvesz egy robotot a celláról
+		\item +isEmpty():boolean: Megadja hogy üres-e a cella
+		\item +getDistanceFromCell(Cell c):double: Megadja két cella távolságát
+		\item +getFreeNeighbouringCell():Cell: Megad egy szabad szomszédos cellát
+		\item +getNearestTrapRelativePosition():Position: Megadja a legközelebbi csapda relatív pozícióját
+		\item +removeTrap(): Eltávolítja a csapdát a celláról
+	\end{itemize}
+\end{itemize}
 
+\subsection{GameStartPanel}
+\begin{itemize}
+	\item Felelősség\newline
+	A játék elején megjelenő menüt megvalósító osztály
+	\item Ősosztályok\newline
+	JPanel $\rightarrow$ GameStartPanel
+	\item Attribútumok\newline
+	\begin{itemize}
+		\item -selectorButton: SelectorButton: Egy választógomb.
+		\item -playerLabel: JLabel: A panel felirata
+		\item -players: int: játékosok száma
+		\item -gc: GameController: a játék irányítója
+		\item \underline{selectorButtonColors[]}: Color: A gombok színei
+	\end{itemize}
+	\item Metódusok\newline
+	\begin{itemize}
+		\item +GameStrtPanel: Konstruktor
+		\item +mouseClicked(MouseEvent arg0): Klikkelés
+		\item +mouseEntered(MouseEvent event): Egér a gombra került
+		\item +mouseExited(MouseEvent event): Az egér elhagyta a gombot
+		\item +mousePressed(MouseEvent arg0): Az egeret lenyomták a gombon
+		\item +mouseReleased(MouseEvent arg0): Az egeret elengedték a gombról
+	\end{itemize}
+\end{itemize}
 
+\subsection{LittleRobot}
+\begin{itemize}
+	\item Felelősség\newline
+	A takarító robotot megvalósító osztály, felelőssége a pályán való mozgás a legközelebbi foltok fele és azok feltakarítása.
+	\item Attribútumok\newline
+	\begin{itemize}
+		\item -state: LittleRobotState: A robot állapota takarít/nem takarít/eltérített
+		\item -dazedCounter: int: Az eltérítés számlálója
+		\item -cleaningCounter: int: A takarítás számlálója
+		\item -currCell: Cell: A cella amin elhelyezkedik
+		\item -alive:boolean: A robot él vagy nem
+	\end{itemize}
+	\item Metódusok\newline
+	\begin{itemize}
+		\item +isAlive():boolean: Megadja, hogy a robot él-e még
+		\item +getDazedCounterForTest():int: DazedCounter getterje
+		\item +getCleaningCounterForTest():int: CleaningCounter getterje
+		\item +getStateForTest():int: State getterje
+		\item +startCleaningIfNeeded(): Ha szükséges a robot megkezdi a takarítást
+		\item +setState(): A state settere
+		\item +stepOn(ActiveObject ao): A kisrobotra való lépéskor elvégzi az ütköztetést
+		\item +oilyEffect(): Az olaj hatásának felülírása
+		\item +stickyEffect(): A ragacs hatásának felülírása
+		\item +collideWithRobot(Robot other): Robottal való ütközést valósítja meg
+		\item +die(): A kisrobot eltávolítását végzi el
+		\item +setCell(Cell c): Beállít egy cellát a kisrobotnak
+		\item +step(): Lépteti a kisrobotot
+		\item +getCell():Cell: A kisrobot cellájának gettere
+		\item +collideWithLittleRobot(LittleRobot other): Kisrobottal való ütközést végzi el
+\end{itemize}
 
-
-
+\subsection{LittleRobot}
+\begin{itemize}
+	\item Felelősség\newline
+	A takarító robotot megvalósító osztály, felelőssége a pályán való mozgás a legközelebbi foltok fele és azok feltakarítása.
+	\item Attribútumok\newline
+	\begin{itemize}
+		\item -velocity: Position: a robot sebességvektora
+		\item -oily: boolean: A robot olajos-e
+		\item -stickynum: int: A robot ragacskészletének száma
+		\item -oilyNum: int: A robot olajkészletének száma
+		\item -distance: int: A robot által megtett távolság
+		\item -currCell: Cell: A cella amin elhelyezkedik
+		\item -alive:boolean: A robot él vagy nem
+	\end{itemize}
+	\item Metódusok\newline
+	\begin{itemize}
+		\item +isAlive():boolean: Megadja, hogy a robot él-e még
+		\item +getVelocityForTest(): Position: a velocity gettere
+		\item +getStickyForTest(): int: a stickyNum gettere
+		\item +getOilyForTest(): int: az oilyNum gettere
+		\item +Robot(int stickyNum, int oilyNum): Konstruktor, beállítja a készleteket
+		\item +placeSticky(): Elhelyez egy ragacsfoltot azon a cellán amin a robot helyezkedik el
+		\item +placeOily(): Elhelyez egy olajfoltot azon a cellán amin a robot helyezekdik el
+		\item +addVelocity(Position p): Növeli a robot sebességét a megadott vektorral
+		\item +oilyEffect(): Az oljara lépéskor beállítja a robot oily tulajdonságát
+		\item +stickyEffect(): A ragac
+		\item +stepOn(ActiveObject ao): A robotra való lépéskor elvégzi az ütköztetést
+		\item +oilyEffect(): Az olaj hatásának felülírása
+		\item +stickyEffect(): A ragacs hatásának felülírása
+		\item +collideWithRobot(Robot other): Robottal való ütközést valósítja meg
+		\item +die(): A kisrobot eltávolítását végzi el
+		\item +setCell(Cell c): Beállít egy cellát a robotnak
+		\item +step(): Lépteti a robotot
+		\item +getCell():Cell: A robot cellájának gettere
+		\item +getDistance():int: a robot distance gettere
+		\item +collideWithLittleRobot(LittleRobot other): Kisrobottal való ütközést végzi el
+	\end{itemize}
