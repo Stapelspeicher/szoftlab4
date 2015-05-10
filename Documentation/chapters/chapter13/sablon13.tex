@@ -6,110 +6,167 @@
 \thispagestyle{fancy}
 
 \section{Fordítási és futtatási útmutató}
-\comment{A feltöltött program fordításával és futtatásával kapcsolatos útmutatás. Ennek tartalmaznia kell leltárszerűen az egyes fájlok pontos nevét, méretét byte-ban, keletkezési idejét, valamint azt, hogy a fájlban mi került megvalósításra.}
 
 \subsection{Fájllista}
 
 \begin{fajllista}
 
-\begin{fajllista}
-
 \fajl
 {ActiveObject.java} % Kezdet
-{1588 byte} % Idptartam
+{1592 byte} % Idptartam
 {2015.03.21~23:00~} % Résztvevők
 {A játék mozgó résztvevőinek a közös interface} % Leírás
 
 \fajl
 {Cell.java} % Kezdet
-{5025 byte} % Idptartam
+{4215 byte} % Idptartam
 {2015.03.21~23:00~} % Résztvevők
 {Az cellákat reprezentáló osztály} % Leírás
 
 \fajl
 {GameMap.java} % Kezdet
-{3438 byte} % Idptartam
+{3165 byte} % Idptartam
 {2015.03.21~23:00~} % Résztvevők
 {A játékteret reprezentáló osztály} % Leírás
 
 \fajl
 {LittleRobot.java}
-{3313 byte}
+{4393 byte}
 {2015.04.10~20:07~}
 {A kisrobotokat megvalósító osztály}
 
 \fajl
 {LittleRobotState.java}
-{96 byte}
+{98 byte}
 {2015.04.10~20:07~}
 {A kisrobotok állapotait megvalósító enumeráció}
 
 \fajl
-{Logger.java} % Kezdet
-{1032 byte} % Idptartam
-{2015.03.21~23:00~} % Résztvevők
-{A függvényhívások konzolra Loggolásához használt osztály} % Leírás
-
-\fajl
 {Oily.java} % Kezdet
-{761 byte} % Idptartam
+{826 byte} % Idptartam
 {2015.03.21~23:00~} % Résztvevők
 {Az olajfoltot reprezentáló osztály} % Leírás
 
 \fajl
 {Position.java} % Kezdet
-{2661 byte} % Idptartam
+{2142 byte} % Idptartam
 {2015.03.21~23:00~} % Résztvevők
 {A játéktér koordinátáit reprezentáló osztály} % Leírás
 
 \fajl
 {Robot.java} % Kezdet
-{4836 byte} % Idptartam
+{3875 byte} % Idptartam
 {2015.03.21~23:00~} % Résztvevők
 {A Robotokat megvalósító osztály} % Leírás
 
 \fajl
 {Sticky.java} % Kezdet
-{809 byte} % Idptartam
+{647 byte} % Idptartam
 {2015.03.21~23:00~} % Résztvevők
 {A Ragacs csapdát megvalósító osztály} % Leírás
 
 \fajl
 {Trap.java} % Kezdet
-{706 byte} % Idptartam
+{710 byte} % Idptartam
 {2015.03.21~23:00~} % Résztvevők
 {A csapdák közös interface} % Leírás
+
+\fajl
+{GameController.java} % Kezdet
+{6741 byte} % Idptartam
+{2015.05.01~21:11~} % Résztvevők
+{A jétákot irányító osztály, main függvény} % Leírás
+
+\fajl
+{ControllerPanel.java} % Kezdet
+{6270 byte} % Idptartam
+{2015.05.02~16:14~} % Résztvevők
+{A felhasználói irányításért felelős osztály} % Leírás
+
+\fajl
+{GameMapView.java} % Kezdet
+{3082 byte} % Idptartam
+{2015.05.02~16:37~} % Résztvevők
+{A pálya megjelenítését biztosító osztály} % Leírás
+
+\fajl
+{GamePanel.java} % Kezdet
+{4884 byte} % Idptartam
+{2015.05.02~16:34~} % Résztvevők
+{A játéktér paneljének osztálya} % Leírás
+
+\fajl
+{GameStartPanel.java} % Kezdet
+{5167 byte} % Idptartam
+{2015.05.02~14:08~} % Résztvevők
+{A játékosválasztás paneljének osztálya} % Leírás
+
+\fajl
+{LittleRobotView.java} % Kezdet
+{1128 byte} % Idptartam
+{2015.05.02~18:36~} % Résztvevők
+{A kisrobotokat megjelenítő osztály} % Leírás
+
+\fajl
+{ResultPanel.java} % Kezdet
+{1359 byte} % Idptartam
+{2015.05.07~19:24~} % Résztvevők
+{Az eredményeket tartalmazó panel} % Leírás
+
+\fajl
+{RobotResultPanel.java} % Kezdet
+{6786 byte} % Idptartam
+{2015.05.07~20:03~} % Résztvevők
+{Egy robot eredményét megjelenítő panel} % Leírás
+
+\fajl
+{RobotView.java} % Kezdet
+{1459 byte} % Idptartam
+{2015.05.02~18:02~} % Résztvevők
+{A robotokat megjelenítő osztály} % Leírás
+
+\fajl
+{SelectorButton.java} % Kezdet
+{564 byte} % Idptartam
+{2015.05.01~22:43~} % Résztvevők
+{A játékosválasztás gombjainak osztálya} % Leírás
+
+\fajl
+{Window.java} % Kezdet
+{2435 byte} % Idptartam
+{2015.05.01~21:23~} % Résztvevők
+{A játék ablaka} % Leírás
 
 \end{fajllista}
 
 \subsection{Fordítás}
-\comment{A fenti listában szereplő forrásfájlokból milyen műveletekkel lehet a bináris, futtatható kódot előállítani. Az előállításhoz csak a 2. Követelmények c. dokumentumban leírt környezetet szabad előírni.}
 
 \lstset{escapeinside=`', xleftmargin=10pt, frame=single, basicstyle=\ttfamily\footnotesize, language=sh}
 \begin{lstlisting}
-javac -d bin *.java
+javac -d bin src/hu/stapelspeicher/controller/*.java
+src/hu/stapelspeicher/modell/*.java src/hu/stapelspeicher/ui/*.java
 \end{lstlisting}
 
 \subsection{Futtatás}
-\comment{A futtatható kód elindításával kapcsolatos teendők leírása. Az indításhoz csak a 2. Követelmények c. dokumentumban leírt környezetet szabad előírni.}
 
 \lstset{escapeinside=`', xleftmargin=10pt, frame=single, basicstyle=\ttfamily\footnotesize, language=sh}
 \begin{lstlisting}
 cd bin
-java Main.java
+java hu.stapelspeicher.controller.GameController
 \end{lstlisting}
 
 \section{Értékelés}
-\comment{A projekt kezdete óta az értékelésig eltelt időben tagokra bontva, százalékban.}
 
 \begin{ertekeles}
-\tag{Horváth} % Tag neve
-{23.5}        % Munka szazalekban
-\tag{Német}
-{24.5}
-\tag{Tóth}
-{25}
-\tag{Oláh}
-{27}
+\tag{Gema} % Tag neve
+{35}        % Munka szazalekban
+\tag{Juszt}
+{18}
+\tag{Kemény}
+{18}
+\tag{Pilinszki-Nagy}
+{16}
+\tag{Somogyi}
+{15}
 \end{ertekeles}
 
